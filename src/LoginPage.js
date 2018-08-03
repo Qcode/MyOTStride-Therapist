@@ -1,8 +1,8 @@
 import React from 'react';
 import {
+  withRouter,
   BrowserRouter as Router,
-  Route,
-  Link
+  Route
 } from 'react-router-dom'
 import Api from "./Api"
 import PatientListPage from './PatientListPage'
@@ -36,14 +36,15 @@ class LoginPage extends React.Component{
     	})
       		.then(jsonToken => {
         		Api.setToken(jsonToken.token, jsonToken.id);
-        		 this.props.navigate('PatientListPage');
       		})
       		.catch(err => this.setState({ error: err }));
+      		 this.props.history.push('/PatientListPage');
   	}
 
 	render(){
 		return(
 				<div id = 'LoginInfo'>
+					<Route path="/PatientlistPage" component={PatientListPage} />
 					<form onSubmit = {this.sendUserInfo}>
 						<label>
 							<input type = "text" value = {this.state.email} onChange = {this.handleEmail}/>
@@ -59,4 +60,4 @@ class LoginPage extends React.Component{
 	}
 }
 
-export default LoginPage
+export default withRouter (LoginPage)
