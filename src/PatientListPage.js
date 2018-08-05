@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  withRouter,
-  BrowserRouter as Router
-} from 'react-router-dom'
 
+<<<<<<< HEAD
 class PatientListPage extends React.Component{
 
 	render(){
@@ -14,5 +11,10 @@ class PatientListPage extends React.Component{
 		</div>
 			);
 	}
+=======
+function PatientListPage() {
+  return <h1>YOU MADE IT</h1>;
+>>>>>>> 7eae3c61a883689a61dd81a501b962fdce194169
 }
-export default withRouter(PatientListPage)
+
+export default PatientListPage;
