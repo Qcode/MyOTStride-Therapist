@@ -30,7 +30,7 @@ class Api {
     }
     return fetch(
       `http://localhost:3000/api/v1/${finalEndpoint}`,
-      finalOptions
+      finalOptions,
     ).then(data => data.json());
   }
 }
