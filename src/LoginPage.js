@@ -5,7 +5,6 @@ import {
   Route
 } from 'react-router-dom'
 import Api from "./Api"
-import PatientListPage from './PatientListPage'
 
 class LoginPage extends React.Component{
 	constructor(props){
@@ -44,7 +43,6 @@ class LoginPage extends React.Component{
 	render(){
 		return(
 				<div id = 'LoginInfo'>
-					<Route path="/PatientlistPage" component={PatientListPage} />
 					<form onSubmit = {this.sendUserInfo}>
 						<label>
 							<input type = "text" value = {this.state.email} onChange = {this.handleEmail}/>
