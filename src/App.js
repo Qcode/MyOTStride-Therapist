@@ -5,6 +5,7 @@ import PatientListPage from './PatientListPage';
 import TherapistViewActivitiesPage from './TherapistViewActivitiesPage';
 import TherapistViewGoalsPage from './TherapistViewGoalsPage';
 import ViewPatientInformationPage from './ViewPatientInformationPage';
+import TherapistViewFeedbackPage from './TherapistViewFeedbackPage';
 
 function App() {
   return (
@@ -24,6 +25,11 @@ function App() {
         exact
         path="/patients/patientInfo"
         component={ViewPatientInformationPage}
+      />
+      <Route
+        exact
+        path="/patients/patientInfo/feedback"
+        component={TherapistViewFeedbackPage}
       />
       <Route exact path="/" component={LoginPage} />
     </div>
