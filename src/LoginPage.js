@@ -16,6 +16,7 @@ class LoginPage extends React.Component {
     this.handlePassword = this.handlePassword.bind(this);
     this.sendUserInfo = this.sendUserInfo.bind(this);
   }
+
   handleEmail(text) {
     this.setState({ email: text.target.value });
   }
@@ -35,10 +36,11 @@ class LoginPage extends React.Component {
       },
     })
       .then(jsonToken => {
-        Api.setToken(jsonToken.token, jsonToken.id);
+        Api.setToken(jsonToken.token);
+        Api.setTherapistId(jsonToken.id);
         this.props.history.push('/patients');
       })
-      .catch(err => this.setState({ error: true }));
+      .catch(err => this.setState({ error: err }));
   }
 
   render() {
