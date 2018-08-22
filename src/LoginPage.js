@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Formik } from 'formik';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Api from './Api';
@@ -8,30 +8,17 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
       error: null,
     };
-    this.handleEmail = this.handleEmail.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
-    this.sendUserInfo = this.sendUserInfo.bind(this);
+    this.loginToMyApp = this.loginToMyApp.bind(this);
   }
 
-  handleEmail(text) {
-    this.setState({ email: text.target.value });
-  }
-
-  handlePassword(text) {
-    this.setState({ password: text.target.value });
-  }
-
-  sendUserInfo(event) {
-    event.preventDefault();
+  loginToMyApp(values) {
     Api.request('login', {
       method: 'POST',
       body: {
-        email: this.state.email,
-        password: this.state.password,
+        email: values.email,
+        password: values.password,
         therapist: true,
       },
     })
@@ -46,30 +33,45 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div id="LoginInfo">
-        <form onSubmit={this.sendUserInfo}>
-          <label htmlFor="email">
-            Email:
-            <input
-              id="email"
-              type="email"
-              required
-              value={this.state.email}
-              onChange={this.handleEmail}
-            />
-          </label>
-          <br />
-          <label htmlFor="password">
-            Password:
-            <input
-              required
-              id="password"
-              type="password"
-              value={this.state.password}
-              onChange={this.handlePassword}
-            />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
+          }}
+          onSubmit={values => {
+            this.loginToMyApp(values);
+          }}
+          render={({
+            values,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <form onSubmit={handleSubmit}>
+              <input
+                type="email"
+                name="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+              />
+              {touched.email}
+              <input
+                type="password"
+                name="password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+              />
+              {touched.password}
+              <button type="submit" disabled={isSubmitting}>
+                Submit
+              </button>
+            </form>
+          )}
+        />
         {this.state.error && 'Error logging in.'}
       </div>
     );

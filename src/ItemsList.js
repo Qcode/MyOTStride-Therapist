@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function GoalsList(props) {
+function ItemsList(props) {
   return (
     <div>
       {props.patientInfo.map(info => (
@@ -18,7 +18,7 @@ function GoalsList(props) {
   );
 }
 
-GoalsList.propTypes = {
+ItemsList.propTypes = {
   patientInfo: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
@@ -28,9 +28,9 @@ GoalsList.propTypes = {
   error: PropTypes.string,
   type: PropTypes.string,
 };
-GoalsList.defaultProps = {
+ItemsList.defaultProps = {
   error: null,
   type: null,
 };
 
-export default GoalsList;
+export default ItemsList;

@@ -24,18 +24,22 @@ class TherapistViewFeedbackPage extends React.Component {
       )
       .then(feedbackArray => {
         feedbackArray.forEach(feedback => {
-          console.log(feedback[0].activity_id);
-          this.setState({
-            activityList: {
-              ...this.state.activityList,
-              [feedback[0].activity_id]: {
-                ...this.state.activityList[feedback[0].activity_id],
+          this.setState(prevState => {
+            const newActivityList = { ...prevState.activityList };
+            if (feedback.length > 0) {
+              newActivityList[feedback[0].activity_id] = {
+                ...prevState.activityList[feedback[0].activity_id],
                 feedback,
-              },
-            },
+              };
+            }
+            return {
+              ...prevState,
+              activityList: newActivityList,
+            };
           });
         });
-      });
+      })
+      .catch(err => this.setState({ error: err }));
   }
 
   render() {
@@ -55,7 +59,7 @@ class TherapistViewFeedbackPage extends React.Component {
             </p>
           </div>
         ))}
-        <p>{this.state.error}</p>
+        <p>{this.state.error === null ? '' : 'error'}</p>
       </div>
     );
   }
