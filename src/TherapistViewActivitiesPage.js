@@ -32,7 +32,22 @@ class TherapistViewActivitiesPage extends React.Component {
         description: values.description,
         dates: [`${values.year}-${values.month}-${values.day}`],
       },
-    }).catch(err => this.setState({ error: err }));
+    })
+      .then(id =>
+        this.setState(prevState => ({
+          ...prevState,
+          activities: [
+            ...prevState.activities,
+            {
+              title: values.title,
+              description: values.description,
+              dates: [`${values.year}-${values.month}-${values.day}`],
+              id,
+            },
+          ],
+        }))
+      )
+      .catch(err => this.setState({ error: err }));
   }
 
   render() {
