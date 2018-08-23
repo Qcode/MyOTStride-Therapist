@@ -1,0 +1,31 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+function ActivitiesList(props) {
+  return (
+    <div>
+      {props.patientInfo.map(info => (
+        <div key={info.id} className="ListItems">
+          <h1> {info.title}</h1>
+          <h1>{info.description}</h1>
+        </div>
+      ))}
+      {props.error && <p>Error</p>}
+    </div>
+  );
+}
+
+ActivitiesList.propTypes = {
+  patientInfo: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      description: PropTypes.string,
+    })
+  ).isRequired,
+  error: PropTypes.string,
+};
+ActivitiesList.defaultProps = {
+  error: null,
+};
+
+export default ActivitiesList;

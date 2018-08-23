@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import Api from './Api';
 
-class TherapistViewFeedbackPage extends React.Component {
+class Feedback extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,4 +65,4 @@ class TherapistViewFeedbackPage extends React.Component {
   }
 }
 
-export default withRouter(TherapistViewFeedbackPage);
+export default withRouter(Feedback);

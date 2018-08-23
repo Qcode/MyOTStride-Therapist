@@ -3,11 +3,20 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
-.Title_Text {
+h1 {
 	font-size: 40px;
 	text-align: center;
 }
 .Text {
 	font-size: 20px;
 	text-align: center;
+}
+.AddItems{
+	border: 5px solid black;
+	border-radius: 10px;
+}
+.ListItems{
+	border: 3px solid black;
+	border-radius: 2px;
+	margin:3%;
 }

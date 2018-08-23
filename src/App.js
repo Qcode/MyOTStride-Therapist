@@ -1,37 +1,29 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import LoginPage from './LoginPage';
-import PatientListPage from './PatientListPage';
-import TherapistViewActivitiesPage from './TherapistViewActivitiesPage';
-import TherapistViewGoalsPage from './TherapistViewGoalsPage';
-import ViewPatientInformationPage from './ViewPatientInformationPage';
-import TherapistViewFeedbackPage from './TherapistViewFeedbackPage';
+import Login from './Login';
+import PatientList from './PatientList';
+import Activities from './Activities';
+import Goals from './Goals';
+import PatientInformation from './PatientInformation';
+import Feedback from './Feedback';
 
 function App() {
   return (
     <div>
-      <Route exact path="/patients" component={PatientListPage} />
+      <Route exact path="/patients" component={PatientList} />
       <Route
         exact
         path="/patients/patientInfo/activities"
-        component={TherapistViewActivitiesPage}
+        component={Activities}
       />
-      <Route
-        exact
-        path="/patients/patientInfo/goals"
-        component={TherapistViewGoalsPage}
-      />
+      <Route exact path="/patients/patientInfo/goals" component={Goals} />
       <Route
         exact
         path="/patients/patientInfo"
-        component={ViewPatientInformationPage}
+        component={PatientInformation}
       />
-      <Route
-        exact
-        path="/patients/patientInfo/feedback"
-        component={TherapistViewFeedbackPage}
-      />
-      <Route exact path="/" component={LoginPage} />
+      <Route exact path="/patients/patientInfo/feedback" component={Feedback} />
+      <Route exact path="/" component={Login} />
     </div>
   );
 }

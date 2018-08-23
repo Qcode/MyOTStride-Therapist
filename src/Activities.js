@@ -1,11 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import ItemsList from './ItemsList';
+import ActivitiesList from './ActivitiesList';
 import Api from './Api';
-import AddItems from './AddItems';
+import AddActivities from './AddActivities';
 
-class TherapistViewActivitiesPage extends React.Component {
+class Activities extends React.Component {
   constructor(props) {
     super(props);
     this.state = { activities: [], error: '' };
@@ -20,17 +20,12 @@ class TherapistViewActivitiesPage extends React.Component {
   }
 
   addActivities(values) {
-    console.log(values.title, values.description, [
-      values.day,
-      values.month,
-      values.year,
-    ]);
     Api.request('clients/:clientId/activities', {
       method: 'POST',
       body: {
         title: values.title,
         description: values.description,
-        dates: [`${values.year}-${values.month}-${values.day}`],
+        dates: [values.endDate, values.startDate],
       },
     })
       .then(id =>
@@ -41,7 +36,7 @@ class TherapistViewActivitiesPage extends React.Component {
             {
               title: values.title,
               description: values.description,
-              dates: [`${values.year}-${values.month}-${values.day}`],
+              dates: [values.endDate, values.startDate],
               id,
             },
           ],
@@ -54,15 +49,14 @@ class TherapistViewActivitiesPage extends React.Component {
     return (
       <div>
         <h1> activities</h1>
-        <ItemsList
-          type="activities"
-          error={this.state.error === null ? 'error' : null}
+        <ActivitiesList
+          error={this.state.error === null ? null : 'error'}
           patientInfo={this.state.activities}
         />
-        <AddItems addFunction={this.addActivities} />
+        <AddActivities addFunction={this.addActivities} />
       </div>
     );
   }
 }
 
-export default withRouter(TherapistViewActivitiesPage);
+export default withRouter(Activities);

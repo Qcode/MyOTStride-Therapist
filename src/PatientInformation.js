@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-function ViewPatientInformationPage(props) {
+function PatientInformation(props) {
   return (
     <div>
       <input
@@ -24,9 +24,9 @@ function ViewPatientInformationPage(props) {
   );
 }
 
-ViewPatientInformationPage.propTypes = {
+PatientInformation.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func, goBack: PropTypes.func })
     .isRequired,
 };
 
-export default withRouter(ViewPatientInformationPage);
+export default withRouter(PatientInformation);

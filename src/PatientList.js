@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import Api from './Api';
 
-class PatientListPage extends React.Component {
+class PatientList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +19,6 @@ class PatientListPage extends React.Component {
     Api.request('/therapists/:therapistId/clients')
       .then(jsonData => this.setState({ patientList: jsonData }))
       .catch(err => this.setState({ error: err }));
-    console.log(this.state.error);
   }
 
   pickClient(id) {
@@ -48,16 +47,20 @@ class PatientListPage extends React.Component {
         <input
           type="submit"
           value="Logout"
-          onClick={() => this.props.history.push('/')}
+          onClick={() => {
+            this.props.history.push('/');
+            Api.setToken(null);
+          }}
         />
+        {this.state.error === null ? '' : 'error'}
       </div>
     );
   }
 }
 
-PatientListPage.propTypes = {
+PatientList.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func, goBack: PropTypes.func })
     .isRequired,
 };
 
-export default withRouter(PatientListPage);
+export default withRouter(PatientList);

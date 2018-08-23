@@ -4,16 +4,16 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Api from './Api';
 
-class LoginPage extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       error: null,
     };
-    this.loginToMyApp = this.loginToMyApp.bind(this);
+    this.login = this.login.bind(this);
   }
 
-  loginToMyApp(values) {
+  login(values, actions) {
     Api.request('login', {
       method: 'POST',
       body: {
@@ -22,10 +22,11 @@ class LoginPage extends React.Component {
         therapist: true,
       },
     })
-      .then(jsonToken => {
-        Api.setToken(jsonToken.token);
-        Api.setTherapistId(jsonToken.id);
+      .then(userData => {
+        Api.setToken(userData.token);
+        Api.setTherapistId(userData.id);
         this.props.history.push('/patients');
+        actions.setSubmitting(false);
       })
       .catch(err => this.setState({ error: err }));
   }
@@ -38,34 +39,21 @@ class LoginPage extends React.Component {
             email: '',
             password: '',
           }}
-          onSubmit={values => {
-            this.loginToMyApp(values);
-          }}
-          render={({
-            values,
-            touched,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting,
-          }) => (
+          onSubmit={this.login}
+          render={({ values, handleSubmit, isSubmitting, handleChange }) => (
             <form onSubmit={handleSubmit}>
               <input
                 type="email"
                 name="email"
                 onChange={handleChange}
-                onBlur={handleBlur}
                 value={values.email}
               />
-              {touched.email}
               <input
                 type="password"
                 name="password"
                 onChange={handleChange}
-                onBlur={handleBlur}
                 value={values.password}
               />
-              {touched.password}
               <button type="submit" disabled={isSubmitting}>
                 Submit
               </button>
@@ -78,8 +66,8 @@ class LoginPage extends React.Component {
   }
 }
 
-LoginPage.propTypes = {
+Login.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
 };
 
-export default withRouter(LoginPage);
+export default withRouter(Login);

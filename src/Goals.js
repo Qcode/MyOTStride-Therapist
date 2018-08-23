@@ -1,10 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import ItemsList from './ItemsList';
+import GoalsList from './GoalsList';
 import Api from './Api';
-import AddItems from './AddItems';
+import AddGoals from './AddGoals';
 
-class TherapistViewGoalsPage extends React.Component {
+class Goals extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,7 +38,7 @@ class TherapistViewGoalsPage extends React.Component {
             {
               title: values.title,
               description: values.description,
-              end_date: `${values.year}-${values.month}-${values.day}`,
+              end_date: values.endDate,
               id,
             },
           ],
@@ -51,15 +51,14 @@ class TherapistViewGoalsPage extends React.Component {
     return (
       <div>
         <h1> goals</h1>
-        <ItemsList
-          type="goals"
-          error={this.state.error === '' ? 'error' : ''}
+        <GoalsList
+          error={this.state.error === '' ? '' : 'error'}
           patientInfo={this.state.goals}
         />
-        <AddItems addFunction={this.addGoals} />
+        <AddGoals addFunction={this.addGoals} />
       </div>
     );
   }
 }
 
-export default withRouter(TherapistViewGoalsPage);
+export default withRouter(Goals);
