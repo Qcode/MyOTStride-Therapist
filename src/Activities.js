@@ -48,7 +48,7 @@ class Activities extends React.Component {
   render() {
     return (
       <div>
-        <h1> activities</h1>
+        <h1>Activities</h1>
         <ActivitiesList
           error={this.state.error === null ? null : 'error'}
           patientInfo={this.state.activities}

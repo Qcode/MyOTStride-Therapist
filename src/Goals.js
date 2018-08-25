@@ -50,12 +50,15 @@ class Goals extends React.Component {
   render() {
     return (
       <div>
-        <h1> goals</h1>
+        <h1>Goals</h1>
         <GoalsList
           error={this.state.error === '' ? '' : 'error'}
           patientInfo={this.state.goals}
         />
-        <AddGoals addFunction={this.addGoals} />
+        <AddGoals
+          addFunction={this.addGoals}
+          error={this.state.error === '' ? '' : 'error'}
+        />
       </div>
     );
   }

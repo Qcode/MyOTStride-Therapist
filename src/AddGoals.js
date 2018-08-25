@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 function AddGoals(props) {
   return (
-    <div className="AddItems">
+    <div className="div--addItems">
       <h2>Add Goals Here</h2>
       <Formik
         initialValues={{
@@ -13,9 +13,7 @@ function AddGoals(props) {
           endDate: '',
           startDate: '',
         }}
-        onSubmit={values => {
-          props.addFunction(values);
-        }}
+        onSubmit={props.addFunction}
         render={({
           values,
           handleChange,
@@ -64,11 +62,13 @@ function AddGoals(props) {
           </form>
         )}
       />
+      <p>{props.error}</p>
     </div>
   );
 }
 AddGoals.propTypes = {
   addFunction: PropTypes.func.isRequired,
+  error: PropTypes.string.isRequired,
 };
 
 export default AddGoals;

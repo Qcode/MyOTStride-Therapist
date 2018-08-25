@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 function AddGoals(props) {
   return (
-    <div className="AddItems">
-      <h2>Add Goals Here</h2>
+    <div className="div--addItems">
+      <h2>Add Activities Here</h2>
       <Formik
         initialValues={{
           title: '',
@@ -13,9 +13,7 @@ function AddGoals(props) {
           endDate: '',
           startDate: '',
         }}
-        onSubmit={values => {
-          props.addFunction(values);
-        }}
+        onSubmit={props.addFunction}
         render={({
           values,
           handleChange,

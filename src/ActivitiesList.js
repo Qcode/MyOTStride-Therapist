@@ -5,7 +5,7 @@ function ActivitiesList(props) {
   return (
     <div>
       {props.patientInfo.map(info => (
-        <div key={info.id} className="ListItems">
+        <div key={info.id} className="div--listItems">
           <h1> {info.title}</h1>
           <h1>{info.description}</h1>
         </div>
@@ -20,6 +20,7 @@ ActivitiesList.propTypes = {
     PropTypes.shape({
       title: PropTypes.string,
       description: PropTypes.string,
+      id: PropTypes.string,
     })
   ).isRequired,
   error: PropTypes.string,

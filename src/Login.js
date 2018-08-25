@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik } from 'formik';
+import { Formik, Field, Form } from 'formik';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Api from './Api';
@@ -40,24 +40,26 @@ class Login extends React.Component {
             password: '',
           }}
           onSubmit={this.login}
-          render={({ values, handleSubmit, isSubmitting, handleChange }) => (
-            <form onSubmit={handleSubmit}>
-              <input
+          render={({ values, isSubmitting }) => (
+            <Form>
+              <Field
                 type="email"
                 name="email"
-                onChange={handleChange}
+                placeholder="email"
                 value={values.email}
               />
-              <input
+              <br />
+              <Field
+                placeholder="password"
                 type="password"
                 name="password"
-                onChange={handleChange}
                 value={values.password}
               />
+              <br />
               <button type="submit" disabled={isSubmitting}>
                 Submit
               </button>
-            </form>
+            </Form>
           )}
         />
         {this.state.error && 'Error logging in.'}

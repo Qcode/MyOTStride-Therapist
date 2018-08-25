@@ -5,9 +5,9 @@ function GoalsList(props) {
   return (
     <div>
       {props.patientInfo.map(info => (
-        <div key={info.id} className="ListItems">
-          <h1> {info.title}</h1>
-          <h1 c>{info.description}</h1>
+        <div key={info.id} className="div--listItems">
+          <h1>{info.title}</h1>
+          <h1>{info.description}</h1>
         </div>
       ))}
       {props.error && <p>Error</p>}

@@ -33,7 +33,6 @@ class PatientList extends React.Component {
           {this.state.patientList.map(patient => (
             <li key={patient.id}>
               <input
-                id="patient"
                 type="button"
                 required
                 value={`${patient.first_name} ${patient.last_name}`}
