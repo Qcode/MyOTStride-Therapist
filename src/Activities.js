@@ -11,6 +11,7 @@ class Activities extends React.Component {
     this.state = { activities: [], error: '' };
     this.fetchActivities();
     this.addActivities = this.addActivities.bind(this);
+    this.deleteActivities = this.deleteActivities.bind(this);
   }
 
   fetchActivities() {
@@ -19,7 +20,7 @@ class Activities extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
-  addActivities(values) {
+  addActivities(values, actions) {
     Api.request('clients/:clientId/activities', {
       method: 'POST',
       body: {
@@ -28,7 +29,8 @@ class Activities extends React.Component {
         dates: [values.endDate, values.startDate],
       },
     })
-      .then(id =>
+      .then(info => {
+        actions.setSubmitting(false);
         this.setState(prevState => ({
           ...prevState,
           activities: [
@@ -37,11 +39,25 @@ class Activities extends React.Component {
               title: values.title,
               description: values.description,
               dates: [values.endDate, values.startDate],
-              id,
+              id: info.id,
             },
           ],
-        }))
-      )
+        }));
+      })
+      .catch(err => this.setState({ error: err }));
+  }
+
+  deleteActivities(info) {
+    Api.request(`clients/:clientId/activities/${info.id}`, {
+      method: 'DELETE',
+    })
+      .then(() => {
+        const activities = this.state.activities.filter(i => i.id !== info.id);
+        this.setState(prevState => ({
+          ...prevState,
+          activities,
+        }));
+      })
       .catch(err => this.setState({ error: err }));
   }
 
@@ -52,6 +68,7 @@ class Activities extends React.Component {
         <ActivitiesList
           error={this.state.error === null ? null : 'error'}
           patientInfo={this.state.activities}
+          deleteFunction={this.deleteActivities}
         />
         <AddActivities addFunction={this.addActivities} />
       </div>

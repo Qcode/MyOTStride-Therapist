@@ -13,6 +13,7 @@ class Goals extends React.Component {
     };
     this.fetchGoals();
     this.addGoals = this.addGoals.bind(this);
+    this.deleteGoals = this.deleteGoals.bind(this);
   }
 
   fetchGoals() {
@@ -21,16 +22,17 @@ class Goals extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
-  addGoals(values) {
+  addGoals(values, actions) {
     Api.request('clients/:clientId/goals', {
       method: 'POST',
       body: {
         title: values.title,
         description: values.description,
-        end_date: `${values.year}-${values.month}-${values.day}`,
+        end_date: values.endDate,
       },
     })
-      .then(id =>
+      .then(info => {
+        actions.setSubmitting(false);
         this.setState(prevState => ({
           ...prevState,
           goals: [
@@ -39,11 +41,25 @@ class Goals extends React.Component {
               title: values.title,
               description: values.description,
               end_date: values.endDate,
-              id,
+              id: info.id,
             },
           ],
-        }))
-      )
+        }));
+      })
+      .catch(err => this.setState({ error: err }));
+  }
+
+  deleteGoals(info) {
+    Api.request(`clients/:clientId/goals/${info.id}`, {
+      method: 'DELETE',
+    })
+      .then(() => {
+        const goals = this.state.goals.filter(i => i.id !== info.id);
+        this.setState(prevState => ({
+          ...prevState,
+          goals,
+        }));
+      })
       .catch(err => this.setState({ error: err }));
   }
 
@@ -54,6 +70,7 @@ class Goals extends React.Component {
         <GoalsList
           error={this.state.error === '' ? '' : 'error'}
           patientInfo={this.state.goals}
+          deleteFunction={this.deleteGoals}
         />
         <AddGoals
           addFunction={this.addGoals}
