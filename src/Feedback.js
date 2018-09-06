@@ -48,14 +48,15 @@ class Feedback extends React.Component {
         {Object.keys(this.state.activityList).map(id => (
           <div key={id}>
             <p>
-              {`satisfaction: ${
-                this.state.activityList[id].feedback[0].satisfaction
-              } performance: ${
-                this.state.activityList[id].feedback[0].performance
-              } confidence: ${
-                this.state.activityList[id].feedback[0].confidence
-              } feedback: ${this.state.activityList[id].feedback[0].response}
-              `}
+              {this.state.activityList[id].feedback.map(
+                feedback =>
+                  `satisfaction: ${feedback.satisfaction} performance: ${
+                    feedback.performance
+                  } confidence: ${feedback.confidence} feedback: ${
+                    feedback.response
+                  }
+              `
+              )}
             </p>
           </div>
         ))}
