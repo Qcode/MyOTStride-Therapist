@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Formik } from 'formik';
+import { Formik, Form, Field } from 'formik';
 
 function EditActivities(props) {
   return (
@@ -15,63 +15,37 @@ function EditActivities(props) {
         onSubmit={(formValues, actions) =>
           props.editFunction({ ...formValues, id: props.info.id }, actions)
         }
-        render={({
-          values,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-        }) => (
-          <form onSubmit={handleSubmit}>
+        render={({ values, handleSubmit, isSubmitting }) => (
+          <Form onSubmit={handleSubmit}>
             <br />
             <label htmlFor="title">
               Title:
-              <input
-                id="title"
-                name="title"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.title}
-              />
+              <Field id="title" name="title" value={values.title} />
             </label>
             <br />
             <label htmlFor="description">
               description:
-              <input
+              <Field
                 id="description"
                 name="description"
-                onChange={handleChange}
-                onBlur={handleBlur}
                 value={values.description}
               />
             </label>
             <br />
             <label htmlFor="startDate">
               Start Date:
-              <input
-                id="startDate"
-                type="date"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.startDate}
-              />
+              <Field id="startDate" type="date" value={values.startDate} />
             </label>
             <br />
             <label htmlFor="endDate">
               End Date:
-              <input
-                id="endDate"
-                type="date"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.endDate}
-              />
+              <Field id="endDate" type="date" value={values.endDate} />
             </label>
             <br />
             <button type="submit" disabled={isSubmitting}>
               Submit
             </button>
-          </form>
+          </Form>
         )}
       />
       <p>{props.error === null ? '' : 'error'}</p>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Formik } from 'formik';
+import { Formik, Field, Form } from 'formik';
 
 function EditGoals(props) {
   return (
@@ -14,52 +14,38 @@ function EditGoals(props) {
         onSubmit={(formValues, actions) =>
           props.editFunction({ ...formValues, id: props.info.id }, actions)
         }
-        render={({
-          values,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-        }) => (
-          <form onSubmit={handleSubmit}>
+        render={({ values, handleSubmit, isSubmitting }) => (
+          <Form onSubmit={handleSubmit}>
             <br />
             <label htmlFor="title">
-              Title:
-              <input
+              <Field
                 id="title"
                 name="title"
-                onChange={handleChange}
-                onBlur={handleBlur}
+                placeholder="title"
                 value={values.title}
               />
+              Title:
             </label>
             <br />
             <label htmlFor="description">
-              description:
-              <input
+              <Field
                 id="description"
                 name="description"
-                onChange={handleChange}
-                onBlur={handleBlur}
+                placeholder="description"
                 value={values.description}
               />
+              description:
             </label>
             <br />
             <label htmlFor="endDate">
+              <Field id="endDate" type="date" value={values.endDate} />
               End Date:
-              <input
-                id="endDate"
-                type="date"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.endDate}
-              />
             </label>
             <br />
             <button type="submit" disabled={isSubmitting}>
               Submit
             </button>
-          </form>
+          </Form>
         )}
       />
       <p>{props.error === null ? '' : 'error'}</p>
