@@ -12,6 +12,7 @@ class Activities extends React.Component {
     this.fetchActivities();
     this.addActivities = this.addActivities.bind(this);
     this.deleteActivities = this.deleteActivities.bind(this);
+    this.editActivities = this.editActivities.bind(this);
   }
 
   fetchActivities() {
@@ -61,11 +62,38 @@ class Activities extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
+  editActivities(info, actions) {
+    Api.request(`clients/:clientId/activities/${info.id}`, {
+      method: 'PATCH',
+      body: {
+        title: info.title,
+        description: info.description,
+        dates: [info.endDate, info.startDate],
+      },
+    }).then(() => {
+      actions.setSubmitting(false);
+      const index = this.state.activities.findIndex(obj => obj.id === info.id);
+      this.setState(prevState => ({
+        ...prevState,
+        activities: [
+          ...prevState.activities[index],
+          {
+            title: info.title,
+            description: info.description,
+            dates: [info.endDate, info.startDate],
+            id: info.id,
+          },
+        ],
+      }));
+    });
+  }
+
   render() {
     return (
       <div>
         <h1>Activities</h1>
         <ActivitiesList
+          editFunction={this.editActivities}
           error={this.state.error === null ? null : 'error'}
           patientInfo={this.state.activities}
           deleteFunction={this.deleteActivities}

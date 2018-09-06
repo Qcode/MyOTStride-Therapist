@@ -1,19 +1,20 @@
 import React from 'react';
-import { Formik } from 'formik';
 import PropTypes from 'prop-types';
+import { Formik } from 'formik';
 
-function AddActivities(props) {
+function EditActivities(props) {
   return (
-    <div className="div--addItems">
-      <h2>Add Activities Here</h2>
+    <div>
       <Formik
         initialValues={{
-          title: '',
-          description: '',
-          endDate: '',
-          startDate: '',
+          title: props.info.title,
+          description: props.info.description,
+          endDate: props.info.endDate,
+          startDate: props.info.startDate,
         }}
-        onSubmit={props.addFunction}
+        onSubmit={(formValues, actions) =>
+          props.editFunction({ ...formValues, id: props.info.id }, actions)
+        }
         render={({
           values,
           handleChange,
@@ -73,11 +74,22 @@ function AddActivities(props) {
           </form>
         )}
       />
+      <p>{props.error === null ? '' : 'error'}</p>
     </div>
   );
 }
-AddActivities.propTypes = {
-  addFunction: PropTypes.func.isRequired,
+EditActivities.propTypes = {
+  info: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    startDate: PropTypes.string,
+    endDate: PropTypes.string,
+    id: PropTypes.string,
+  }).isRequired,
+  error: PropTypes.string,
+  editFunction: PropTypes.func.isRequired,
 };
-
-export default AddActivities;
+EditActivities.defaultProps = {
+  error: null,
+};
+export default EditActivities;

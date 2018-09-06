@@ -34,6 +34,7 @@ class Login extends React.Component {
   render() {
     return (
       <div id="LoginInfo">
+        <h1>Login</h1>
         <Formik
           initialValues={{
             email: '',

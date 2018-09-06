@@ -14,6 +14,7 @@ class Goals extends React.Component {
     this.fetchGoals();
     this.addGoals = this.addGoals.bind(this);
     this.deleteGoals = this.deleteGoals.bind(this);
+    this.editGoals = this.editGoals.bind(this);
   }
 
   fetchGoals() {
@@ -63,6 +64,32 @@ class Goals extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
+  editGoals(info, actions) {
+    Api.request(`clients/:clientId/goals/${info.id}`, {
+      method: 'PATCH',
+      body: {
+        title: info.title,
+        description: info.description,
+        dates: [info.endDate, info.startDate],
+      },
+    }).then(() => {
+      actions.setSubmitting(false);
+      const index = this.state.goals.findIndex(obj => obj.id === info.id);
+      this.setState(prevState => ({
+        ...prevState,
+        goals: [
+          ...prevState.goals[index],
+          {
+            title: info.title,
+            description: info.description,
+            dates: info.endDate,
+            id: info.id,
+          },
+        ],
+      }));
+    });
+  }
+
   render() {
     return (
       <div>
@@ -71,6 +98,7 @@ class Goals extends React.Component {
           error={this.state.error === '' ? '' : 'error'}
           patientInfo={this.state.goals}
           deleteFunction={this.deleteGoals}
+          editFunction={this.editGoals}
         />
         <AddGoals
           addFunction={this.addGoals}

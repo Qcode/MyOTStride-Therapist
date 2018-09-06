@@ -1,19 +1,19 @@
 import React from 'react';
-import { Formik } from 'formik';
 import PropTypes from 'prop-types';
+import { Formik } from 'formik';
 
-function AddActivities(props) {
+function EditGoals(props) {
   return (
-    <div className="div--addItems">
-      <h2>Add Activities Here</h2>
+    <div>
       <Formik
         initialValues={{
-          title: '',
-          description: '',
-          endDate: '',
-          startDate: '',
+          title: props.info.title,
+          description: props.info.description,
+          endDate: props.info.endDate,
         }}
-        onSubmit={props.addFunction}
+        onSubmit={(formValues, actions) =>
+          props.editFunction({ ...formValues, id: props.info.id }, actions)
+        }
         render={({
           values,
           handleChange,
@@ -45,17 +45,6 @@ function AddActivities(props) {
               />
             </label>
             <br />
-            <label htmlFor="startDate">
-              Start Date:
-              <input
-                id="startDate"
-                type="date"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.startDate}
-              />
-            </label>
-            <br />
             <label htmlFor="endDate">
               End Date:
               <input
@@ -73,11 +62,22 @@ function AddActivities(props) {
           </form>
         )}
       />
+      <p>{props.error === null ? '' : 'error'}</p>
     </div>
   );
 }
-AddActivities.propTypes = {
-  addFunction: PropTypes.func.isRequired,
+EditGoals.propTypes = {
+  info: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    startDate: PropTypes.string,
+    endDate: PropTypes.string,
+    id: PropTypes.string,
+  }).isRequired,
+  error: PropTypes.string,
+  editFunction: PropTypes.func.isRequired,
 };
-
-export default AddActivities;
+EditGoals.defaultProps = {
+  error: null,
+};
+export default EditGoals;

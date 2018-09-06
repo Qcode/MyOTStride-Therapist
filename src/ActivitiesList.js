@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import EditActivities from './EditActivities';
 
 function ActivitiesList(props) {
   return (
@@ -12,6 +13,11 @@ function ActivitiesList(props) {
             {' '}
             delete
           </button>
+          <EditActivities
+            editFunction={props.editFunction}
+            info={info}
+            error={props.error}
+          />
         </div>
       ))}
 
@@ -29,6 +35,7 @@ ActivitiesList.propTypes = {
     })
   ).isRequired,
   error: PropTypes.string,
+  editFunction: PropTypes.func.isRequired,
 };
 ActivitiesList.defaultProps = {
   error: null,

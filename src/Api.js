@@ -29,16 +29,14 @@ class Api {
     if (this.token) {
       finalOptions.headers.Authorization = `Bearer ${this.token}`;
     }
-    if (finalOptions.method === 'POST') {
-      if (!finalOptions.headers.Accept) {
-        finalOptions.headers.Accept = 'application/json';
-      }
-      if (!finalOptions.headers['content-type']) {
-        finalOptions.headers['content-type'] = 'application/json';
-      }
-      if (typeof finalOptions.body === 'object') {
-        finalOptions.body = JSON.stringify(finalOptions.body);
-      }
+    if (typeof finalOptions.body === 'object') {
+      finalOptions.body = JSON.stringify(finalOptions.body);
+    }
+    if (!finalOptions.headers.Accept) {
+      finalOptions.headers.Accept = 'application/json';
+    }
+    if (!finalOptions.headers['content-type']) {
+      finalOptions.headers['content-type'] = 'application/json';
     }
     return fetch(
       `http://localhost:3000/api/v1/${finalEndpoint}`,

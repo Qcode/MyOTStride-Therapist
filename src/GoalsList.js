@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import EditGoals from './EditGoals';
 
 function GoalsList(props) {
   return (
@@ -12,6 +13,11 @@ function GoalsList(props) {
             {' '}
             delete
           </button>
+          <EditGoals
+            editFunction={props.editFunction}
+            info={info}
+            error={props.error}
+          />
         </div>
       ))}
       {props.error && <p>Error</p>}
@@ -27,6 +33,7 @@ GoalsList.propTypes = {
     })
   ).isRequired,
   error: PropTypes.string,
+  editFunction: PropTypes.func.isRequired,
 };
 GoalsList.defaultProps = {
   error: null,
