@@ -51,7 +51,7 @@ class PatientList extends React.Component {
             Api.setToken(null);
           }}
         />
-        {this.state.error === null ? '' : 'error'}
+        <p>{this.state.error === null ? null : 'error'}</p>
       </div>
     );
   }

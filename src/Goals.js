@@ -12,7 +12,7 @@ class Goals extends React.Component {
       error: '',
     };
     this.fetchGoals();
-    this.addGoals = this.addGoals.bind(this);
+    this.addGoal = this.addGoal.bind(this);
   }
 
   fetchGoals() {
@@ -21,7 +21,7 @@ class Goals extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
-  addGoals(values) {
+  addGoal(values) {
     Api.request('clients/:clientId/goals', {
       method: 'POST',
       body: {
@@ -53,10 +53,10 @@ class Goals extends React.Component {
         <h1>Goals</h1>
         <GoalsList
           error={this.state.error === '' ? '' : 'error'}
-          patientInfo={this.state.goals}
+          goals={this.state.goals}
         />
         <AddGoals
-          addFunction={this.addGoals}
+          addFunction={this.addGoal}
           error={this.state.error === '' ? '' : 'error'}
         />
       </div>

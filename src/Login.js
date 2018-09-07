@@ -26,9 +26,11 @@ class Login extends React.Component {
         Api.setToken(userData.token);
         Api.setTherapistId(userData.id);
         this.props.history.push('/patients');
-        actions.setSubmitting(false);
       })
-      .catch(err => this.setState({ error: err }));
+      .catch(err => {
+        this.setState({ error: err });
+        actions.setSubmitting(false);
+      });
   }
 
   render() {
