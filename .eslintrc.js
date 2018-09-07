@@ -7,5 +7,6 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
     'react/destructuring-assignment': 'never',
+    'jsx-a11y/label-has-for': 'never'
   },
 };
