@@ -30,7 +30,6 @@ class PatientList extends React.Component {
     Api.request('/therapists/:therapistId/clientRequests')
       .then(jsonData => {
         this.setState({ pendingList: jsonData });
-        console.log(jsonData);
       })
       .catch(err => this.setState({ error: err }));
   }
@@ -47,14 +46,16 @@ class PatientList extends React.Component {
         clientEmail: email,
       },
     }).then(id => {
+      console.log(id)
       const index = this.state.pendingList.findIndex(obj => obj.id === id);
       this.setState(prevState => ({
         ...prevState,
         currentList: [
           ...prevState.currentList,
-          { ...prevState.pendingList[index], id },
+          Object.assign(...prevState.pendingList[index],id)
         ],
       }));
+      console.log(this.state.currentList);
     });
   }
 
