@@ -3,21 +3,35 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import Api from './Api';
+import CurrentPatients from './CurrentPatients';
+import PendingPatients from './PendingPatients';
 
 class PatientList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      patientList: [],
-      error: '',
+      currentList: [],
+      pendingList: [],
+      error: null,
     };
-    this.getList();
+    this.getCurrent();
+    this.getPending();
+    this.connectClient = this.connectClient.bind(this);
     this.pickClient = this.pickClient.bind(this);
   }
 
-  getList() {
+  getCurrent() {
     Api.request('/therapists/:therapistId/clients')
-      .then(jsonData => this.setState({ patientList: jsonData }))
+      .then(jsonData => this.setState({ currentList: jsonData }))
+      .catch(err => this.setState({ error: err }));
+  }
+
+  getPending() {
+    Api.request('/therapists/:therapistId/clientRequests')
+      .then(jsonData => {
+        this.setState({ pendingList: jsonData });
+        console.log(jsonData);
+      })
       .catch(err => this.setState({ error: err }));
   }
 
@@ -26,23 +40,37 @@ class PatientList extends React.Component {
     this.props.history.push('/patients/patientInfo');
   }
 
+  connectClient(email) {
+    Api.request('/therapists/:therapistId/acceptClient', {
+      method: 'POST',
+      body: {
+        clientEmail: email,
+      },
+    }).then(id => {
+      const index = this.state.pendingList.findIndex(obj => obj.id === id);
+      this.setState(prevState => ({
+        ...prevState,
+        currentList: [
+          ...prevState.currentList,
+          { ...prevState.pendingList[index], id },
+        ],
+      }));
+    });
+  }
+
   render() {
     return (
       <div>
-        <ul>
-          {this.state.patientList.map(patient => (
-            <li key={patient.id}>
-              <input
-                type="button"
-                required
-                value={`${patient.first_name} ${patient.last_name}`}
-                onClick={() => {
-                  this.pickClient(patient.id);
-                }}
-              />
-            </li>
-          ))}
-        </ul>
+        <CurrentPatients
+          pickClient={this.pickClient}
+          patientList={this.state.currentList}
+          error={this.state.error === null ? null : 'error'}
+        />
+        <PendingPatients
+          patientList={this.state.pendingList}
+          error={this.state.error === null ? null : 'error'}
+          connectFunction={this.connectClient}
+        />
         <input
           type="submit"
           value="Logout"
@@ -51,7 +79,6 @@ class PatientList extends React.Component {
             Api.setToken(null);
           }}
         />
-        {this.state.error === null ? '' : 'error'}
       </div>
     );
   }
