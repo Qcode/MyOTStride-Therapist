@@ -50,6 +50,11 @@ AddGoal.propTypes = {
 };
 
 export default withFormik({
+  mapPropsToValues: () => ({
+    title: '',
+    description: '',
+    endDate: ''
+  }),
   handleSubmit: (values, formikBag) =>
     formikBag.props.addFunction(values).catch(() =>
       formikBag.setErrors({
