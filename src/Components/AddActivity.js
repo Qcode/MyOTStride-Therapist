@@ -64,6 +64,12 @@ AddActivity.propTypes = {
 };
 
 export default withFormik({
+  mapPropsToValues: () => ({
+    title: '',
+    description: '',
+    startDate: '',
+    endDate: ''
+  }),
   handleSubmit: (values, formikBag) =>
     formikBag.props.addFunction(values).catch(() =>
       formikBag.setErrors({

@@ -42,6 +42,10 @@ Login.propTypes = {
 
 export default withRouter(
   withFormik({
+    mapPropsToValues: () => ({
+      email: '',
+      password: ''
+    }),
     handleSubmit: (values, formikBag) =>
       Api.request('login', {
         method: 'POST',
