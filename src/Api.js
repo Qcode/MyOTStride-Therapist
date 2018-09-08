@@ -1,15 +1,27 @@
 class Api {
   constructor() {
     this.token = null;
-    this.id = null;
+    this.therapistId = null;
+    this.clientId = null;
     this.error = null;
   }
-  setToken(newToken, newId) {
+
+  setToken(newToken) {
     this.token = newToken;
-    this.id = newId;
   }
+
+  setClientId(newClientId) {
+    this.clientId = newClientId;
+  }
+
+  setTherapistId(newTherapistId) {
+    this.therapistId = newTherapistId;
+  }
+
   request(endPoint, options) {
-    const finalEndpoint = endPoint.replace(':userId', this.id);
+    const finalEndpoint = endPoint
+      .replace(':therapistId', this.therapistId)
+      .replace(':clientId', this.clientId);
     const finalOptions = options || {};
     if (!finalOptions.headers) {
       finalOptions.headers = {};
@@ -30,8 +42,17 @@ class Api {
     }
     return fetch(
       `http://localhost:3000/api/v1/${finalEndpoint}`,
-      finalOptions,
-    ).then(data => data.json());
+      finalOptions
+    ).then(data => {
+      if (!data.ok) {
+        throw new Error(data.status);
+      }
+      const contentType = data.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        return data.json();
+      }
+      return data.text();
+    });
   }
 }
 
