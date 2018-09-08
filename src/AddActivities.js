@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 function AddActivities(props) {
   return (
-    <div className="div--addItems">
+    <div className="container">
       <h2>Add Activities Here</h2>
       <Formik
         initialValues={{
@@ -13,8 +13,10 @@ function AddActivities(props) {
           endDate: '',
           startDate: '',
         }}
-        onSubmit={props.addFunction}
-        render={({ values, handleSubmit, isSubmitting }) => (
+        onSubmit={(values,formikBag) => {props.addFunction(values).catch(err =>
+          formikBag.setErrors({ failedSubmit: 'Problem submitting activity' })
+        )}}
+        render={({ values, handleSubmit, isSubmitting, errors }) => (
           <Form onSubmit={handleSubmit}>
             <br />
             <label htmlFor="title">
@@ -44,6 +46,7 @@ function AddActivities(props) {
             <button type="submit" disabled={isSubmitting}>
               Submit
             </button>
+            {errors.failedSubmit && <p>errors.failedSubmit</p>}
           </Form>
         )}
       />

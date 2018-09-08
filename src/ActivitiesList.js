@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 function ActivitiesList(props) {
   return (
     <div>
-      {props.patientInfo.map(info => (
-        <div key={info.id} className="div--listItems">
+      {props.activities.map(info => (
+        <div key={info.id} className="container">
           <h1> {info.title}</h1>
           <h1>{info.description}</h1>
         </div>
@@ -16,7 +16,7 @@ function ActivitiesList(props) {
 }
 
 ActivitiesList.propTypes = {
-  patientInfo: PropTypes.arrayOf(
+  activities: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
       description: PropTypes.string,

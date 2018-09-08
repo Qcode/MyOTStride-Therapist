@@ -10,7 +10,7 @@ class Activities extends React.Component {
     super(props);
     this.state = { activities: [], error: '' };
     this.fetchActivities();
-    this.addActivities = this.addActivities.bind(this);
+    this.addActivity = this.addActivity.bind(this);
   }
 
   fetchActivities() {
@@ -19,7 +19,7 @@ class Activities extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
-  addActivities(values) {
+  addActivity(values) {
     Api.request('clients/:clientId/activities', {
       method: 'POST',
       body: {
@@ -42,7 +42,6 @@ class Activities extends React.Component {
           ],
         }))
       )
-      .catch(err => this.setState({ error: err }));
   }
 
   render() {
@@ -51,9 +50,9 @@ class Activities extends React.Component {
         <h1>Activities</h1>
         <ActivitiesList
           error={this.state.error === null ? null : 'error'}
-          patientInfo={this.state.activities}
+          activities={this.state.activities}
         />
-        <AddActivities addFunction={this.addActivities} />
+        <AddActivities addFunction={this.addActivity} />
       </div>
     );
   }

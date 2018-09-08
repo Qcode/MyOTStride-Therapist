@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 function GoalsList(props) {
   return (
     <div>
-      {props.patientInfo.map(info => (
-        <div key={info.id} className="div--listItems">
+      {props.goals.map(info => (
+        <div key={info.id} className="container">
           <h1>{info.title}</h1>
           <h1>{info.description}</h1>
         </div>
@@ -16,10 +16,11 @@ function GoalsList(props) {
 }
 
 GoalsList.propTypes = {
-  patientInfo: PropTypes.arrayOf(
+  goals: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
       description: PropTypes.string,
+      id: PropTypes.string,
     })
   ).isRequired,
   error: PropTypes.string,
