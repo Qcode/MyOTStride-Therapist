@@ -8,7 +8,7 @@ import AddActivities from './AddActivities';
 class Activities extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { activities: [], error: '' };
+    this.state = { activities: [], error: null };
     this.fetchActivities();
     this.addActivity = this.addActivity.bind(this);
   }
@@ -20,39 +20,36 @@ class Activities extends React.Component {
   }
 
   addActivity(values) {
-    Api.request('clients/:clientId/activities', {
+    return Api.request('clients/:clientId/activities', {
       method: 'POST',
       body: {
         title: values.title,
         description: values.description,
         dates: [values.endDate, values.startDate],
       },
-    })
-      .then(id =>
-        this.setState(prevState => ({
-          ...prevState,
-          activities: [
-            ...prevState.activities,
-            {
-              title: values.title,
-              description: values.description,
-              dates: [values.endDate, values.startDate],
-              id,
-            },
-          ],
-        }))
-      )
+    }).then(id =>
+      this.setState(prevState => ({
+        ...prevState,
+        activities: [
+          ...prevState.activities,
+          {
+            title: values.title,
+            description: values.description,
+            dates: [values.endDate, values.startDate],
+            id: id.id,
+          },
+        ],
+      })),
+    );
   }
 
   render() {
     return (
       <div>
         <h1>Activities</h1>
-        <ActivitiesList
-          error={this.state.error === null ? null : 'error'}
-          activities={this.state.activities}
-        />
+        <ActivitiesList activities={this.state.activities} />
         <AddActivities addFunction={this.addActivity} />
+        {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
       </div>
     );
   }
