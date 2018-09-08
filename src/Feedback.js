@@ -14,20 +14,27 @@ class Feedback extends React.Component {
   }
 
   getFeedback() {
+    let activities;
     Api.request('/clients/:clientId/activities')
-      .then(activityData =>
-        Promise.all(
+      .then(activityData => {
+        activities = activityData;
+        return Promise.all(
           activityData.map(activity =>
-            Api.request(`/clients/:clientId/activities/${activity.id}/feedback`)
-          )
-        )
-      )
+            Api.request(
+              `/clients/:clientId/activities/${activity.id}/feedback`,
+            ),
+          ),
+        );
+      })
       .then(feedbackArray => {
         feedbackArray.forEach(feedback => {
           this.setState(prevState => {
             const newActivityList = { ...prevState.activityList };
             if (feedback.length > 0) {
               newActivityList[feedback[0].activity_id] = {
+                ...activities.find(
+                  activity => activity.id === feedback[0].activity_id,
+                ),
                 ...prevState.activityList[feedback[0].activity_id],
                 feedback,
               };
@@ -47,17 +54,20 @@ class Feedback extends React.Component {
       <div>
         {Object.keys(this.state.activityList).map(id => (
           <div key={id}>
-            <p>
-              {this.state.activityList[id].feedback.map(
-                feedback =>
-                  `satisfaction: ${feedback.satisfaction} performance: ${
-                    feedback.performance
-                  } confidence: ${feedback.confidence} feedback: ${
-                    feedback.response
-                  }
-              `
-              )}
-            </p>
+            <h1>Activity: {this.state.activityList[id].title}</h1>
+            <div>
+              {this.state.activityList[id].feedback.map((feedback, index) => (
+                <div>
+                  <h2>Feedback {index}</h2>
+                  <ul>
+                    <li>Satisfaction: {feedback.satisfaction}</li>
+                    <li>Performance: {feedback.performance}</li>
+                    <li>Confidence: {feedback.confidence}</li>
+                    <li>Response: {feedback.response}</li>
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
         <p>{this.state.error === null ? '' : 'error'}</p>
