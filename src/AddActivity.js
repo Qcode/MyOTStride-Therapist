@@ -2,40 +2,40 @@ import React from 'react';
 import { Formik, withFormik, Form, Field } from 'formik';
 import PropTypes from 'prop-types';
 
-function AddActivities(props) {
+function AddActivity(props) {
   return (
     <div className="container">
       <h2>Add Activities Here</h2>
       <Form>
-        <label htmlFor="add-activities__title">
+        <label htmlFor="add-activity__title">
           Title:
           <Field
-            id="add-activities__title"
+            id="add-activity__title"
             name="title"
             value={props.values.title}
           />
         </label>
-        <label htmlFor="add-activities__description">
+        <label htmlFor="add-activity__description">
           description:
           <Field
-            id="add-activities__description"
+            id="add-activity__description"
             name="description"
             value={props.values.description}
           />
         </label>
-        <label htmlFor="add-activities__start-date">
+        <label htmlFor="add-activity__start-date">
           Start Date:
           <Field
-            id="add-activities__start-date"
+            id="add-activity__start-date"
             name="startDate"
             type="date"
             value={props.values.startDate}
           />
         </label>
-        <label htmlFor="add-activities__end-date">
+        <label htmlFor="add-activity__end-date">
           End Date:
           <Field
-            id="add-activities__end-date"
+            id="add-activity__end-date"
             name="endDate"
             type="date"
             value={props.values.endDate}
@@ -50,7 +50,7 @@ function AddActivities(props) {
   );
 }
 
-AddActivities.propTypes = {
+AddActivity.propTypes = {
   addFunction: PropTypes.func.isRequired,
 };
 
@@ -61,4 +61,4 @@ export default withFormik({
         failedSubmit: 'Problem submitting activity',
       }),
     ),
-})(AddActivities);
+})(AddActivity);

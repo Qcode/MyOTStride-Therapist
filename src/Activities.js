@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import ActivitiesList from './ActivitiesList';
 import Api from './Api';
-import AddActivities from './AddActivities';
+import AddActivity from './AddActivity';
 
 class Activities extends React.Component {
   constructor(props) {
@@ -48,7 +48,7 @@ class Activities extends React.Component {
       <div>
         <h1>Activities</h1>
         <ActivitiesList activities={this.state.activities} />
-        <AddActivities addFunction={this.addActivity} />
+        <AddActivity addFunction={this.addActivity} />
         {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
       </div>
     );
