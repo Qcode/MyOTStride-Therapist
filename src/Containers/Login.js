@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, withFormik, Field, Form } from 'formik';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import Api from './Api';
+import Api from '../Api';
 
 function Login(props) {
   return (

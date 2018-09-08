@@ -4,7 +4,7 @@ import Login from './Login';
 import PatientList from './PatientList';
 import Activities from './Activities';
 import Goals from './Goals';
-import PatientInformation from './PatientInformation';
+import PatientInformation from '../Components/PatientInformation';
 import Feedback from './Feedback';
 
 function App() {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import GoalsList from './GoalsList';
-import Api from './Api';
-import AddGoal from './AddGoal';
+import GoalsList from '../Components/GoalsList';
+import Api from '../Api';
+import AddGoal from '../Components/AddGoal';
 
 class Goals extends React.Component {
   constructor(props) {

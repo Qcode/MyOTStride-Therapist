@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import Api from './Api';
+import Api from '../Api';
 
 class PatientList extends React.Component {
   constructor(props) {

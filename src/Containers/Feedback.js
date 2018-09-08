@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import Api from './Api';
+import Api from '../Api';
 
 class Feedback extends React.Component {
   constructor(props) {

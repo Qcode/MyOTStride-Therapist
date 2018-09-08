@@ -1,9 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import ActivitiesList from './ActivitiesList';
-import Api from './Api';
-import AddActivity from './AddActivity';
+import ActivitiesList from '../Components/ActivitiesList';
+import Api from '../Api';
+import AddActivity from '../Components/AddActivity';
 
 class Activities extends React.Component {
   constructor(props) {
