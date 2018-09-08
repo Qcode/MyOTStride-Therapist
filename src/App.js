@@ -10,20 +10,22 @@ import Feedback from './Feedback';
 function App() {
   return (
     <div>
+      <Route exact path="/" component={Login} />
       <Route exact path="/patients" component={PatientList} />
+      <Route
+        exact
+        path="/patients/patientInfo"
+        component={PatientInformation}
+      />
+
       <Route
         exact
         path="/patients/patientInfo/activities"
         component={Activities}
       />
       <Route exact path="/patients/patientInfo/goals" component={Goals} />
-      <Route
-        exact
-        path="/patients/patientInfo"
-        component={PatientInformation}
-      />
+
       <Route exact path="/patients/patientInfo/feedback" component={Feedback} />
-      <Route exact path="/" component={Login} />
     </div>
   );
 }
