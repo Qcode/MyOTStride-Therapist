@@ -10,7 +10,7 @@ function GoalsList(props) {
           <h1>{info.description}</h1>
         </div>
       ))}
-      {props.error && <p>Error</p>}
+      {props.error && <p>{props.error}</p>}
     </div>
   );
 }

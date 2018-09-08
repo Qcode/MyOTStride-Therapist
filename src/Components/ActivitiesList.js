@@ -10,7 +10,6 @@ function ActivitiesList(props) {
           <h1>{info.description}</h1>
         </div>
       ))}
-      {props.error && <p>Error</p>}
     </div>
   );
 }
@@ -23,10 +22,6 @@ ActivitiesList.propTypes = {
       id: PropTypes.string,
     })
   ).isRequired,
-  error: PropTypes.string,
-};
-ActivitiesList.defaultProps = {
-  error: null,
 };
 
 export default ActivitiesList;

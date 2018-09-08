@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import Api from './Api';
+import Api from '../Api';
 
 class PatientList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       patientList: [],
-      error: '',
+      error: null,
     };
     this.getList();
     this.pickClient = this.pickClient.bind(this);
@@ -34,7 +34,6 @@ class PatientList extends React.Component {
             <li key={patient.id}>
               <input
                 type="button"
-                required
                 value={`${patient.first_name} ${patient.last_name}`}
                 onClick={() => {
                   this.pickClient(patient.id);
@@ -44,14 +43,14 @@ class PatientList extends React.Component {
           ))}
         </ul>
         <input
-          type="submit"
+          type="button"
           value="Logout"
           onClick={() => {
             this.props.history.push('/');
             Api.setToken(null);
           }}
         />
-        <p>{this.state.error === null ? null : 'error'}</p>
+        {this.state.error !== null ? <p>Error Fetching Patients</p> : null}
       </div>
     );
   }
