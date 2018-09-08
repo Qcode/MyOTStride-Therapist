@@ -47,15 +47,20 @@ class PatientList extends React.Component {
       },
     }).then(id => {
       console.log(id)
-      const index = this.state.pendingList.findIndex(obj => obj.id === id);
+      const index = this.state.pendingList.findIndex(obj =>  obj.email === email);
+      const pendingList = this.state.pendingList.filter(obj=>obj.email !== email);
+      console.log(pendingList);
       this.setState(prevState => ({
         ...prevState,
         currentList: [
           ...prevState.currentList,
-          Object.assign(...prevState.pendingList[index],id)
+          {...prevState.pendingList[index] , id:id.id}
         ],
+        pendingList:
+          pendingList
+        ,
       }));
-      console.log(this.state.currentList);
+      console.log(this.state);
     });
   }
 
