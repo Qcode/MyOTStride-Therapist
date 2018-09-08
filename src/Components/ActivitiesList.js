@@ -20,13 +20,8 @@ ActivitiesList.propTypes = {
       title: PropTypes.string,
       description: PropTypes.string,
       id: PropTypes.string,
-    }),
+    })
   ).isRequired,
-  error: PropTypes.string,
-};
-
-ActivitiesList.defaultProps = {
-  error: null,
 };
 
 export default ActivitiesList;

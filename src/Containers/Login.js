@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, withFormik, Field, Form } from 'formik';
+import { withFormik, Field, Form } from 'formik';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Api from '../Api';
@@ -30,7 +30,14 @@ function Login(props) {
 }
 
 Login.propTypes = {
-  history: PropTypes.shape({ push: PropTypes.func }).isRequired,
+  values: PropTypes.shape({
+    email: PropTypes.string,
+    password: PropTypes.string,
+  }).isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  errors: PropTypes.shape({
+    failedSubmit: PropTypes.string,
+  }).isRequired,
 };
 
 export default withRouter(
@@ -49,9 +56,9 @@ export default withRouter(
           Api.setTherapistId(userData.id);
           formikBag.props.history.push('/patients');
         })
-        .catch(err => {
+        .catch(() => {
           formikBag.setSubmitting(false);
           formikBag.setErrors({ failedSubmit: 'Error logging in.' });
         }),
-  })(Login),
+  })(Login)
 );

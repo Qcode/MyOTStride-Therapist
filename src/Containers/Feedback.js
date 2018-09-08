@@ -20,10 +20,8 @@ class Feedback extends React.Component {
         activities = activityData;
         return Promise.all(
           activityData.map(activity =>
-            Api.request(
-              `/clients/:clientId/activities/${activity.id}/feedback`,
-            ),
-          ),
+            Api.request(`/clients/:clientId/activities/${activity.id}/feedback`)
+          )
         );
       })
       .then(feedbackArray => {
@@ -33,7 +31,7 @@ class Feedback extends React.Component {
             if (feedback.length > 0) {
               newActivityList[feedback[0].activity_id] = {
                 ...activities.find(
-                  activity => activity.id === feedback[0].activity_id,
+                  activity => activity.id === feedback[0].activity_id
                 ),
                 ...prevState.activityList[feedback[0].activity_id],
                 feedback,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, withFormik, Form, Field } from 'formik';
+import { withFormik, Form, Field } from 'formik';
 import PropTypes from 'prop-types';
 
 function AddActivity(props) {
@@ -51,14 +51,23 @@ function AddActivity(props) {
 }
 
 AddActivity.propTypes = {
-  addFunction: PropTypes.func.isRequired,
+  values: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    startDate: PropTypes.string,
+    endDate: PropTypes.string,
+  }).isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  errors: PropTypes.shape({
+    failedSubmit: PropTypes.string,
+  }).isRequired,
 };
 
 export default withFormik({
   handleSubmit: (values, formikBag) =>
-    formikBag.props.addFunction(values).catch(err =>
+    formikBag.props.addFunction(values).catch(() =>
       formikBag.setErrors({
         failedSubmit: 'Problem submitting activity',
-      }),
+      })
     ),
 })(AddActivity);

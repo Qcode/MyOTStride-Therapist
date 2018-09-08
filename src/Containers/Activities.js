@@ -39,7 +39,7 @@ class Activities extends React.Component {
             id: id.id,
           },
         ],
-      })),
+      }))
     );
   }
 
