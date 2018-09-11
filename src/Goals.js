@@ -64,24 +64,23 @@ class Goals extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
-  editGoals(info, actions) {
+  editGoals(info, values) {
     Api.request(`clients/:clientId/goals/${info.id}`, {
       method: 'PATCH',
       body: {
-        title: info.title,
-        description: info.description,
-        dates: [info.endDate, info.startDate],
+        title: values.title,
+        description: values.description,
+        dates: [values.endDate, values.startDate],
       },
     }).then(() => {
-      actions.setSubmitting(false);
       const index = this.state.goals.findIndex(obj => obj.id === info.id);
       this.setState(prevState => {
         const newGoals = [...prevState.goals];
         newGoals[index] = {
           ...prevState.goals[index],
-          title: info.title,
-          description: info.description,
-          dates: info.endDate,
+          title: values.title,
+          description: values.description,
+          dates: values.endDate,
         };
         return {
           ...prevState,
