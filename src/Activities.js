@@ -73,18 +73,19 @@ class Activities extends React.Component {
     }).then(() => {
       actions.setSubmitting(false);
       const index = this.state.activities.findIndex(obj => obj.id === info.id);
-      this.setState(prevState => ({
-        ...prevState,
-        activities: [
+      this.setState(prevState => {
+        const newActivities = [...prevState.activities];
+        newActivities[index] = {
           ...prevState.activities[index],
-          {
-            title: info.title,
-            description: info.description,
-            dates: [info.endDate, info.startDate],
-            id: info.id,
-          },
-        ],
-      }));
+          title: info.title,
+          description: info.description,
+          dates: [info.endDate, info.startDate],
+        };
+        return {
+          ...prevState,
+          activities: newActivities,
+        };
+      });
     });
   }
 

@@ -75,18 +75,19 @@ class Goals extends React.Component {
     }).then(() => {
       actions.setSubmitting(false);
       const index = this.state.goals.findIndex(obj => obj.id === info.id);
-      this.setState(prevState => ({
-        ...prevState,
-        goals: [
+      this.setState(prevState => {
+        const newGoals = [...prevState.goals];
+        newGoals[index] = {
           ...prevState.goals[index],
-          {
-            title: info.title,
-            description: info.description,
-            dates: info.endDate,
-            id: info.id,
-          },
-        ],
-      }));
+          title: info.title,
+          description: info.description,
+          dates: info.endDate,
+        };
+        return {
+          ...prevState,
+          goals: newGoals,
+        };
+      });
     });
   }
 
