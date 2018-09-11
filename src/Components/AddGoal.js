@@ -53,12 +53,15 @@ export default withFormik({
   mapPropsToValues: () => ({
     title: '',
     description: '',
-    endDate: ''
+    endDate: '',
   }),
   handleSubmit: (values, formikBag) =>
-    formikBag.props.addFunction(values).catch(() =>
-      formikBag.setErrors({
-        failedSubmit: 'Problem adding goal',
-      })
-    ),
+    formikBag.props
+      .addFunction(values)
+      .then(() => formikBag.setSubmitting(false))
+      .catch(() =>
+        formikBag.setErrors({
+          failedSubmit: 'Problem adding goal',
+        })
+      ),
 })(AddGoal);

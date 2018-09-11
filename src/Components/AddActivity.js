@@ -68,12 +68,15 @@ export default withFormik({
     title: '',
     description: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
   }),
   handleSubmit: (values, formikBag) =>
-    formikBag.props.addFunction(values).catch(() =>
-      formikBag.setErrors({
-        failedSubmit: 'Problem submitting activity',
-      })
-    ),
+    formikBag.props
+      .addFunction(values)
+      .then(() => formikBag.setSubmitting(false))
+      .catch(() =>
+        formikBag.setErrors({
+          failedSubmit: 'Problem submitting activity',
+        })
+      ),
 })(AddActivity);
