@@ -1,57 +1,81 @@
 import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import { withFormik, Form, Field } from 'formik';
 import PropTypes from 'prop-types';
+import DayPicker, { DateUtils } from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
 
-function AddActivities(props) {
-  return (
-    <div className="div--addItems">
-      <h2>Add Activities Here</h2>
-      <Formik
-        initialValues={{
-          title: '',
-          description: '',
-          endDate: '',
-          startDate: '',
-        }}
-        onSubmit={props.addFunction}
-        render={({ values, handleSubmit, isSubmitting }) => (
-          <Form onSubmit={handleSubmit}>
-            <br />
-            <label htmlFor="title">
-              Title:
-              <Field id="title" name="title" value={values.title} />
-            </label>
-            <br />
-            <label htmlFor="description">
-              description:
-              <Field
-                id="description"
-                name="description"
-                value={values.description}
-              />
-            </label>
-            <br />
-            <label htmlFor="startDate">
-              Start Date:
-              <Field id="startDate" type="date" value={values.startDate} />
-            </label>
-            <br />
-            <label htmlFor="endDate">
-              End Date:
-              <Field id="endDate" type="date" value={values.endDate} />
-            </label>
-            <br />
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-          </Form>
-        )}
-      />
-    </div>
-  );
+class AddActivities extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedDays: [],
+    };
+    this.handleDayClick = this.handleDayClick.bind(this);
+  }
+
+  handleDayClick(day, { selected }) {
+    const { selectedDays } = this.state;
+    if (selected) {
+      const selectedIndex = selectedDays.findIndex(selectedDay =>
+        DateUtils.isSameDay(selectedDay, day)
+      );
+      selectedDays.splice(selectedIndex, 1);
+    } else {
+      selectedDays.push(day);
+    }
+    this.setState({ selectedDays });
+    this.props.setValues({ ...this.props.values, selectedDays });
+  }
+
+  render() {
+    return (
+      <div className="div--addItems">
+        <h2>Add Activities Here</h2>
+        <Form>
+          <label htmlFor="title">
+            Title:
+            <Field id="title" name="title" value={this.props.values.title} />
+          </label>
+          <label htmlFor="description">
+            description:
+            <Field
+              id="description"
+              name="description"
+              value={this.props.values.description}
+            />
+          </label>
+          <DayPicker
+            selectedDays={this.state.selectedDays}
+            onDayClick={this.handleDayClick}
+          />
+          <button type="submit" disabled={this.props.isSubmitting}>
+            Submit
+          </button>
+        </Form>
+      </div>
+    );
+  }
 }
 AddActivities.propTypes = {
-  addFunction: PropTypes.func.isRequired,
+  values: PropTypes.shape({
+    description: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  setValues: PropTypes.func.isRequired,
 };
 
-export default AddActivities;
+export default withFormik({
+  mapPropsToValues: () => ({
+    description: '',
+    title: '',
+    dates: '',
+  }),
+  handleSubmit: (values, formikBag) =>
+    formikBag.props
+      .addFunction(values)
+      .then(() => formikBag.setSubmitting(false))
+      .catch(() =>
+        formikBag.setErrors({ failedSubmit: 'Problem adding Activity' })
+      ),
+})(AddActivities);

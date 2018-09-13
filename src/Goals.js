@@ -23,8 +23,8 @@ class Goals extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
-  addGoals(values, actions) {
-    Api.request('clients/:clientId/goals', {
+  addGoals(values) {
+    return Api.request('clients/:clientId/goals', {
       method: 'POST',
       body: {
         title: values.title,
@@ -33,7 +33,6 @@ class Goals extends React.Component {
       },
     })
       .then(info => {
-        actions.setSubmitting(false);
         this.setState(prevState => ({
           ...prevState,
           goals: [
@@ -65,7 +64,7 @@ class Goals extends React.Component {
   }
 
   editGoals(info, values) {
-    Api.request(`clients/:clientId/goals/${info.id}`, {
+    return Api.request(`clients/:clientId/goals/${info.id}`, {
       method: 'PATCH',
       body: {
         title: values.title,

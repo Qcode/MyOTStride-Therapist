@@ -21,17 +21,16 @@ class Activities extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
-  addActivities(values, actions) {
-    Api.request('clients/:clientId/activities', {
+  addActivities(values) {
+    return Api.request('clients/:clientId/activities', {
       method: 'POST',
       body: {
         title: values.title,
         description: values.description,
-        dates: [values.endDate, values.startDate],
+        dates: values.selectedDays,
       },
     })
       .then(info => {
-        actions.setSubmitting(false);
         this.setState(prevState => ({
           ...prevState,
           activities: [
@@ -39,7 +38,7 @@ class Activities extends React.Component {
             {
               title: values.title,
               description: values.description,
-              dates: [values.endDate, values.startDate],
+              dates: values.selectedDays,
               id: info.id,
             },
           ],
@@ -62,24 +61,23 @@ class Activities extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
-  editActivities(info, actions) {
-    Api.request(`clients/:clientId/activities/${info.id}`, {
+  editActivities(info, values) {
+    return Api.request(`clients/:clientId/activities/${info.id}`, {
       method: 'PATCH',
       body: {
-        title: info.title,
-        description: info.description,
-        dates: [info.endDate, info.startDate],
+        title: values.title,
+        description: values.description,
+        dates: [values.endDate, values.startDate],
       },
     }).then(() => {
-      actions.setSubmitting(false);
       const index = this.state.activities.findIndex(obj => obj.id === info.id);
       this.setState(prevState => {
         const newActivities = [...prevState.activities];
         newActivities[index] = {
           ...prevState.activities[index],
-          title: info.title,
-          description: info.description,
-          dates: [info.endDate, info.startDate],
+          title: values.title,
+          description: values.description,
+          dates: [values.endDate, values.startDate],
         };
         return {
           ...prevState,
