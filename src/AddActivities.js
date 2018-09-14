@@ -1,30 +1,19 @@
 import React from 'react';
 import { withFormik, Form, Field } from 'formik';
 import PropTypes from 'prop-types';
-import DayPicker, { DateUtils } from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
+import Calendar from './Calendar';
 
 class AddActivities extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedDays: [],
-    };
-    this.handleDayClick = this.handleDayClick.bind(this);
+    this.getCalendar = this.getCalendar.bind(this);
   }
 
-  handleDayClick(day, { selected }) {
-    const { selectedDays } = this.state;
-    if (selected) {
-      const selectedIndex = selectedDays.findIndex(selectedDay =>
-        DateUtils.isSameDay(selectedDay, day)
-      );
-      selectedDays.splice(selectedIndex, 1);
-    } else {
-      selectedDays.push(day);
-    }
-    this.setState({ selectedDays });
-    this.props.setValues({ ...this.props.values, selectedDays });
+  getCalendar(selectedDays) {
+    this.props.setValues({
+      ...this.props.values,
+      selectedDays: selectedDays.selectedDays,
+    });
   }
 
   render() {
@@ -44,10 +33,7 @@ class AddActivities extends React.Component {
               value={this.props.values.description}
             />
           </label>
-          <DayPicker
-            selectedDays={this.state.selectedDays}
-            onDayClick={this.handleDayClick}
-          />
+          <Calendar getCalendar={this.getCalendar} />
           <button type="submit" disabled={this.props.isSubmitting}>
             Submit
           </button>

@@ -97,7 +97,10 @@ class Activities extends React.Component {
           patientInfo={this.state.activities}
           deleteFunction={this.deleteActivities}
         />
-        <AddActivities addFunction={this.addActivities} />
+        <AddActivities
+          addFunction={this.addActivities}
+          getCalendar={this.getCalendar}
+        />
       </div>
     );
   }
