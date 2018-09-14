@@ -1,68 +1,65 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withFormik, Form, Field } from 'formik';
+import Calendar from './Calendar';
 
-function EditActivities(props) {
-  return (
-    <div>
-      <Form>
-        <label htmlFor="title">
-          Title:
-          <Field id="title" name="title" value={props.values.title} />
-        </label>
-        <label htmlFor="description">
-          description:
-          <Field
-            id="description"
-            name="description"
-            value={props.values.description}
+class EditActivities extends React.Component {
+  constructor(props) {
+    super(props);
+    this.getCalendar = this.getCalendar.bind(this);
+  }
+
+  getCalendar(selectedDays) {
+    this.props.setValues({
+      ...this.props.values,
+      selectedDays: selectedDays.selectedDays,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <Form>
+          <label htmlFor="title">
+            Title:
+            <Field id="title" name="title" value={this.props.values.title} />
+          </label>
+          <label htmlFor="description">
+            description:
+            <Field
+              id="description"
+              name="description"
+              value={this.props.values.description}
+            />
+          </label>
+          <Calendar
+            getCalendar={this.getCalendar}
+            dates={this.props.values.dates}
           />
-        </label>
-        <label htmlFor="startDate">
-          Start Date:
-          <Field
-            id="startDate"
-            name="startDate"
-            type="date"
-            value={props.values.startDate}
-          />
-        </label>
-        <label htmlFor="endDate">
-          End Date:
-          <Field
-            id="endDate"
-            name="endDate"
-            type="date"
-            value={props.values.endDate}
-          />
-        </label>
-        <button type="submit" disabled={props.isSubmitting}>
-          Submit
-        </button>
-      </Form>
-      <p>{props.values.endDate}</p>
-    </div>
-  );
+          <button type="submit" disabled={this.props.isSubmitting}>
+            Submit
+          </button>
+        </Form>
+      </div>
+    );
+  }
 }
 EditActivities.propTypes = {
   values: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
-    startDate: PropTypes.string,
-    endDate: PropTypes.string,
+    dates: PropTypes.arrayOf(PropTypes.string),
     id: PropTypes.string,
   }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
+  setValues: PropTypes.func.isRequired,
 };
-EditActivities.defaultProps = {
-  error: null,
-};
+
 export default withFormik({
   mapPropsToValues: props => ({
     title: props.info.title,
     description: props.info.description,
-    endDate: props.info.endDate,
-    startDate: props.info.startDate,
+    dates: props.info.dates,
   }),
   handleSubmit: (values, formikBag) =>
     formikBag.props

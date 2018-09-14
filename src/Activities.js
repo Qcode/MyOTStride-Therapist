@@ -67,7 +67,7 @@ class Activities extends React.Component {
       body: {
         title: values.title,
         description: values.description,
-        dates: [values.endDate, values.startDate],
+        dates: values.selectedDays,
       },
     }).then(() => {
       const index = this.state.activities.findIndex(obj => obj.id === info.id);
@@ -77,7 +77,7 @@ class Activities extends React.Component {
           ...prevState.activities[index],
           title: values.title,
           description: values.description,
-          dates: [values.endDate, values.startDate],
+          dates: values.selectedDays,
         };
         return {
           ...prevState,

@@ -6,10 +6,10 @@ import 'react-day-picker/lib/style.css';
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
-    this.handleDayClick = this.handleDayClick.bind(this);
     this.state = {
-      selectedDays: [],
+      selectedDays: (this.props.dates || []).map(date => new Date(date)),
     };
+    this.handleDayClick = this.handleDayClick.bind(this);
   }
 
   handleDayClick(day, { selected }) {
@@ -39,5 +39,9 @@ class Calendar extends React.Component {
 }
 Calendar.propTypes = {
   getCalendar: PropTypes.func.isRequired,
+  dates: PropTypes.arrayOf(PropTypes.string),
+};
+Calendar.defaultProps = {
+  dates: null,
 };
 export default Calendar;
