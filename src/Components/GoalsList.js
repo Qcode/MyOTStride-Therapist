@@ -1,33 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EditActivities from './EditActivities';
+import EditGoals from './EditGoals';
 
-function ActivitiesList(props) {
+function GoalsList(props) {
   return (
     <div>
-      {props.patientInfo.map(info => (
-        <div key={info.id} className="div--listItems">
-          <h1> {info.title}</h1>
+      {props.goals.map(info => (
+        <div key={info.id} className="container">
+          <h1>{info.title}</h1>
           <h1>{info.description}</h1>
           <button onClick={() => props.deleteFunction(info)} type="button">
             {' '}
             delete
           </button>
-          <EditActivities
+          <EditGoals
             editFunction={props.editFunction}
             info={info}
             error={props.error}
           />
         </div>
       ))}
-
-      {props.error && <p>Error</p>}
+      {props.error && <p>{props.error}</p>}
     </div>
   );
 }
 
-ActivitiesList.propTypes = {
-  patientInfo: PropTypes.arrayOf(
+GoalsList.propTypes = {
+  goals: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
       description: PropTypes.string,
@@ -37,8 +36,8 @@ ActivitiesList.propTypes = {
   error: PropTypes.string,
   editFunction: PropTypes.func.isRequired,
 };
-ActivitiesList.defaultProps = {
+GoalsList.defaultProps = {
   error: null,
 };
 
-export default ActivitiesList;
+export default GoalsList;

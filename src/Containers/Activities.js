@@ -1,18 +1,18 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import ActivitiesList from './ActivitiesList';
-import Api from './Api';
-import AddActivities from './AddActivities';
+import ActivitiesList from '../Components/ActivitiesList';
+import Api from '../Api';
+import AddActivity from '../Components/AddActivity';
 
 class Activities extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { activities: [], error: '' };
+    this.state = { activities: [], error: null };
     this.fetchActivities();
-    this.addActivities = this.addActivities.bind(this);
-    this.deleteActivities = this.deleteActivities.bind(this);
-    this.editActivities = this.editActivities.bind(this);
+    this.addActivity = this.addActivity.bind(this);
+    this.deleteActivity = this.deleteActivity.bind(this);
+    this.editActivity = this.editActivity.bind(this);
   }
 
   fetchActivities() {
@@ -21,7 +21,7 @@ class Activities extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
-  addActivities(values) {
+  addActivity(values) {
     return Api.request('clients/:clientId/activities', {
       method: 'POST',
       body: {
@@ -47,7 +47,7 @@ class Activities extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
-  deleteActivities(info) {
+  deleteActivity(info) {
     Api.request(`clients/:clientId/activities/${info.id}`, {
       method: 'DELETE',
     })
@@ -61,7 +61,7 @@ class Activities extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
-  editActivities(info, values) {
+  editActivity(info, values) {
     return Api.request(`clients/:clientId/activities/${info.id}`, {
       method: 'PATCH',
       body: {
@@ -92,15 +92,17 @@ class Activities extends React.Component {
       <div>
         <h1>Activities</h1>
         <ActivitiesList
-          editFunction={this.editActivities}
+          activities={this.state.activities}
+          editFunction={this.editActivity}
           error={this.state.error === null ? null : 'error'}
           patientInfo={this.state.activities}
-          deleteFunction={this.deleteActivities}
+          deleteFunction={this.deleteActivity}
         />
-        <AddActivities
-          addFunction={this.addActivities}
+        <AddActivity
+          addFunction={this.addActivity}
           getCalendar={this.getCalendar}
         />
+        {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
       </div>
     );
   }

@@ -18,17 +18,21 @@ class AddActivities extends React.Component {
 
   render() {
     return (
-      <div className="div--addItems">
+      <div className="container">
         <h2>Add Activities Here</h2>
         <Form>
-          <label htmlFor="title">
+          <label htmlFor="add-activity__title">
             Title:
-            <Field id="title" name="title" value={this.props.values.title} />
+            <Field
+              id="add-activity__title"
+              name="title"
+              value={this.props.values.title}
+            />
           </label>
-          <label htmlFor="description">
+          <label htmlFor="add-activity__description">
             description:
             <Field
-              id="description"
+              id="add-activity__description"
               name="description"
               value={this.props.values.description}
             />
@@ -37,11 +41,15 @@ class AddActivities extends React.Component {
           <button type="submit" disabled={this.props.isSubmitting}>
             Submit
           </button>
+          {this.props.errors.failedSubmit && (
+            <p>{this.props.errors.failedSubmit}</p>
+          )}
         </Form>
       </div>
     );
   }
 }
+
 AddActivities.propTypes = {
   values: PropTypes.shape({
     description: PropTypes.string.isRequired,
@@ -49,6 +57,9 @@ AddActivities.propTypes = {
   }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   setValues: PropTypes.func.isRequired,
+  errors: PropTypes.shape({
+    failedSubmit: PropTypes.string,
+  }).isRequired,
 };
 
 export default withFormik({

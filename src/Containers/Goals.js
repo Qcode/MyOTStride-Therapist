@@ -1,29 +1,29 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import GoalsList from './GoalsList';
-import Api from './Api';
-import AddGoals from './AddGoals';
+import GoalsList from '../Components/GoalsList';
+import Api from '../Api';
+import AddGoal from '../Components/AddGoal';
 
 class Goals extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       goals: [],
-      error: '',
+      error: null,
     };
     this.fetchGoals();
-    this.addGoals = this.addGoals.bind(this);
-    this.deleteGoals = this.deleteGoals.bind(this);
-    this.editGoals = this.editGoals.bind(this);
+    this.addGoal = this.addGoal.bind(this);
+    this.deleteGoal = this.deleteGoal.bind(this);
+    this.editGoal = this.editGoal.bind(this);
   }
 
   fetchGoals() {
-    Api.request(`clients/:clientId/goals`)
+    Api.request('clients/:clientId/goals')
       .then(jsonData => this.setState({ goals: jsonData }))
-      .catch(err => this.setState({ error: err }));
+      .catch(() => this.setState({ error: 'Failed to fetch goals' }));
   }
 
-  addGoals(values) {
+  addGoal(values) {
     return Api.request('clients/:clientId/goals', {
       method: 'POST',
       body: {
@@ -31,25 +31,23 @@ class Goals extends React.Component {
         description: values.description,
         end_date: values.endDate,
       },
-    })
-      .then(info => {
-        this.setState(prevState => ({
-          ...prevState,
-          goals: [
-            ...prevState.goals,
-            {
-              title: values.title,
-              description: values.description,
-              end_date: values.endDate,
-              id: info.id,
-            },
-          ],
-        }));
-      })
-      .catch(err => this.setState({ error: err }));
+    }).then(id =>
+      this.setState(prevState => ({
+        ...prevState,
+        goals: [
+          ...prevState.goals,
+          {
+            title: values.title,
+            description: values.description,
+            end_date: values.endDate,
+            id,
+          },
+        ],
+      }))
+    );
   }
 
-  deleteGoals(info) {
+  deleteGoal(info) {
     Api.request(`clients/:clientId/goals/${info.id}`, {
       method: 'DELETE',
     })
@@ -63,7 +61,7 @@ class Goals extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
-  editGoals(info, values) {
+  editGoal(info, values) {
     return Api.request(`clients/:clientId/goals/${info.id}`, {
       method: 'PATCH',
       body: {
@@ -96,13 +94,15 @@ class Goals extends React.Component {
         <GoalsList
           error={this.state.error === '' ? '' : 'error'}
           patientInfo={this.state.goals}
-          deleteFunction={this.deleteGoals}
-          editFunction={this.editGoals}
+          deleteFunction={this.deleteGoal}
+          editFunction={this.editGoal}
+          goals={this.state.goals}
         />
-        <AddGoals
-          addFunction={this.addGoals}
+        <AddGoal
+          addFunction={this.addGoal}
           error={this.state.error === '' ? '' : 'error'}
         />
+        {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
       </div>
     );
   }

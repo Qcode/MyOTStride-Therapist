@@ -2,35 +2,42 @@ import React from 'react';
 import { withFormik, Form, Field } from 'formik';
 import PropTypes from 'prop-types';
 
-function AddGoals(props) {
+function AddGoal(props) {
   return (
-    <div className="div--addItems">
+    <div className="container">
       <h2>Add Goals Here</h2>
       <Form>
-        <label htmlFor="title">
+        <label htmlFor="add-goal__title">
           Title:
-          <Field id="title" name="title" value={props.values.title} />
+          <Field id="add-goal__title" name="title" value={props.values.title} />
         </label>
-        <label htmlFor="description">
+        <label htmlFor="add-goal__description">
           description:
           <Field
-            id="description"
+            id="add-goal__description"
             name="description"
             value={props.values.description}
           />
         </label>
-        <label htmlFor="endDate">
+        <label htmlFor="add-goal__end-date">
           End Date:
-          <Field id="endDate" type="date" value={props.values.endDate} />
+          <Field
+            name="endDate"
+            id="add-goal__end-date"
+            type="date"
+            value={props.values.endDate}
+          />
         </label>
         <button type="submit" disabled={props.isSubmitting}>
           Submit
         </button>
+        {props.errors.failedSubmit && <p>{props.errors.failedSubmit}</p>}
       </Form>
     </div>
   );
 }
-AddGoals.propTypes = {
+
+AddGoal.propTypes = {
   values: PropTypes.shape({
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
@@ -38,6 +45,9 @@ AddGoals.propTypes = {
     startDate: PropTypes.string.isRequired,
   }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
+  errors: PropTypes.shape({
+    failedSubmit: PropTypes.string,
+  }).isRequired,
 };
 
 export default withFormik({
@@ -45,7 +55,6 @@ export default withFormik({
     title: '',
     description: '',
     endDate: '',
-    startDate: '',
   }),
   handleSubmit: (values, formikBag) =>
     formikBag.props
@@ -54,4 +63,4 @@ export default withFormik({
       .catch(() =>
         formikBag.setErrors({ failedSubmit: 'Problem adding goal' })
       ),
-})(AddGoals);
+})(AddGoal);
