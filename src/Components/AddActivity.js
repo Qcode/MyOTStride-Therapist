@@ -68,7 +68,7 @@ export default withFormik({
     title: '',
     description: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
   }),
   handleSubmit: (values, formikBag) =>
     formikBag.props.addFunction(values).catch(() =>

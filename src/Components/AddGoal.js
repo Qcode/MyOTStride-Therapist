@@ -53,7 +53,7 @@ export default withFormik({
   mapPropsToValues: () => ({
     title: '',
     description: '',
-    endDate: ''
+    endDate: '',
   }),
   handleSubmit: (values, formikBag) =>
     formikBag.props.addFunction(values).catch(() =>

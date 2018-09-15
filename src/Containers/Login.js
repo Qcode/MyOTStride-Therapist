@@ -44,7 +44,7 @@ export default withRouter(
   withFormik({
     mapPropsToValues: () => ({
       email: '',
-      password: ''
+      password: '',
     }),
     handleSubmit: (values, formikBag) =>
       Api.request('login', {
