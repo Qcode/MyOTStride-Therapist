@@ -3,6 +3,7 @@ class Api {
     this.token = localStorage.getItem('token');
     this.therapistId = localStorage.getItem('therapistId');
     this.clientId = localStorage.getItem('clientId');
+    this.validatedKey = false;
     this.error = null;
   }
 
