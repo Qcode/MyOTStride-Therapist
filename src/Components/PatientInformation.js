@@ -20,6 +20,11 @@ function PatientInformation(props) {
         value="View Feedback"
         onClick={() => props.history.push('/patients/patientInfo/feedback')}
       />
+      <input
+        type="button"
+        value="View Strategies"
+        onClick={() => props.history.push('/patients/patientInfo/strategies')}
+      />
     </div>
   );
 }

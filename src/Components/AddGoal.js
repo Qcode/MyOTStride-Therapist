@@ -61,6 +61,8 @@ export default withFormik({
       .addFunction(values)
       .then(() => formikBag.setSubmitting(false))
       .catch(() =>
-        formikBag.setErrors({ failedSubmit: 'Problem adding goal' })
+        formikBag.setErrors({
+          failedSubmit: 'Problem adding goal',
+        })
       ),
 })(AddGoal);

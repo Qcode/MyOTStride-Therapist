@@ -73,6 +73,9 @@ export default withFormik({
       .addFunction(values)
       .then(() => formikBag.setSubmitting(false))
       .catch(() =>
-        formikBag.setErrors({ failedSubmit: 'Problem adding Activity' })
+        formikBag.setErrors({
+          failedSubmit: 'Problem submitting activity',
+        })
       ),
-})(AddActivities);
+})(AddActivity);
+
