@@ -11,6 +11,8 @@ class Activities extends React.Component {
     this.state = { activities: [], error: null };
     this.fetchActivities();
     this.addActivity = this.addActivity.bind(this);
+    this.deleteActivity = this.deleteActivity.bind(this);
+    this.editActivity = this.editActivity.bind(this);
   }
 
   fetchActivities() {
@@ -25,30 +27,81 @@ class Activities extends React.Component {
       body: {
         title: values.title,
         description: values.description,
-        dates: [values.endDate, values.startDate],
+        dates: values.selectedDays,
       },
-    }).then(id =>
-      this.setState(prevState => ({
-        ...prevState,
-        activities: [
-          ...prevState.activities,
-          {
-            title: values.title,
-            description: values.description,
-            dates: [values.endDate, values.startDate],
-            id: id.id,
-          },
-        ],
-      }))
-    );
+    })
+      .then(info => {
+        this.setState(prevState => ({
+          ...prevState,
+          activities: [
+            ...prevState.activities,
+            {
+              title: values.title,
+              description: values.description,
+              dates: values.selectedDays,
+              id: info.id,
+            },
+          ],
+        }));
+      })
+      .catch(err => this.setState({ error: err }));
+  }
+
+  deleteActivity(info) {
+    Api.request(`clients/:clientId/activities/${info.id}`, {
+      method: 'DELETE',
+    })
+      .then(() => {
+        const activities = this.state.activities.filter(i => i.id !== info.id);
+        this.setState(prevState => ({
+          ...prevState,
+          activities,
+        }));
+      })
+      .catch(err => this.setState({ error: err }));
+  }
+
+  editActivity(info, values) {
+    return Api.request(`clients/:clientId/activities/${info.id}`, {
+      method: 'PATCH',
+      body: {
+        title: values.title,
+        description: values.description,
+        dates: values.selectedDays,
+      },
+    }).then(() => {
+      const index = this.state.activities.findIndex(obj => obj.id === info.id);
+      this.setState(prevState => {
+        const newActivities = [...prevState.activities];
+        newActivities[index] = {
+          ...prevState.activities[index],
+          title: values.title,
+          description: values.description,
+          dates: values.selectedDays,
+        };
+        return {
+          ...prevState,
+          activities: newActivities,
+        };
+      });
+    });
   }
 
   render() {
     return (
       <div>
         <h1>Activities</h1>
-        <ActivitiesList activities={this.state.activities} />
-        <AddActivity addFunction={this.addActivity} />
+        <ActivitiesList
+          activities={this.state.activities}
+          editFunction={this.editActivity}
+          error={this.state.error === null ? null : 'error'}
+          patientInfo={this.state.activities}
+          deleteFunction={this.deleteActivity}
+        />
+        <AddActivity
+          addFunction={this.addActivity}
+          getCalendar={this.getCalendar}
+        />
         {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
       </div>
     );

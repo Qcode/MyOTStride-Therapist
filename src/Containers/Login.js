@@ -6,26 +6,29 @@ import Api from '../Api';
 
 function Login(props) {
   return (
-    <Form>
-      <Field
-        type="email"
-        name="email"
-        placeholder="email"
-        value={props.values.email}
-      />
-      <br />
-      <Field
-        placeholder="password"
-        type="password"
-        name="password"
-        value={props.values.password}
-      />
-      <br />
-      <button type="submit" disabled={props.isSubmitting}>
-        Login
-      </button>
-      {props.errors.failedSubmit && <p>{props.errors.failedSubmit}</p>}
-    </Form>
+    <div>
+      <h1>Login</h1>
+      <Form>
+        <Field
+          type="email"
+          name="email"
+          placeholder="email"
+          value={props.values.email}
+        />
+        <br />
+        <Field
+          placeholder="password"
+          type="password"
+          name="password"
+          value={props.values.password}
+        />
+        <br />
+        <button type="submit" disabled={props.isSubmitting}>
+          Login
+        </button>
+        {props.errors.failedSubmit && <p>{props.errors.failedSubmit}</p>}
+      </Form>
+    </div>
   );
 }
 
