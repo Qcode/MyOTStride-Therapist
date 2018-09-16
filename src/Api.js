@@ -1,21 +1,24 @@
 class Api {
   constructor() {
-    this.token = null;
-    this.therapistId = null;
-    this.clientId = null;
+    this.token = localStorage.getItem('token');
+    this.therapistId = localStorage.getItem('therapistId');
+    this.clientId = localStorage.getItem('clientId');
     this.error = null;
   }
 
   setToken(newToken) {
     this.token = newToken;
+    localStorage.setItem('token', newToken);
   }
 
   setClientId(newClientId) {
     this.clientId = newClientId;
+    localStorage.setItem('clientId',newClientId);
   }
 
   setTherapistId(newTherapistId) {
     this.therapistId = newTherapistId;
+    localStorage.setItem('therapistId',newTherapistId);
   }
 
   request(endPoint, options) {
