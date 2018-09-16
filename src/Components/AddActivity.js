@@ -3,7 +3,7 @@ import { withFormik, Form, Field } from 'formik';
 import PropTypes from 'prop-types';
 import Calendar from './Calendar';
 
-class AddActivities extends React.Component {
+class AddActivity extends React.Component {
   constructor(props) {
     super(props);
     this.getCalendar = this.getCalendar.bind(this);
@@ -50,7 +50,7 @@ class AddActivities extends React.Component {
   }
 }
 
-AddActivities.propTypes = {
+AddActivity.propTypes = {
   values: PropTypes.shape({
     description: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -78,4 +78,3 @@ export default withFormik({
         })
       ),
 })(AddActivity);
-
