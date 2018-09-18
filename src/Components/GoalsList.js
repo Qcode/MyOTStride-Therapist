@@ -10,7 +10,6 @@ function GoalsList(props) {
           <h1>{info.title}</h1>
           <h1>{info.description}</h1>
           <button onClick={() => props.deleteFunction(info)} type="button">
-            {' '}
             delete
           </button>
           <EditGoal
