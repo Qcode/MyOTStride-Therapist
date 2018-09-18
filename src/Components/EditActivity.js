@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withFormik, Form, Field } from 'formik';
 import Calendar from './Calendar';
 
-class EditActivities extends React.Component {
+class EditActivity extends React.Component {
   constructor(props) {
     super(props);
     this.getCalendar = this.getCalendar.bind(this);
@@ -19,6 +19,7 @@ class EditActivities extends React.Component {
   render() {
     return (
       <div>
+        <h1> Edit Activity Here</h1>
         <Form>
           <label htmlFor="title">
             Title:
@@ -44,7 +45,7 @@ class EditActivities extends React.Component {
     );
   }
 }
-EditActivities.propTypes = {
+EditActivity.propTypes = {
   values: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
@@ -70,4 +71,4 @@ export default withFormik({
           failedSubmit: 'Problem editing activity',
         })
       ),
-})(EditActivities);
+})(EditActivity);

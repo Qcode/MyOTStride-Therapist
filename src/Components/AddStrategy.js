@@ -2,10 +2,10 @@ import React from 'react';
 import { withFormik, Form, Field } from 'formik';
 import PropTypes from 'prop-types';
 
-function AddStrategies(props) {
+function AddStrategy(props) {
   return (
     <div className="container">
-      <h2>Add Strategies Here</h2>
+      <h2>Add Strategy Here</h2>
       <Form>
         <label htmlFor="add-strategy__strategy">
           Strategy:
@@ -19,7 +19,7 @@ function AddStrategies(props) {
     </div>
   );
 }
-AddStrategies.propTypes = {
+AddStrategy.propTypes = {
   values: PropTypes.shape({
     strategy: PropTypes.string,
   }).isRequired,
@@ -42,4 +42,4 @@ export default withFormik({
           failedSubmit: 'Problem submitting activity',
         })
       ),
-})(AddStrategies);
+})(AddStrategy);

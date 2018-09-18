@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EditActivities from './EditActivities';
+import EditActivity from './EditActivity';
 
 function ActivitiesList(props) {
   return (
@@ -13,7 +13,7 @@ function ActivitiesList(props) {
             {' '}
             delete
           </button>
-          <EditActivities
+          <EditActivity
             editFunction={props.editFunction}
             info={info}
             error={props.error}

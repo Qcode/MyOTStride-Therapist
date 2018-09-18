@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import Api from '../Api';
-import AddStrategies from '../Components/AddStrategies';
+import AddStrategy from '../Components/AddStrategy';
 import StrategiesList from '../Components/StrategiesList';
 
 class Strategies extends React.Component {
@@ -91,7 +91,7 @@ class Strategies extends React.Component {
           deleteFunction={this.deleteStrategies}
           editFunction={this.editStrategies}
         />
-        <AddStrategies addFunction={this.addStrategies} />
+        <AddStrategy addFunction={this.addStrategies} />
       </div>
     );
   }

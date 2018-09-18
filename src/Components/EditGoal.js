@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withFormik, Field, Form } from 'formik';
 
-function EditGoals(props) {
+function EditGoal(props) {
   return (
     <div>
       <Form>
@@ -41,7 +41,7 @@ function EditGoals(props) {
     </div>
   );
 }
-EditGoals.propTypes = {
+EditGoal.propTypes = {
   values: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
@@ -52,7 +52,7 @@ EditGoals.propTypes = {
   error: PropTypes.string,
   isSubmitting: PropTypes.bool.isRequired,
 };
-EditGoals.defaultProps = {
+EditGoal.defaultProps = {
   error: null,
 };
 export default withFormik({
@@ -70,4 +70,4 @@ export default withFormik({
           failedSubmit: 'Problem submitting goal',
         })
       ),
-})(EditGoals);
+})(EditGoal);

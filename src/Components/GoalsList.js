@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EditGoals from './EditGoals';
+import EditGoal from './EditGoal';
 
 function GoalsList(props) {
   return (
@@ -13,7 +13,7 @@ function GoalsList(props) {
             {' '}
             delete
           </button>
-          <EditGoals
+          <EditGoal
             editFunction={props.editFunction}
             info={info}
             error={props.error}
