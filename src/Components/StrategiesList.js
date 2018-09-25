@@ -9,7 +9,6 @@ function StrategiesList(props) {
         <div key={info.id} className="container">
           <h1> {info.strategy}</h1>
           <button onClick={() => props.deleteFunction(info)} type="button">
-            {' '}
             delete
           </button>
           <EditStrategy editFunction={props.editFunction} info={info} />

@@ -44,11 +44,10 @@ class Activities extends React.Component {
           ],
         }));
       })
-      .catch(err => this.setState({ error: err }));
   }
 
   deleteActivity(info) {
-    Api.request(`clients/:clientId/activities/${info.id}`, {
+    return Api.request(`clients/:clientId/activities/${info.id}`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -98,10 +97,7 @@ class Activities extends React.Component {
           patientInfo={this.state.activities}
           deleteFunction={this.deleteActivity}
         />
-        <AddActivity
-          addFunction={this.addActivity}
-          getCalendar={this.getCalendar}
-        />
+        <AddActivity addFunction={this.addActivity} />
         {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
       </div>
     );

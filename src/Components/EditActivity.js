@@ -12,7 +12,7 @@ class EditActivity extends React.Component {
   getCalendar(selectedDays) {
     this.props.setValues({
       ...this.props.values,
-      selectedDays: selectedDays.selectedDays,
+      selectedDays,
     });
   }
 

@@ -23,7 +23,7 @@ class Calendar extends React.Component {
       selectedDays.push(day);
     }
     this.setState({ selectedDays });
-    this.props.getCalendar({ selectedDays });
+    this.props.getCalendar(selectedDays);
   }
 
   render() {

@@ -15,7 +15,6 @@ function ActivitiesList(props) {
           <EditActivity
             editFunction={props.editFunction}
             info={info}
-            error={props.error}
           />
         </div>
       ))}
