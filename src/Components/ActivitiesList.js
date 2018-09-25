@@ -7,7 +7,7 @@ function ActivitiesList(props) {
     <div>
       {props.activities.map(info => (
         <div key={info.id} className="container">
-          <h1> {info.title}</h1>
+          <h1>{info.title}</h1>
           <h1>{info.description}</h1>
           <button onClick={() => props.deleteFunction(info)} type="button">
             delete

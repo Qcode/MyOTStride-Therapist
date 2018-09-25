@@ -19,16 +19,20 @@ class EditActivity extends React.Component {
   render() {
     return (
       <div>
-        <h1> Edit Activity Here</h1>
+        <h1>Edit Activity Here</h1>
         <Form>
-          <label htmlFor="title">
+          <label htmlFor={`edit-activity__title-${this.props.info.id}`}>
             Title:
-            <Field id="title" name="title" value={this.props.values.title} />
+            <Field
+              id={`edit-activity__title-${this.props.info.id}`}
+              name="title"
+              value={this.props.values.title}
+            />
           </label>
-          <label htmlFor="description">
+          <label htmlFor={`edit-activity__description-${this.props.info.id}`}>
             description:
             <Field
-              id="description"
+              id={`edit-activity__description-${this.props.info.id}`}
               name="description"
               value={this.props.values.description}
             />

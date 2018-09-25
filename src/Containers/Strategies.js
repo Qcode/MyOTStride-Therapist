@@ -91,6 +91,7 @@ class Strategies extends React.Component {
           deleteFunction={this.deleteStrategies}
           editFunction={this.editStrategies}
         />
+        {this.state.error && <p>Error fetching strategies.</p>}
         <AddStrategy addFunction={this.addStrategies} />
       </div>
     );

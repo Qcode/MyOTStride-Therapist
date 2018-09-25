@@ -7,7 +7,7 @@ function StrategiesList(props) {
     <div>
       {props.strategies.map(info => (
         <div key={info.id} className="container">
-          <h1> {info.strategy}</h1>
+          <h1>{info.strategy}</h1>
           <button onClick={() => props.deleteFunction(info)} type="button">
             delete
           </button>
