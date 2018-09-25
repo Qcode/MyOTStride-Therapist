@@ -65,10 +65,10 @@ export default withFormik({
   handleSubmit: (values, formikBag) =>
     formikBag.props
       .editFunction(formikBag.props.info, values)
-      .then(() => formikBag.setSubmitting(false))
       .catch(() =>
         formikBag.setErrors({
           failedSubmit: 'Problem editing activity',
-        })
-      ),
+        }),
+      )
+      .finally(() => formikBag.setSubmitting(false)),
 })(EditActivity);

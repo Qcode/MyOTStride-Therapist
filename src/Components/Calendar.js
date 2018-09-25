@@ -16,7 +16,7 @@ class Calendar extends React.Component {
     const { selectedDays } = this.state;
     if (selected) {
       const selectedIndex = selectedDays.findIndex(selectedDay =>
-        DateUtils.isSameDay(selectedDay, day)
+        DateUtils.isSameDay(selectedDay, day),
       );
       selectedDays.splice(selectedIndex, 1);
     } else {

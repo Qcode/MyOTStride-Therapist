@@ -32,7 +32,7 @@ PendingPatients.propTypes = {
       email: PropTypes.string,
       first_name: PropTypes.string,
       last_name: PropTypes.string,
-    })
+    }),
   ),
 };
 PendingPatients.defaultProps = {

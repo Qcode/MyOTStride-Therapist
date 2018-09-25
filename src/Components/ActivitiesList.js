@@ -12,10 +12,7 @@ function ActivitiesList(props) {
           <button onClick={() => props.deleteFunction(info)} type="button">
             delete
           </button>
-          <EditActivity
-            editFunction={props.editFunction}
-            info={info}
-          />
+          <EditActivity editFunction={props.editFunction} info={info} />
         </div>
       ))}
 
@@ -30,7 +27,7 @@ ActivitiesList.propTypes = {
       title: PropTypes.string,
       description: PropTypes.string,
       id: PropTypes.string,
-    })
+    }),
   ).isRequired,
   error: PropTypes.string,
   editFunction: PropTypes.func.isRequired,

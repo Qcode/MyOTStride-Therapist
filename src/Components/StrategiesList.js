@@ -23,7 +23,7 @@ StrategiesList.propTypes = {
     PropTypes.shape({
       strategy: PropTypes.string,
       id: PropTypes.string,
-    })
+    }),
   ).isRequired,
   editFunction: PropTypes.func.isRequired,
 };
