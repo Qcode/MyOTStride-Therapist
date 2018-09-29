@@ -7,6 +7,13 @@ class Api {
     this.error = null;
   }
 
+  validateKey(jsonData) {
+    if (jsonData !== null) {
+      this.validatedKey = true;
+      localStorage.setItem('validatedKey', true);
+    }
+  }
+
   setToken(newToken) {
     this.token = newToken;
     localStorage.setItem('token', newToken);
@@ -14,12 +21,12 @@ class Api {
 
   setClientId(newClientId) {
     this.clientId = newClientId;
-    localStorage.setItem('clientId',newClientId);
+    localStorage.setItem('clientId', newClientId);
   }
 
   setTherapistId(newTherapistId) {
     this.therapistId = newTherapistId;
-    localStorage.setItem('therapistId',newTherapistId);
+    localStorage.setItem('therapistId', newTherapistId);
   }
 
   request(endPoint, options) {
