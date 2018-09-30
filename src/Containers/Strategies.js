@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import Api from '../Api';
-import AddStrategies from '../Components/AddStrategies';
+import AddStrategy from '../Components/AddStrategy';
 import StrategiesList from '../Components/StrategiesList';
 
 class Strategies extends React.Component {
@@ -40,7 +40,7 @@ class Strategies extends React.Component {
             id: id.id,
           },
         ],
-      }))
+      })),
     );
   }
 
@@ -49,7 +49,7 @@ class Strategies extends React.Component {
       method: 'DELETE',
     }).then(() => {
       const strategies = this.state.strategies.filter(
-        obj => obj.id !== strategy.id
+        obj => obj.id !== strategy.id,
       );
       this.setState(prevState => ({
         ...prevState,
@@ -66,7 +66,7 @@ class Strategies extends React.Component {
       },
     }).then(() => {
       const index = this.state.strategies.findIndex(
-        obj => obj.id === strategy.id
+        obj => obj.id === strategy.id,
       );
       this.setState(prevState => {
         const newStrategies = [...prevState.strategies];
@@ -91,7 +91,8 @@ class Strategies extends React.Component {
           deleteFunction={this.deleteStrategies}
           editFunction={this.editStrategies}
         />
-        <AddStrategies addFunction={this.addStrategies} />
+        {this.state.error && <p>Error fetching strategies.</p>}
+        <AddStrategy addFunction={this.addStrategies} />
       </div>
     );
   }

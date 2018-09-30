@@ -12,7 +12,7 @@ class AddActivity extends React.Component {
   getCalendar(selectedDays) {
     this.props.setValues({
       ...this.props.values,
-      selectedDays: selectedDays.selectedDays,
+      selectedDays,
     });
   }
 
@@ -71,10 +71,10 @@ export default withFormik({
   handleSubmit: (values, formikBag) =>
     formikBag.props
       .addFunction(values)
-      .then(() => formikBag.setSubmitting(false))
       .catch(() =>
         formikBag.setErrors({
           failedSubmit: 'Problem submitting activity',
-        })
-      ),
+        }),
+      )
+      .finally(() => formikBag.setSubmitting(false)),
 })(AddActivity);

@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from './Login';
+import { Redirect } from 'react-router-dom';
 import Api from '../Api';
 
 function AuthenticatedRoute(WrappedComponent) {
@@ -8,6 +8,7 @@ function AuthenticatedRoute(WrappedComponent) {
       super(props);
       this.state = {
         validatedKey: Api.validatedKey,
+        failedToValidate: false,
       };
       this.authenticate();
     }
@@ -16,18 +17,20 @@ function AuthenticatedRoute(WrappedComponent) {
       if (!Api.validatedKey) {
         Api.request('therapists/:therapistId')
           .then(jsonData => {
-            Api.validateKey(jsonData);
+            Api.validateKey();
             this.setState({ validatedKey: true });
           })
-          .catch();
+          .catch(() => this.setState({ failedToValidate: true }));
       }
     }
 
     render() {
-      if (this.state.validatedKey) {
+      if (this.state.validatedKey && !this.state.failedToValidate) {
         return <WrappedComponent {...this.props} />;
+      } else if (this.state.failedToValidate) {
+        return <Redirect to="/" />;
       }
-      return <Login />;
+      return null;
     }
   };
 }

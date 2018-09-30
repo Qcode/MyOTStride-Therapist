@@ -7,10 +7,10 @@ function EditStrategy(props) {
     <div className="container">
       <h2>Edit Strategy Here</h2>
       <Form>
-        <label htmlFor="edit-strategy__strategy">
+        <label htmlFor={`edit-strategy__strategy-${props.info.id}`}>
           Strategy:
           <Field
-            id="edit-strategy__strategy"
+            id={`edit-strategy__strategy-${props.info.id}`}
             name="strategy"
             value={props.values.strategy}
           />
@@ -40,10 +40,10 @@ export default withFormik({
   handleSubmit: (values, formikBag) =>
     formikBag.props
       .editFunction(formikBag.props.info, values)
-      .then(() => formikBag.setSubmitting(false))
       .catch(() =>
         formikBag.setErrors({
           failedSubmit: 'Problem submitting activity',
-        })
-      ),
+        }),
+      )
+      .finally(() => formikBag.setSubmitting(false)),
 })(EditStrategy);

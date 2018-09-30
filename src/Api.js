@@ -7,11 +7,8 @@ class Api {
     this.error = null;
   }
 
-  validateKey(jsonData) {
-    if (jsonData !== null) {
-      this.validatedKey = true;
-      localStorage.setItem('validatedKey', true);
-    }
+  validateKey() {
+    this.validatedKey = true;
   }
 
   setToken(newToken) {
@@ -51,7 +48,7 @@ class Api {
     }
     return fetch(
       `http://localhost:3000/api/v1/${finalEndpoint}`,
-      finalOptions
+      finalOptions,
     ).then(data => {
       if (!data.ok) {
         throw new Error(data.status);

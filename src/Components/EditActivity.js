@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withFormik, Form, Field } from 'formik';
 import Calendar from './Calendar';
 
-class EditActivities extends React.Component {
+class EditActivity extends React.Component {
   constructor(props) {
     super(props);
     this.getCalendar = this.getCalendar.bind(this);
@@ -12,22 +12,27 @@ class EditActivities extends React.Component {
   getCalendar(selectedDays) {
     this.props.setValues({
       ...this.props.values,
-      selectedDays: selectedDays.selectedDays,
+      selectedDays,
     });
   }
 
   render() {
     return (
       <div>
+        <h1>Edit Activity Here</h1>
         <Form>
-          <label htmlFor="title">
+          <label htmlFor={`edit-activity__title-${this.props.info.id}`}>
             Title:
-            <Field id="title" name="title" value={this.props.values.title} />
+            <Field
+              id={`edit-activity__title-${this.props.info.id}`}
+              name="title"
+              value={this.props.values.title}
+            />
           </label>
-          <label htmlFor="description">
+          <label htmlFor={`edit-activity__description-${this.props.info.id}`}>
             description:
             <Field
-              id="description"
+              id={`edit-activity__description-${this.props.info.id}`}
               name="description"
               value={this.props.values.description}
             />
@@ -44,7 +49,7 @@ class EditActivities extends React.Component {
     );
   }
 }
-EditActivities.propTypes = {
+EditActivity.propTypes = {
   values: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
@@ -64,10 +69,10 @@ export default withFormik({
   handleSubmit: (values, formikBag) =>
     formikBag.props
       .editFunction(formikBag.props.info, values)
-      .then(() => formikBag.setSubmitting(false))
       .catch(() =>
         formikBag.setErrors({
           failedSubmit: 'Problem editing activity',
-        })
-      ),
-})(EditActivities);
+        }),
+      )
+      .finally(() => formikBag.setSubmitting(false)),
+})(EditActivity);

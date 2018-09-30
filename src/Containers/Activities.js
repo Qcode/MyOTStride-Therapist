@@ -29,26 +29,24 @@ class Activities extends React.Component {
         description: values.description,
         dates: values.selectedDays,
       },
-    })
-      .then(info => {
-        this.setState(prevState => ({
-          ...prevState,
-          activities: [
-            ...prevState.activities,
-            {
-              title: values.title,
-              description: values.description,
-              dates: values.selectedDays,
-              id: info.id,
-            },
-          ],
-        }));
-      })
-      .catch(err => this.setState({ error: err }));
+    }).then(info => {
+      this.setState(prevState => ({
+        ...prevState,
+        activities: [
+          ...prevState.activities,
+          {
+            title: values.title,
+            description: values.description,
+            dates: values.selectedDays,
+            id: info.id,
+          },
+        ],
+      }));
+    });
   }
 
   deleteActivity(info) {
-    Api.request(`clients/:clientId/activities/${info.id}`, {
+    return Api.request(`clients/:clientId/activities/${info.id}`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -98,10 +96,7 @@ class Activities extends React.Component {
           patientInfo={this.state.activities}
           deleteFunction={this.deleteActivity}
         />
-        <AddActivity
-          addFunction={this.addActivity}
-          getCalendar={this.getCalendar}
-        />
+        <AddActivity addFunction={this.addActivity} />
         {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
       </div>
     );
