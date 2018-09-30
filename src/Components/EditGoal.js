@@ -3,38 +3,44 @@ import PropTypes from 'prop-types';
 import { withFormik, Field, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import './EditGoal.css';
 
 function EditGoal(props) {
   return (
     <div>
       <Form>
-        <label htmlFor={`edit-goal__title-${props.info.id}`}>
-          Title:
-          <Field
-            id={`edit-goal__title-${props.info.id}`}
-            name="title"
-            placeholder="title"
-            value={props.values.title}
-          />
-        </label>
-        <label htmlFor={`edit-goal__description-${props.info.id}`}>
-          description:
-          <Field
-            id={`edit-goal__description-${props.info.id}`}
-            name="description"
-            placeholder="description"
-            value={props.values.description}
-          />
-        </label>
-        <label htmlFor={`edit-goal__end-date-${props.info.id}`}>
-          End Date:
-          <Field
-            id={`edit-goal__end-date-${props.info.id}`}
-            name="endDate"
-            type="date"
-            value={props.values.endDate}
-          />
-        </label>
+        <TextField
+          label="Title"
+          onChange={props.handleChange}
+          value={props.values.title}
+          variant="outlined"
+          margin="normal"
+          InputLabelProps={{ shrink: true }}
+          placeholder="New Goal"
+          name="title"
+        />
+        <TextField
+          label="Description"
+          onChange={props.handleChange}
+          value={props.values.description}
+          variant="outlined"
+          margin="normal"
+          InputLabelProps={{ shrink: true }}
+          placeholder="New Description"
+          name="description"
+          multiline
+          rows="4"
+        />
+        <TextField
+          label="End Date"
+          onChange={props.handleChange}
+          value={props.values.endDate}
+          variant="outlined"
+          margin="normal"
+          InputLabelProps={{ shrink: true }}
+          name="endDate"
+          type="date"
+        />
         <button type="submit" disabled={props.isSubmitting}>
           Submit
         </button>

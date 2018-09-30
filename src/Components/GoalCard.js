@@ -3,7 +3,20 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { withStyles } from '@material-ui/core/styles';
 import EditGoal from './EditGoal';
+import './GoalCard.css';
+
+const styles = {
+  edit: {
+    position: 'absolute',
+    right: 0,
+  },
+  delete: {
+    position: 'absolute',
+    right: '60px',
+  },
+};
 
 class GoalCard extends React.Component {
   constructor(props) {
@@ -30,27 +43,33 @@ class GoalCard extends React.Component {
       );
     } else {
       display = (
-        <div>
-          <h1>{this.props.info.title}</h1>
-          <h1>{this.props.info.description}</h1>
-          <h1>{this.props.info.end_date}</h1>
-        </div>
+        <React.Fragment>
+          <Button
+            className="GoalCard__Button"
+            onClick={() => this.props.deleteFunction(this.props.info)}
+            type="button"
+            classes={{ root: this.props.classes.delete }}
+          >
+            <DeleteIcon />
+          </Button>
+          <Button
+            classes={{ root: this.props.classes.edit }}
+            className="GoalCard__Button"
+            type="button"
+            onClick={() => this.setState({ editing: true })}
+          >
+            <EditIcon />
+          </Button>
+          <h2>Title:</h2>
+          <p>{this.props.info.title}</p>
+          <h2>Description:</h2>
+          <p id="description">{this.props.info.description}</p>
+          <h2>End Date:</h2>
+          <p id="end_date">{this.props.info.end_date}</p>
+        </React.Fragment>
       );
     }
-    return (
-      <div>
-        {display}
-        <Button
-          onClick={() => this.props.deleteFunction(this.props.info)}
-          type="button"
-        >
-          <DeleteIcon fontSize="large" />
-        </Button>
-        <Button type="button" onClick={() => this.setState({ editing: true })}>
-          <EditIcon />
-        </Button>
-      </div>
-    );
+    return <div className="GoalCard__container">{display}</div>;
   }
 }
 GoalCard.propTypes = {
@@ -63,4 +82,4 @@ GoalCard.propTypes = {
   deleteFunction: PropTypes.func.isRequired,
 };
 
-export default GoalCard;
+export default withStyles(styles)(GoalCard);
