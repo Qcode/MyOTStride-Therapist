@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import GoalsList from '../Components/GoalsList';
 import Api from '../Api';
 import AddGoal from '../Components/AddGoal';
+import GoalCard from '../Components/GoalCard';
 
 class Goals extends React.Component {
   constructor(props) {
@@ -91,13 +92,14 @@ class Goals extends React.Component {
     return (
       <div>
         <h1>Goals</h1>
-        <GoalsList
-          error={this.state.error === '' ? '' : 'error'}
-          patientInfo={this.state.goals}
-          deleteFunction={this.deleteGoal}
-          editFunction={this.editGoal}
-          goals={this.state.goals}
-        />
+        {this.state.goals.map(info => (
+          <GoalCard
+            key={info.id}
+            info={info}
+            editFunction={this.editGoal}
+            deleteFunction={this.deleteGoal}
+          />
+        ))}
         <AddGoal
           addFunction={this.addGoal}
           error={this.state.error === '' ? '' : 'error'}

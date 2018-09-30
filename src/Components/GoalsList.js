@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Create';
 import EditGoal from './EditGoal';
 
 function GoalsList(props) {
@@ -9,9 +12,13 @@ function GoalsList(props) {
         <div key={info.id} className="container">
           <h1>{info.title}</h1>
           <h1>{info.description}</h1>
-          <button onClick={() => props.deleteFunction(info)} type="button">
-            delete
-          </button>
+          <h1>{info.end_date}</h1>
+          <Button onClick={() => props.deleteFunction(info)} type="button">
+            <DeleteIcon fontsize="large" />
+          </Button>
+          <Button type="button">
+            <EditIcon />
+          </Button>
           <EditGoal
             editFunction={props.editFunction}
             info={info}
