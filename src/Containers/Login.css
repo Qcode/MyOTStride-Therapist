@@ -6,17 +6,10 @@
     margin-left: 30%;
     margin-right: 30%;
     border-radius: 5px;
-}
-.Login__Input{
+    padding: 20px;
     width: 40%;
-    margin-top: 5%;
-    border-radius: 5px;
+    align-items: center;
 }
 .Login__Button{
-    width: 40%;
-    font-size: 15px;
-    font-weight: 500;
-}
-.Login__Title{
-	color: white;
+    width: 50%;
 }

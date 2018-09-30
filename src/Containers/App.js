@@ -8,6 +8,7 @@ import PatientInformation from '../Components/PatientInformation';
 import Feedback from './Feedback';
 import Strategies from './Strategies';
 import AuthenticatedRoute from './AuthenticatedRoute';
+import SignUp from './SignUp';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         path="/patients"
         component={AuthenticatedRoute(PatientList)}
       />
+
+      <Route exact path="/signup" component={SignUp} />
 
       <Route
         exact

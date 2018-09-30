@@ -31,6 +31,9 @@ EditStrategy.propTypes = {
   errors: PropTypes.shape({
     failedSubmit: PropTypes.string,
   }).isRequired,
+  info: PropTypes.shape({
+    id: PropTypes.string,
+  }).isRequired,
 };
 
 export default withFormik({
