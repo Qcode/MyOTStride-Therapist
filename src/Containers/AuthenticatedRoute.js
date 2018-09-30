@@ -16,7 +16,7 @@ function AuthenticatedRoute(WrappedComponent) {
     authenticate() {
       if (!Api.validatedKey) {
         Api.request('therapists/:therapistId')
-          .then(jsonData => {
+          .then(() => {
             Api.validateKey();
             this.setState({ validatedKey: true });
           })
