@@ -7,10 +7,10 @@ function AddStrategy(props) {
     <div className="container">
       <h2>Add Strategy Here</h2>
       <Form>
-        <label htmlFor={`add-strategy__strategy`}>
+        <label htmlFor="add-strategy__strategy">
           Strategy:
           <Field
-            id={`add-strategy__strategy`}
+            id="add-strategy__strategy"
             name="strategy"
             value={props.values.strategy}
           />

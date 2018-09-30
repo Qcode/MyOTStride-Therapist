@@ -27,7 +27,8 @@ function AuthenticatedRoute(WrappedComponent) {
     render() {
       if (this.state.validatedKey && !this.state.failedToValidate) {
         return <WrappedComponent {...this.props} />;
-      } else if (this.state.failedToValidate) {
+      }
+      if (this.state.failedToValidate) {
         return <Redirect to="/" />;
       }
       return null;
