@@ -61,11 +61,12 @@ export default withRouter(
         .then(userData => {
           Api.setToken(userData.token);
           Api.setTherapistId(userData.id);
+          Api.validateKey();
           formikBag.props.history.push('/patients');
         })
         .catch(() => {
           formikBag.setSubmitting(false);
           formikBag.setErrors({ failedSubmit: 'Error logging in.' });
         }),
-  })(Login)
+  })(Login),
 );
