@@ -27,6 +27,11 @@ const theme = createMuiTheme({
           color: "#ff8552"
         }
       }
+    },
+    MuiButtonBase:{
+      root:{
+        margin:"2%"
+      }
     }
   }
 })
