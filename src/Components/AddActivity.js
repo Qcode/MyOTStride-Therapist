@@ -71,10 +71,10 @@ export default withFormik({
   handleSubmit: (values, formikBag) =>
     formikBag.props
       .addFunction(values)
-      .then(() => formikBag.setSubmitting(false))
       .catch(() =>
         formikBag.setErrors({
           failedSubmit: 'Problem submitting activity',
-        })
-      ),
+        }),
+      )
+      .finally(() => formikBag.setSubmitting(false)),
 })(AddActivity);

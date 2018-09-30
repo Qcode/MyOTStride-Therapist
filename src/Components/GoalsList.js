@@ -30,7 +30,7 @@ GoalsList.propTypes = {
       title: PropTypes.string,
       description: PropTypes.string,
       id: PropTypes.string,
-    })
+    }),
   ).isRequired,
   error: PropTypes.string,
   editFunction: PropTypes.func.isRequired,

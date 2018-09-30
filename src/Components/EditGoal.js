@@ -6,28 +6,28 @@ function EditGoal(props) {
   return (
     <div>
       <Form>
-        <label htmlFor="title">
+        <label htmlFor={`edit-goal__title-${props.info.id}`}>
           Title:
           <Field
-            id="title"
+            id={`edit-goal__title-${props.info.id}`}
             name="title"
             placeholder="title"
             value={props.values.title}
           />
         </label>
-        <label htmlFor="description">
+        <label htmlFor={`edit-goal__description-${props.info.id}`}>
           description:
           <Field
-            id="description"
+            id={`edit-goal__description-${props.info.id}`}
             name="description"
             placeholder="description"
             value={props.values.description}
           />
         </label>
-        <label htmlFor="endDate">
+        <label htmlFor={`edit-goal__end-date-${props.info.id}`}>
           End Date:
           <Field
-            id="endDate"
+            id={`edit-goal__end-date-${props.info.id}`}
             name="endDate"
             type="date"
             value={props.values.endDate}
@@ -37,7 +37,7 @@ function EditGoal(props) {
           Submit
         </button>
       </Form>
-      <p>{props.error === null ? '' : 'error'}</p>
+      <p>{props.error === null ? null : 'error'}</p>
     </div>
   );
 }
@@ -64,10 +64,10 @@ export default withFormik({
   handleSubmit: (values, formikBag) =>
     formikBag.props
       .editFunction(formikBag.props.info, values)
-      .then(() => formikBag.setSubmitting(false))
       .catch(() =>
         formikBag.setErrors({
           failedSubmit: 'Problem submitting goal',
-        })
-      ),
+        }),
+      )
+      .finally(() => formikBag.setSubmitting(false)),
 })(EditGoal);

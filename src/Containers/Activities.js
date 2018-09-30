@@ -29,21 +29,20 @@ class Activities extends React.Component {
         description: values.description,
         dates: values.selectedDays,
       },
-    })
-      .then(info => {
-        this.setState(prevState => ({
-          ...prevState,
-          activities: [
-            ...prevState.activities,
-            {
-              title: values.title,
-              description: values.description,
-              dates: values.selectedDays,
-              id: info.id,
-            },
-          ],
-        }));
-      })
+    }).then(info => {
+      this.setState(prevState => ({
+        ...prevState,
+        activities: [
+          ...prevState.activities,
+          {
+            title: values.title,
+            description: values.description,
+            dates: values.selectedDays,
+            id: info.id,
+          },
+        ],
+      }));
+    });
   }
 
   deleteActivity(info) {

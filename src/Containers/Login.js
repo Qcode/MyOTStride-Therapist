@@ -67,5 +67,5 @@ export default withRouter(
           formikBag.setSubmitting(false);
           formikBag.setErrors({ failedSubmit: 'Error logging in.' });
         }),
-  })(Login)
+  })(Login),
 );

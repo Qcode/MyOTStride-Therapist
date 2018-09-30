@@ -7,9 +7,13 @@ function AddStrategy(props) {
     <div className="container">
       <h2>Add Strategy Here</h2>
       <Form>
-        <label htmlFor="add-strategy__strategy">
+        <label htmlFor={`add-strategy__strategy`}>
           Strategy:
-          <Field id="strategy" name="strategy" value={props.values.strategy} />
+          <Field
+            id={`add-strategy__strategy`}
+            name="strategy"
+            value={props.values.strategy}
+          />
         </label>
         <button type="submit" disabled={props.isSubmitting}>
           Submit
@@ -36,10 +40,10 @@ export default withFormik({
   handleSubmit: (values, formikBag) =>
     formikBag.props
       .addFunction(values)
-      .then(() => formikBag.setSubmitting(false))
       .catch(() =>
         formikBag.setErrors({
           failedSubmit: 'Problem submitting activity',
-        })
-      ),
+        }),
+      )
+      .finally(() => formikBag.setSubmitting(false)),
 })(AddStrategy);

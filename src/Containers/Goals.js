@@ -43,7 +43,7 @@ class Goals extends React.Component {
             id,
           },
         ],
-      }))
+      })),
     );
   }
 

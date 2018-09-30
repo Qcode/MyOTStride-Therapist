@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function CurrentPatients(props) {
   return (
     <div>
-      <h1> Current Patients </h1>
+      <h1>Current Patients</h1>
       <ul>
         {props.patientList.map(patient => (
           <li key={patient.id}>
@@ -30,7 +30,7 @@ CurrentPatients.propTypes = {
       id: PropTypes.string,
       first_name: PropTypes.string,
       last_name: PropTypes.string,
-    })
+    }),
   ),
 };
 CurrentPatients.defaultProps = {

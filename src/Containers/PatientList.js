@@ -47,10 +47,10 @@ class PatientList extends React.Component {
       },
     }).then(id => {
       const index = this.state.pendingList.findIndex(
-        obj => obj.email === email
+        obj => obj.email === email,
       );
       const pendingList = this.state.pendingList.filter(
-        obj => obj.email !== email
+        obj => obj.email !== email,
       );
       this.setState(prevState => ({
         ...prevState,
