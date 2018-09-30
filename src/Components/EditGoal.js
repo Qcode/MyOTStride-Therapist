@@ -41,9 +41,17 @@ function EditGoal(props) {
           name="endDate"
           type="date"
         />
-        <button type="submit" disabled={props.isSubmitting}>
+        <Button type="submit" disabled={props.isSubmitting} color="primary" variant="contained">
           Submit
-        </button>
+        </Button>
+        <Button
+          type="button"
+          color ="primary"
+          variant="contained"
+          onClick={()=>props.changeDisplay()}
+        >
+          Cancel
+        </Button>
       </Form>
       <p>{props.error === null ? null : 'error'}</p>
     </div>
