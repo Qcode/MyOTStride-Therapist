@@ -61,6 +61,7 @@ export default withRouter(
         .then(userData => {
           Api.setToken(userData.token);
           Api.setTherapistId(userData.id);
+          Api.validateKey();
           formikBag.props.history.push('/patients');
         })
         .catch(() => {

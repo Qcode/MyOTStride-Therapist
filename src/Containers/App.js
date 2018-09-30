@@ -7,31 +7,47 @@ import Goals from './Goals';
 import PatientInformation from '../Components/PatientInformation';
 import Feedback from './Feedback';
 import Strategies from './Strategies';
+import AuthenticatedRoute from './AuthenticatedRoute';
 
 function App() {
   return (
     <div>
       <Route exact path="/" component={Login} />
-      <Route exact path="/patients" component={PatientList} />
+
+      <Route
+        exact
+        path="/patients"
+        component={AuthenticatedRoute(PatientList)}
+      />
+
       <Route
         exact
         path="/patients/patientInfo"
-        component={PatientInformation}
+        component={AuthenticatedRoute(PatientInformation)}
       />
 
       <Route
         exact
         path="/patients/patientInfo/activities"
-        component={Activities}
+        component={AuthenticatedRoute(Activities)}
       />
-      <Route exact path="/patients/patientInfo/goals" component={Goals} />
 
-      <Route exact path="/patients/patientInfo/feedback" component={Feedback} />
+      <Route
+        exact
+        path="/patients/patientInfo/goals"
+        component={AuthenticatedRoute(Goals)}
+      />
+
+      <Route
+        exact
+        path="/patients/patientInfo/feedback"
+        component={AuthenticatedRoute(Feedback)}
+      />
 
       <Route
         exact
         path="/patients/patientInfo/strategies"
-        component={Strategies}
+        component={AuthenticatedRoute(Strategies)}
       />
     </div>
   );
