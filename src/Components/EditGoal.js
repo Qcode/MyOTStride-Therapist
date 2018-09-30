@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withFormik, Field, Form } from 'formik';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 function EditGoal(props) {
   return (
@@ -69,5 +71,8 @@ export default withFormik({
           failedSubmit: 'Problem submitting goal',
         }),
       )
-      .finally(() => formikBag.setSubmitting(false)),
+      .finally(() => {
+        formikBag.setSubmitting(false);
+        formikBag.props.changeDisplay();
+      }),
 })(EditGoal);

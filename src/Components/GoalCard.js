@@ -11,19 +11,25 @@ class GoalCard extends React.Component {
     this.state = {
       editing: false,
     };
+    this.changeDisplay = this.changeDisplay.bind(this);
+  }
+
+  changeDisplay() {
+    this.setState({ editing: false });
   }
 
   render() {
     let display;
     if (this.state.editing) {
-      const display = (
+      display = (
         <EditGoal
+          changeDisplay={this.changeDisplay}
           editFunction={this.props.editFunction}
           info={this.props.info}
         />
       );
     } else {
-      const display = (
+      display = (
         <div>
           <h1>{this.props.info.title}</h1>
           <h1>{this.props.info.description}</h1>
@@ -38,9 +44,9 @@ class GoalCard extends React.Component {
           onClick={() => this.props.deleteFunction(this.props.info)}
           type="button"
         >
-          <DeleteIcon fontsize="large" />
+          <DeleteIcon fontSize="large" />
         </Button>
-        <Button type="button" onClick={() => this.setState({ Editing: true })}>
+        <Button type="button" onClick={() => this.setState({ editing: true })}>
           <EditIcon />
         </Button>
       </div>
@@ -51,9 +57,8 @@ GoalCard.propTypes = {
   info: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
-    id: PropTypes.string,
+    end_date: PropTypes.string,
   }).isRequired,
-  error: PropTypes.string,
   editFunction: PropTypes.func.isRequired,
   deleteFunction: PropTypes.func.isRequired,
 };

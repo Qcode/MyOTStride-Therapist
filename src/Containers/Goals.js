@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import GoalsList from '../Components/GoalsList';
 import Api from '../Api';
 import AddGoal from '../Components/AddGoal';
 import GoalCard from '../Components/GoalCard';
@@ -19,7 +18,7 @@ class Goals extends React.Component {
   }
 
   fetchGoals() {
-    Api.request('clients/:clientId/goals')
+    Api.request('clients/:clientId/goals/all')
       .then(jsonData => this.setState({ goals: jsonData }))
       .catch(() => this.setState({ error: 'Failed to fetch goals' }));
   }
