@@ -17,7 +17,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint .",
-    "lint:fix": "prettier --single-quote --trailing-comma es5 --write \"src/**/*.js\" && eslint . --fix"
+    "lint:fix": "prettier --single-quote --trailing-comma all --write \"src/**/*.js\" && eslint . --fix"
   },
   "devDependencies": {
     "eslint": "^5.3.0",
