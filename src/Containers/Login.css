@@ -8,23 +8,14 @@
     border-radius: 5px;
 }
 .Login__Input{
-    padding: 4%;
     width: 40%;
-    margin-top: 3%;
-    border-color: #00a388;
+    margin-top: 5%;
     border-radius: 5px;
 }
 .Login__Button{
     width: 40%;
-    background-color: #00a388;
-    color: white;
-    padding: 5px;
-    text-align: center;
     font-size: 15px;
     font-weight: 500;
-    cursor: pointer;
-    margin: 3%;
-    border-radius: 5px;
 }
 .Login__Title{
 	color: white;

@@ -3,6 +3,7 @@ import { withFormik, Form } from 'formik';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import Api from '../Api';
 import './Login.css';
 
@@ -14,32 +15,41 @@ function Login(props) {
         <TextField
           label="Email"
           className="Login__Input"
-          placeholder="Email"
           type="email"
           name="email"
           onChange={props.handleChange}
           value={props.values.email}
           variant="outlined"
+          margin="normal"
+          InputLabelProps={{ shrink: true }}
+          placeholder="therapist@therapy.org"
+          required
         />
         <br />
         <TextField
           label="Password"
           className="Login__Input"
-          placeholder="Password"
           type="password"
           name="password"
           onChange={props.handleChange}
           value={props.values.password}
           variant="outlined"
+          margin="normal"
+          InputLabelProps={{ shrink: true }}
+          placeholder="********"
+          color="secondary"
+          required
         />
         <br />
-        <button
-          className="Login__Button"
+        <Button
+          variant="contained"
           type="submit"
+          className="Login__Button"
           disabled={props.isSubmitting}
+          color="primary"
         >
           Login
-        </button>
+        </Button>
         {props.errors.failedSubmit && <p>{props.errors.failedSubmit}</p>}
       </Form>
     </div>
