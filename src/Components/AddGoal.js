@@ -39,9 +39,9 @@ function AddGoal(props) {
 
 AddGoal.propTypes = {
   values: PropTypes.shape({
-    title: PropTypes.string,
-    description: PropTypes.string,
-    endDate: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    endDate: PropTypes.string.isRequired,
   }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   errors: PropTypes.shape({
@@ -53,12 +53,15 @@ export default withFormik({
   mapPropsToValues: () => ({
     title: '',
     description: '',
-    endDate: ''
+    endDate: '',
   }),
   handleSubmit: (values, formikBag) =>
-    formikBag.props.addFunction(values).catch(() =>
-      formikBag.setErrors({
-        failedSubmit: 'Problem adding goal',
-      })
-    ),
+    formikBag.props
+      .addFunction(values)
+      .catch(() =>
+        formikBag.setErrors({
+          failedSubmit: 'Problem adding goal',
+        }),
+      )
+      .finally(() => formikBag.setSubmitting(false)),
 })(AddGoal);

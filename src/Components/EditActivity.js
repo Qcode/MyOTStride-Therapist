@@ -1,9 +1,9 @@
 import React from 'react';
-import { withFormik, Form, Field } from 'formik';
 import PropTypes from 'prop-types';
+import { withFormik, Form, Field } from 'formik';
 import Calendar from './Calendar';
 
-class AddActivity extends React.Component {
+class EditActivity extends React.Component {
   constructor(props) {
     super(props);
     this.getCalendar = this.getCalendar.bind(this);
@@ -18,63 +18,61 @@ class AddActivity extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <h2>Add Activities Here</h2>
+      <div>
+        <h1>Edit Activity Here</h1>
         <Form>
-          <label htmlFor="add-activity__title">
+          <label htmlFor={`edit-activity__title-${this.props.info.id}`}>
             Title:
             <Field
-              id="add-activity__title"
+              id={`edit-activity__title-${this.props.info.id}`}
               name="title"
               value={this.props.values.title}
             />
           </label>
-          <label htmlFor="add-activity__description">
+          <label htmlFor={`edit-activity__description-${this.props.info.id}`}>
             description:
             <Field
-              id="add-activity__description"
+              id={`edit-activity__description-${this.props.info.id}`}
               name="description"
               value={this.props.values.description}
             />
           </label>
-          <Calendar getCalendar={this.getCalendar} />
+          <Calendar
+            getCalendar={this.getCalendar}
+            dates={this.props.values.dates}
+          />
           <button type="submit" disabled={this.props.isSubmitting}>
             Submit
           </button>
-          {this.props.errors.failedSubmit && (
-            <p>{this.props.errors.failedSubmit}</p>
-          )}
         </Form>
       </div>
     );
   }
 }
-
-AddActivity.propTypes = {
+EditActivity.propTypes = {
   values: PropTypes.shape({
-    description: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    dates: PropTypes.arrayOf(PropTypes.string),
+    id: PropTypes.string,
   }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   setValues: PropTypes.func.isRequired,
-  errors: PropTypes.shape({
-    failedSubmit: PropTypes.string,
-  }).isRequired,
 };
 
 export default withFormik({
-  mapPropsToValues: () => ({
-    description: '',
-    title: '',
-    dates: '',
+  mapPropsToValues: props => ({
+    title: props.info.title,
+    description: props.info.description,
+    dates: props.info.dates,
   }),
   handleSubmit: (values, formikBag) =>
     formikBag.props
-      .addFunction(values)
+      .editFunction(formikBag.props.info, values)
       .catch(() =>
         formikBag.setErrors({
-          failedSubmit: 'Problem submitting activity',
+          failedSubmit: 'Problem editing activity',
         }),
       )
       .finally(() => formikBag.setSubmitting(false)),
-})(AddActivity);
+})(EditActivity);
