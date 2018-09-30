@@ -51,6 +51,9 @@ EditGoal.propTypes = {
     endDate: PropTypes.string,
     id: PropTypes.string,
   }).isRequired,
+  info: PropTypes.shape({
+    id: PropTypes.string,
+  }).isRequired,
   error: PropTypes.string,
   isSubmitting: PropTypes.bool.isRequired,
 };
