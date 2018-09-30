@@ -36,7 +36,6 @@ function Login(props) {
           margin="normal"
           InputLabelProps={{ shrink: true }}
           placeholder="********"
-          color="secondary"
           required
         />
         <Button

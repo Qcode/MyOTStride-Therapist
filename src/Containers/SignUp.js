@@ -50,30 +50,28 @@ function SignUp(props) {
         />
         <TextField
           className="SignUp__Input"
-          label="Password1"
+          label="Password"
           type="password"
-          name="password1"
+          name="password"
           onChange={props.handleChange}
-          value={props.values.password1}
+          value={props.values.password}
           variant="outlined"
           margin="normal"
           InputLabelProps={{ shrink: true }}
           placeholder="********"
-          color="secondary"
           required
         />
         <TextField
           className="SignUp__Input"
-          label="Password2"
+          label="Re-enter Your Password"
           type="password"
-          name="password2"
+          name="passwordForVerification"
           onChange={props.handleChange}
-          value={props.values.password2}
+          value={props.values.passwordForVerification}
           variant="outlined"
           margin="normal"
           InputLabelProps={{ shrink: true }}
           placeholder="********"
-          color="secondary"
           required
         />
         <Button
@@ -102,8 +100,8 @@ function SignUp(props) {
 SignUp.propTypes = {
   values: PropTypes.shape({
     email: PropTypes.string,
-    password1: PropTypes.string,
-    password2: PropTypes.string,
+    password: PropTypes.string,
+    passwordForVerification: PropTypes.string,
     firstName: PropTypes.string,
     lastName: PropTypes.string,
   }).isRequired,
@@ -119,8 +117,8 @@ export default withRouter(
   withFormik({
     mapPropsToValues: () => ({
       email: '',
-      password1: '',
-      password2: '',
+      password: '',
+      passwordForVerification: '',
       firstName: '',
       lastName: '',
     }),
@@ -130,7 +128,7 @@ export default withRouter(
         formikBag.setErrors({ failedSubmit: reason });
       };
 
-      if (values.password1 !== values.password2) {
+      if (values.password !== values.passwordForVerification) {
         failSubmit('Passwords do not match.');
         return;
       }
@@ -139,7 +137,7 @@ export default withRouter(
         method: 'POST',
         body: {
           email: values.email,
-          password: values.password1,
+          password: values.password,
           first_name: values.firstName,
           last_name: values.lastName,
           therapist: true,
