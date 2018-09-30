@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-
 import Login from './Login';
 import PatientList from './PatientList';
 import Activities from './Activities';
