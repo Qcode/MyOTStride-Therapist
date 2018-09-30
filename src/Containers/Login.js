@@ -15,12 +15,14 @@ function Login(props) {
           placeholder="email"
           value={props.values.email}
         />
+        <br />
         <Field
           placeholder="password"
           type="password"
           name="password"
           value={props.values.password}
         />
+        <br />
         <button type="submit" disabled={props.isSubmitting}>
           Login
         </button>
