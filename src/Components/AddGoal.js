@@ -1,5 +1,5 @@
 import React from 'react';
-import { withFormik, Form} from 'formik';
+import { withFormik, Form } from 'formik';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -37,9 +37,14 @@ function AddGoal(props) {
           margin="normal"
           InputLabelProps={{ shrink: true }}
           name="endDate"
-          type = 'date'
+          type="date"
         />
-        <Button color="primary" variant="contained" type="submit" disabled={props.isSubmitting}>
+        <Button
+          color="primary"
+          variant="contained"
+          type="submit"
+          disabled={props.isSubmitting}
+        >
           Submit
         </Button>
         {props.errors.failedSubmit && <p>{props.errors.failedSubmit}</p>}
@@ -58,6 +63,7 @@ AddGoal.propTypes = {
   errors: PropTypes.shape({
     failedSubmit: PropTypes.string,
   }).isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default withFormik({

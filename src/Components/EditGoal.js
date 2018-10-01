@@ -41,14 +41,19 @@ function EditGoal(props) {
           name="endDate"
           type="date"
         />
-        <Button type="submit" disabled={props.isSubmitting} color="primary" variant="contained">
+        <Button
+          type="submit"
+          disabled={props.isSubmitting}
+          color="primary"
+          variant="contained"
+        >
           Submit
         </Button>
         <Button
           type="button"
-          color ="primary"
+          color="primary"
           variant="contained"
-          onClick={()=>props.changeDisplay()}
+          onClick={() => props.changeDisplay()}
         >
           Cancel
         </Button>
@@ -65,11 +70,10 @@ EditGoal.propTypes = {
     endDate: PropTypes.string,
     id: PropTypes.string,
   }).isRequired,
-  info: PropTypes.shape({
-    id: PropTypes.string,
-  }).isRequired,
   error: PropTypes.string,
   isSubmitting: PropTypes.bool.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  changeDisplay: PropTypes.func.isRequired,
 };
 EditGoal.defaultProps = {
   error: null,
