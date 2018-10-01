@@ -1,36 +1,47 @@
 import React from 'react';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik, Form} from 'formik';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 function AddGoal(props) {
   return (
     <div className="container">
       <h2>Add Goals Here</h2>
       <Form>
-        <label htmlFor="add-goal__title">
-          Title:
-          <Field id="add-goal__title" name="title" value={props.values.title} />
-        </label>
-        <label htmlFor="add-goal__description">
-          description:
-          <Field
-            id="add-goal__description"
-            name="description"
-            value={props.values.description}
-          />
-        </label>
-        <label htmlFor="add-goal__end-date">
-          End Date:
-          <Field
-            name="endDate"
-            id="add-goal__end-date"
-            type="date"
-            value={props.values.endDate}
-          />
-        </label>
-        <button type="submit" disabled={props.isSubmitting}>
+        <TextField
+          label="Title"
+          onChange={props.handleChange}
+          value={props.values.title}
+          variant="outlined"
+          margin="normal"
+          InputLabelProps={{ shrink: true }}
+          placeholder="New Goal"
+          name="title"
+        />
+        <TextField
+          label="Description"
+          onChange={props.handleChange}
+          value={props.values.description}
+          variant="outlined"
+          margin="normal"
+          InputLabelProps={{ shrink: true }}
+          placeholder="New Description"
+          name="description"
+        />
+        <TextField
+          label="End Date"
+          onChange={props.handleChange}
+          value={props.values.endDate}
+          variant="outlined"
+          margin="normal"
+          InputLabelProps={{ shrink: true }}
+          name="endDate"
+          type = 'date'
+        />
+        <Button color="primary" variant="contained" type="submit" disabled={props.isSubmitting}>
           Submit
-        </button>
+        </Button>
         {props.errors.failedSubmit && <p>{props.errors.failedSubmit}</p>}
       </Form>
     </div>

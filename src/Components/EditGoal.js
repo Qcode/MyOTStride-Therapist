@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withFormik, Field, Form } from 'formik';
+import { withFormik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import './EditGoal.css';
@@ -16,7 +16,7 @@ function EditGoal(props) {
           variant="outlined"
           margin="normal"
           InputLabelProps={{ shrink: true }}
-          placeholder="New Goal"
+          placeholder="Improved Goal"
           name="title"
         />
         <TextField
@@ -26,7 +26,7 @@ function EditGoal(props) {
           variant="outlined"
           margin="normal"
           InputLabelProps={{ shrink: true }}
-          placeholder="New Description"
+          placeholder="Improved Description"
           name="description"
           multiline
           rows="4"

@@ -40,7 +40,7 @@ class Goals extends React.Component {
             title: values.title,
             description: values.description,
             end_date: values.endDate,
-            id,
+            id: id.id,
           },
         ],
       })),
