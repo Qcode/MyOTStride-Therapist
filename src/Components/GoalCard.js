@@ -65,7 +65,7 @@ class GoalCard extends React.Component {
           <h2>Description:</h2>
           <p id="description">{this.props.info.description}</p>
           <h2>End Date:</h2>
-          <p id="end_date">{this.props.info.end_date}</p>
+          <p id="end_date">{this.props.info.end_date.slice(0,10)}</p>
         </React.Fragment>
       );
     }
