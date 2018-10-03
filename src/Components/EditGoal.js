@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withFormik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import './EditGoal.css';
 
 function EditGoal(props) {
   return (

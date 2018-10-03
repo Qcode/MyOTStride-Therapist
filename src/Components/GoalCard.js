@@ -5,7 +5,6 @@ import EditIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
 import EditGoal from './EditGoal';
-import './GoalCard.css';
 
 const styles = {
   edit: {
@@ -45,7 +44,6 @@ class GoalCard extends React.Component {
       display = (
         <React.Fragment>
           <Button
-            className="GoalCard__Button"
             onClick={() => this.props.deleteFunction(this.props.info)}
             type="button"
             classes={{ root: this.props.classes.delete }}
@@ -54,7 +52,6 @@ class GoalCard extends React.Component {
           </Button>
           <Button
             classes={{ root: this.props.classes.edit }}
-            className="GoalCard__Button"
             type="button"
             onClick={() => this.setState({ editing: true })}
           >
@@ -69,7 +66,7 @@ class GoalCard extends React.Component {
         </React.Fragment>
       );
     }
-    return <div className="GoalCard__container">{display}</div>;
+    return <div className="container">{display}</div>;
   }
 }
 GoalCard.propTypes = {
