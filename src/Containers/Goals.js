@@ -1,5 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
 import Api from '../Api';
 import AddGoal from '../Components/AddGoal';
 import GoalCard from '../Components/GoalCard';
@@ -10,11 +12,13 @@ class Goals extends React.Component {
     this.state = {
       goals: [],
       error: null,
+      open: false,
     };
     this.fetchGoals();
     this.addGoal = this.addGoal.bind(this);
     this.deleteGoal = this.deleteGoal.bind(this);
     this.editGoal = this.editGoal.bind(this);
+    this.handleModal = this.handleModal.bind(this);
   }
 
   fetchGoals() {
@@ -87,6 +91,13 @@ class Goals extends React.Component {
     });
   }
 
+  handleModal() {
+    this.setState(prevState => ({
+      ...prevState,
+      open: !prevState.open,
+    }));
+  }
+
   render() {
     return (
       <div>
@@ -102,7 +113,12 @@ class Goals extends React.Component {
         <AddGoal
           addFunction={this.addGoal}
           error={this.state.error === '' ? '' : 'error'}
+          handleModal={this.handleModal}
+          open={this.state.open}
         />
+        <Button onClick={this.handleModal}>
+          <AddIcon />
+        </Button>
         {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
       </div>
     );
