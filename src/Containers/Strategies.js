@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Api from '../Api';
 import AddStrategy from '../Components/AddStrategy';
 import StrategyCard from '../Components/StrategyCard';
+import AddButton from '../Components/AddButton';
 
 class Strategies extends React.Component {
   constructor(props) {
@@ -11,11 +12,13 @@ class Strategies extends React.Component {
     this.state = {
       strategies: [],
       error: null,
+      open: false,
     };
     this.fetchStrategies();
     this.addStrategies = this.addStrategies.bind(this);
     this.editStrategies = this.editStrategies.bind(this);
     this.deleteStrategies = this.deleteStrategies.bind(this);
+    this.handleModal = this.handleModal.bind(this);
   }
 
   fetchStrategies() {
@@ -82,6 +85,13 @@ class Strategies extends React.Component {
     });
   }
 
+  handleModal() {
+    this.setState(prevState => ({
+      ...prevState,
+      open: !prevState.open,
+    }));
+  }
+
   render() {
     return (
       <div>
@@ -95,7 +105,12 @@ class Strategies extends React.Component {
           />
         ))}
         {this.state.error && <p>Error fetching strategies.</p>}
-        <AddStrategy addFunction={this.addStrategies} />
+        <AddButton handleModal={this.handleModal} />
+        <AddStrategy
+          addFunction={this.addStrategies}
+          handleModal={this.handleModal}
+          open={this.state.open}
+        />
       </div>
     );
   }
