@@ -1,10 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button';
 import Api from '../Api';
 import AddGoal from '../Components/AddGoal';
 import GoalCard from '../Components/GoalCard';
+import AddButton from '../Components/AddButton';
 
 class Goals extends React.Component {
   constructor(props) {
@@ -116,13 +115,10 @@ class Goals extends React.Component {
           handleModal={this.handleModal}
           open={this.state.open}
         />
-        <Button onClick={this.handleModal}>
-          <AddIcon />
-        </Button>
+        <AddButton handleModal={this.handleModal} />
         {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
       </div>
     );
   }
 }
-
 export default withRouter(Goals);
