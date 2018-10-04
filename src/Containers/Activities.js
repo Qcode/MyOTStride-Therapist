@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import ActivitiesList from '../Components/ActivitiesList';
+import ActivityCard from '../Components/ActivityCard';
 import Api from '../Api';
 import AddActivity from '../Components/AddActivity';
 
@@ -89,13 +89,13 @@ class Activities extends React.Component {
     return (
       <div>
         <h1>Activities</h1>
-        <ActivitiesList
-          activities={this.state.activities}
+        {this.state.activities.map(info=>(
+        <ActivityCard
           editFunction={this.editActivity}
-          error={this.state.error === null ? null : 'error'}
-          patientInfo={this.state.activities}
+          info={info}
           deleteFunction={this.deleteActivity}
         />
+      ))}
         <AddActivity addFunction={this.addActivity} />
         {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
       </div>
