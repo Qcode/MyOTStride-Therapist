@@ -91,6 +91,7 @@ class Strategies extends React.Component {
             info={info}
             deleteFunction={this.deleteStrategies}
             editFunction={this.editStrategies}
+            key={info.id}
           />
         ))}
         {this.state.error && <p>Error fetching strategies.</p>}

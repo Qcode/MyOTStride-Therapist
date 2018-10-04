@@ -17,7 +17,9 @@ function EditStrategy(props) {
           margin="normal"
           InputLabelProps={{ shrink: true }}
           placeholder="Improved Strategy"
-          name="Strategy"
+          name="strategy"
+          multiline
+          rows="4"
         />
         <Button
           color="primary"
@@ -64,5 +66,8 @@ export default withFormik({
           failedSubmit: 'Problem submitting activity',
         }),
       )
-      .finally(() => formikBag.setSubmitting(false)),
+      .finally(() => {
+        formikBag.setSubmitting(false);
+        formikBag.props.changeDisplay();
+      }),
 })(EditStrategy);
