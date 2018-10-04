@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import Api from '../Api';
 import AddStrategy from '../Components/AddStrategy';
-import StrategiesList from '../Components/StrategiesList';
+import StrategyCard from '../Components/StrategyCard';
 
 class Strategies extends React.Component {
   constructor(props) {
@@ -86,11 +86,13 @@ class Strategies extends React.Component {
     return (
       <div>
         <h1>Strategies</h1>
-        <StrategiesList
-          strategies={this.state.strategies}
-          deleteFunction={this.deleteStrategies}
-          editFunction={this.editStrategies}
-        />
+        {this.state.strategies.map(info => (
+          <StrategyCard
+            info={info}
+            deleteFunction={this.deleteStrategies}
+            editFunction={this.editStrategies}
+          />
+        ))}
         {this.state.error && <p>Error fetching strategies.</p>}
         <AddStrategy addFunction={this.addStrategies} />
       </div>

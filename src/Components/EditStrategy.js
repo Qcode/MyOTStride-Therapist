@@ -1,23 +1,40 @@
 import React from 'react';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik, Form } from 'formik';
 import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 function EditStrategy(props) {
   return (
-    <div className="container">
+    <div>
       <h2>Edit Strategy Here</h2>
       <Form>
-        <label htmlFor={`edit-strategy__strategy-${props.info.id}`}>
-          Strategy:
-          <Field
-            id={`edit-strategy__strategy-${props.info.id}`}
-            name="strategy"
-            value={props.values.strategy}
-          />
-        </label>
-        <button type="submit" disabled={props.isSubmitting}>
+        <TextField
+          label="Strategy"
+          onChange={props.handleChange}
+          value={props.values.strategy}
+          variant="outlined"
+          margin="normal"
+          InputLabelProps={{ shrink: true }}
+          placeholder="Improved Strategy"
+          name="Strategy"
+        />
+        <Button
+          color="primary"
+          variant="contained"
+          type="submit"
+          disabled={props.isSubmitting}
+        >
           Submit
-        </button>
+        </Button>
+        <Button
+          type="button"
+          color="primary"
+          variant="contained"
+          onClick={() => props.changeDisplay()}
+        >
+          Cancel
+        </Button>
         {props.errors.failedSubmit && <p>{props.errors.failedSubmit}</p>}
       </Form>
     </div>
@@ -31,6 +48,8 @@ EditStrategy.propTypes = {
   errors: PropTypes.shape({
     failedSubmit: PropTypes.string,
   }).isRequired,
+  handleChange: PropTypes.func.isRequired,
+  changeDisplay: PropTypes.func.isRequired,
 };
 
 export default withFormik({
