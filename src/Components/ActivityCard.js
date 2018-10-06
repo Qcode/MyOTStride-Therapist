@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
-import EditActivity from './EditStrategy';
+import EditActivity from './EditActivity';
 
 const styles = {
   edit: {
@@ -84,6 +84,8 @@ ActivityCard.propTypes = {
       right: PropTypes.string,
     }),
   }).isRequired,
+  handleChange: PropTypes.func.isRequired,
+  changeDisplay: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(ActivityCard);

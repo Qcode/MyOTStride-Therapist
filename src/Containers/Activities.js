@@ -89,13 +89,13 @@ class Activities extends React.Component {
     return (
       <div>
         <h1>Activities</h1>
-        {this.state.activities.map(info=>(
-        <ActivityCard
-          editFunction={this.editActivity}
-          info={info}
-          deleteFunction={this.deleteActivity}
-        />
-      ))}
+        {this.state.activities.map(info => (
+          <ActivityCard
+            editFunction={this.editActivity}
+            info={info}
+            deleteFunction={this.deleteActivity}
+          />
+        ))}
         <AddActivity addFunction={this.addActivity} />
         {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
       </div>
