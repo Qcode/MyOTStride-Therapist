@@ -10,12 +10,22 @@ h1 {
   text-align: center;
   color: #e6e6e6;
 }
-.container {
-  border: 3px solid black;
-  border-radius: 2px;
-  margin: 3%;
+h2{
+  font-size: 20px;
+  text-align: left;
+  color: #5bc0eb;
 }
-
+.container {
+  background-color: #e6e6e6;
+  margin-top: 5%;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-bottom:5%;
+  border-radius: 5px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 10px 10px #4F4F4F;
+}
 label {
   display: block;
 }

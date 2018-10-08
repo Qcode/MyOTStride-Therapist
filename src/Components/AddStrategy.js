@@ -1,26 +1,40 @@
 import React from 'react';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik, Form } from 'formik';
 import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
 
 function AddStrategy(props) {
   return (
-    <div className="container">
-      <h2>Add Strategy Here</h2>
-      <Form>
-        <label htmlFor="add-strategy__strategy">
-          Strategy:
-          <Field
-            id="add-strategy__strategy"
-            name="strategy"
+    <Modal open={props.open} onClose={props.handleModal}>
+      <div className="container">
+        <h2>Add Strategy Here</h2>
+        <Form>
+          <TextField
+            label="Strategy"
+            onChange={props.handleChange}
             value={props.values.strategy}
+            variant="outlined"
+            margin="normal"
+            InputLabelProps={{ shrink: true }}
+            placeholder="Improved Strategy"
+            name="strategy"
+            multiline
+            rows="4"
           />
-        </label>
-        <button type="submit" disabled={props.isSubmitting}>
-          Submit
-        </button>
-        {props.errors.failedSubmit && <p>{props.errors.failedSubmit}</p>}
-      </Form>
-    </div>
+          <Button
+            color="primary"
+            variant="contained"
+            type="submit"
+            disabled={props.isSubmitting}
+          >
+            Submit
+          </Button>
+          {props.errors.failedSubmit && <p>{props.errors.failedSubmit}</p>}
+        </Form>
+      </div>
+    </Modal>
   );
 }
 AddStrategy.propTypes = {
@@ -31,6 +45,9 @@ AddStrategy.propTypes = {
   errors: PropTypes.shape({
     failedSubmit: PropTypes.string,
   }).isRequired,
+  open: PropTypes.bool.isRequired,
+  handleModal: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default withFormik({
@@ -45,5 +62,8 @@ export default withFormik({
           failedSubmit: 'Problem submitting activity',
         }),
       )
-      .finally(() => formikBag.setSubmitting(false)),
+      .finally(() => {
+        formikBag.setSubmitting(false);
+        formikBag.props.handleModal();
+      }),
 })(AddStrategy);
