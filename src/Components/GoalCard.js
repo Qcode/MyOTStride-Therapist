@@ -45,14 +45,12 @@ class GoalCard extends React.Component {
         <React.Fragment>
           <Button
             onClick={() => this.props.deleteFunction(this.props.info)}
-            type="button"
             classes={{ root: this.props.classes.delete }}
           >
             <DeleteIcon />
           </Button>
           <Button
             classes={{ root: this.props.classes.edit }}
-            type="button"
             onClick={() => this.setState({ editing: true })}
           >
             <EditIcon />
@@ -60,9 +58,9 @@ class GoalCard extends React.Component {
           <h2>Title:</h2>
           <p>{this.props.info.title}</p>
           <h2>Description:</h2>
-          <p id="description">{this.props.info.description}</p>
+          <p>{this.props.info.description}</p>
           <h2>End Date:</h2>
-          <p id="end_date">{this.props.info.end_date.slice(0, 10)}</p>
+          <p>{this.props.info.end_date.slice(0, 10)}</p>
         </React.Fragment>
       );
     }

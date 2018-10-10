@@ -41,7 +41,6 @@ function EditGoal(props) {
           type="date"
         />
         <Button
-          type="submit"
           disabled={props.isSubmitting}
           color="primary"
           variant="contained"
@@ -49,10 +48,9 @@ function EditGoal(props) {
           Submit
         </Button>
         <Button
-          type="button"
           color="primary"
           variant="contained"
-          onClick={() => props.changeDisplay()}
+          onClick={props.changeDisplay}
         >
           Cancel
         </Button>
