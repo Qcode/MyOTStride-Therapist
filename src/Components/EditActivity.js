@@ -82,6 +82,9 @@ EditActivity.propTypes = {
   setValues: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   changeDisplay: PropTypes.func.isRequired,
+  info: PropTypes.shape({
+    id: PropTypes.string,
+  }).isRequired,
 };
 
 export default withFormik({

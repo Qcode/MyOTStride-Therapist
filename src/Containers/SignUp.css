@@ -1,0 +1,13 @@
+.SignUp__Form{
+  text-align: center;
+  background-color: #e6e6e6;
+  margin-top: 5%;
+  margin-left: 30%;
+  margin-right: 30%;
+  border-radius: 5px;
+  padding: 20px;
+}
+.SignUp__Button{
+    width: 50%;
+}
+

@@ -25,7 +25,6 @@ function Login(props) {
           placeholder="therapist@therapy.org"
           required
         />
-        <br />
         <TextField
           label="Password"
           className="Login__Input"
@@ -37,10 +36,8 @@ function Login(props) {
           margin="normal"
           InputLabelProps={{ shrink: true }}
           placeholder="********"
-          color="secondary"
           required
         />
-        <br />
         <Button
           variant="contained"
           type="submit"
@@ -49,6 +46,15 @@ function Login(props) {
           color="primary"
         >
           Login
+        </Button>
+        <Button
+          variant="contained"
+          type="button"
+          onClick={() => props.history.push('/signup')}
+          color="primary"
+          className="Login__Button"
+        >
+          Create An Account
         </Button>
         {props.errors.failedSubmit && <p>{props.errors.failedSubmit}</p>}
       </Form>
@@ -66,6 +72,8 @@ Login.propTypes = {
   errors: PropTypes.shape({
     failedSubmit: PropTypes.string,
   }).isRequired,
+  history: PropTypes.shape({ push: PropTypes.func, goBack: PropTypes.func })
+    .isRequired,
 };
 
 export default withRouter(
