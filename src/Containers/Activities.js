@@ -4,15 +4,17 @@ import { withRouter } from 'react-router-dom';
 import ActivityCard from '../Components/ActivityCard';
 import Api from '../Api';
 import AddActivity from '../Components/AddActivity';
+import AddButton from '../Components/AddButton';
 
 class Activities extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { activities: [], error: null };
+    this.state = { activities: [], error: null, open: false };
     this.fetchActivities();
     this.addActivity = this.addActivity.bind(this);
     this.deleteActivity = this.deleteActivity.bind(this);
     this.editActivity = this.editActivity.bind(this);
+    this.handleModal = this.handleModal.bind(this);
   }
 
   fetchActivities() {
@@ -85,6 +87,13 @@ class Activities extends React.Component {
     });
   }
 
+  handleModal() {
+    this.setState(prevState => ({
+      ...prevState,
+      open: !prevState.open,
+    }));
+  }
+
   render() {
     return (
       <div>
@@ -96,7 +105,12 @@ class Activities extends React.Component {
             deleteFunction={this.deleteActivity}
           />
         ))}
-        <AddActivity addFunction={this.addActivity} />
+        <AddActivity
+          addFunction={this.addActivity}
+          handleModal={this.handleModal}
+          open={this.state.open}
+        />
+        <AddButton handleModal={this.handleModal} />
         {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
       </div>
     );
