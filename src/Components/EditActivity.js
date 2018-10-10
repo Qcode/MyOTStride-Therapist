@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Calendar from './Calendar';
@@ -34,14 +34,14 @@ class EditActivity extends React.Component {
             name="title"
           />
           <TextField
-            label="Strategy"
+            label="Description"
             onChange={this.props.handleChange}
             value={this.props.values.description}
             variant="outlined"
             margin="normal"
             InputLabelProps={{ shrink: true }}
-            placeholder="Improved Strategy"
-            name="strategy"
+            placeholder="Improved Description"
+            name="description"
             multiline
             rows="4"
           />
@@ -58,7 +58,6 @@ class EditActivity extends React.Component {
             Submit
           </Button>
           <Button
-            type="button"
             color="primary"
             variant="contained"
             onClick={() => this.props.changeDisplay()}
@@ -81,9 +80,6 @@ EditActivity.propTypes = {
   setValues: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   changeDisplay: PropTypes.func.isRequired,
-  info: PropTypes.shape({
-    id: PropTypes.string,
-  }).isRequired,
 };
 
 export default withFormik({

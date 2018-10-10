@@ -84,8 +84,6 @@ ActivityCard.propTypes = {
       right: PropTypes.string,
     }),
   }).isRequired,
-  handleChange: PropTypes.func.isRequired,
-  changeDisplay: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(ActivityCard);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik, Form } from 'formik';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -76,6 +76,9 @@ AddActivity.propTypes = {
   errors: PropTypes.shape({
     failedSubmit: PropTypes.string,
   }).isRequired,
+  handleModal: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
 };
 
 export default withFormik({
@@ -92,5 +95,8 @@ export default withFormik({
           failedSubmit: 'Problem submitting activity',
         }),
       )
-      .finally(() => formikBag.setSubmitting(false)),
+      .finally(() => {
+        formikBag.setSubmitting(false);
+        formikBag.props.handleModal();
+      }),
 })(AddActivity);
