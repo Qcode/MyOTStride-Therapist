@@ -3,28 +3,27 @@ body {
   padding: 0;
   font-family: sans-serif;
   background-image: radial-gradient(#00a388, #00806a);
-  height:100vh;
-	}
+  height: 100vh;
+}
 h1 {
   font-size: 40px;
   text-align: center;
   color: #e6e6e6;
 }
-h2{
+h2 {
   font-size: 20px;
   text-align: left;
   color: #5bc0eb;
 }
 .container {
   background-color: #e6e6e6;
+  margin: auto;
   margin-top: 5%;
-  margin-left: 30%;
-  margin-right: 30%;
-  margin-bottom:5%;
+  margin-bottom: 5%;
   border-radius: 5px;
   padding: 20px;
   position: relative;
-  box-shadow: 10px 10px #4F4F4F;
+  box-shadow: 10px 10px #4f4f4f;
 }
 label {
   display: block;

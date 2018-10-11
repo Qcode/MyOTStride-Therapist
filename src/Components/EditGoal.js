@@ -1,41 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withFormik, Field, Form } from 'formik';
+import { withFormik, Form } from 'formik';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 function EditGoal(props) {
   return (
     <div>
       <Form>
-        <label htmlFor={`edit-goal__title-${props.info.id}`}>
-          Title:
-          <Field
-            id={`edit-goal__title-${props.info.id}`}
-            name="title"
-            placeholder="title"
-            value={props.values.title}
-          />
-        </label>
-        <label htmlFor={`edit-goal__description-${props.info.id}`}>
-          description:
-          <Field
-            id={`edit-goal__description-${props.info.id}`}
-            name="description"
-            placeholder="description"
-            value={props.values.description}
-          />
-        </label>
-        <label htmlFor={`edit-goal__end-date-${props.info.id}`}>
-          End Date:
-          <Field
-            id={`edit-goal__end-date-${props.info.id}`}
-            name="endDate"
-            type="date"
-            value={props.values.endDate}
-          />
-        </label>
-        <button type="submit" disabled={props.isSubmitting}>
+        <TextField
+          label="Title"
+          onChange={props.handleChange}
+          value={props.values.title}
+          variant="outlined"
+          margin="normal"
+          InputLabelProps={{ shrink: true }}
+          placeholder="Improved Goal"
+          name="title"
+        />
+        <TextField
+          label="Description"
+          onChange={props.handleChange}
+          value={props.values.description}
+          variant="outlined"
+          margin="normal"
+          InputLabelProps={{ shrink: true }}
+          placeholder="Improved Description"
+          name="description"
+          multiline
+          rows="4"
+        />
+        <TextField
+          label="End Date"
+          onChange={props.handleChange}
+          value={props.values.endDate}
+          variant="outlined"
+          margin="normal"
+          InputLabelProps={{ shrink: true }}
+          name="endDate"
+          type="date"
+        />
+        <Button
+          type="submit"
+          disabled={props.isSubmitting}
+          color="primary"
+          variant="contained"
+        >
           Submit
-        </button>
+        </Button>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={props.changeDisplay}
+        >
+          Cancel
+        </Button>
       </Form>
       <p>{props.error === null ? null : 'error'}</p>
     </div>
@@ -49,11 +68,10 @@ EditGoal.propTypes = {
     endDate: PropTypes.string,
     id: PropTypes.string,
   }).isRequired,
-  info: PropTypes.shape({
-    id: PropTypes.string,
-  }).isRequired,
   error: PropTypes.string,
   isSubmitting: PropTypes.bool.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  changeDisplay: PropTypes.func.isRequired,
 };
 EditGoal.defaultProps = {
   error: null,
@@ -72,5 +90,8 @@ export default withFormik({
           failedSubmit: 'Problem submitting goal',
         }),
       )
-      .finally(() => formikBag.setSubmitting(false)),
+      .finally(() => {
+        formikBag.setSubmitting(false);
+        formikBag.props.changeDisplay();
+      }),
 })(EditGoal);

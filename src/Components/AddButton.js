@@ -7,8 +7,9 @@ import PropTypes from 'prop-types';
 const styles = {
   add: {
     position: 'fixed',
-    right: '5px',
-    bottom: '5px',
+    right: '3%',
+    bottom: '5%',
+    color: '#e6e6e6',
   },
 };
 
