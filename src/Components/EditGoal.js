@@ -41,6 +41,7 @@ function EditGoal(props) {
           type="date"
         />
         <Button
+          type="submit"
           disabled={props.isSubmitting}
           color="primary"
           variant="contained"
