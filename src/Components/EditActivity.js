@@ -48,6 +48,7 @@ class EditActivity extends React.Component {
           <Calendar
             getCalendar={this.getCalendar}
             dates={this.props.values.dates}
+            edit = {true}
           />
           <Button
             color="primary"

@@ -5,7 +5,7 @@ import EditIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
 import EditActivity from './EditActivity';
-
+import Calendar from './Calendar';
 const styles = {
   edit: {
     position: 'absolute',
@@ -61,6 +61,11 @@ class ActivityCard extends React.Component {
           <p>{this.props.info.title}</p>
           <h2>Description:</h2>
           <p>{this.props.info.description}</p>
+          <Calendar
+            getCalendar={this.getCalendar}
+            dates={this.props.info.dates}
+            edit = {false}
+          />
         </React.Fragment>
       );
     }

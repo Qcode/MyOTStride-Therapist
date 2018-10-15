@@ -47,7 +47,7 @@ class AddActivity extends React.Component {
               multiline
               rows="4"
             />
-            <Calendar getCalendar={this.getCalendar} />
+            <Calendar getCalendar={this.getCalendar} edit ={true} />
             <Button
               variant="contained"
               color="primary"
