@@ -25,6 +25,7 @@ h2{
   padding: 20px;
   position: relative;
   box-shadow: 10px 10px #4F4F4F;
+  text-align: center;
 }
 label {
   display: block;
