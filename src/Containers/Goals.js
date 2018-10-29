@@ -1,8 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import GoalsList from '../Components/GoalsList';
 import Api from '../Api';
 import AddGoal from '../Components/AddGoal';
+import GoalCard from '../Components/GoalCard';
+import AddButton from '../Components/AddButton';
 
 class Goals extends React.Component {
   constructor(props) {
@@ -10,15 +11,17 @@ class Goals extends React.Component {
     this.state = {
       goals: [],
       error: null,
+      open: false,
     };
     this.fetchGoals();
     this.addGoal = this.addGoal.bind(this);
     this.deleteGoal = this.deleteGoal.bind(this);
     this.editGoal = this.editGoal.bind(this);
+    this.handleModal = this.handleModal.bind(this);
   }
 
   fetchGoals() {
-    Api.request('clients/:clientId/goals')
+    Api.request('clients/:clientId/goals/all')
       .then(jsonData => this.setState({ goals: jsonData }))
       .catch(() => this.setState({ error: 'Failed to fetch goals' }));
   }
@@ -40,7 +43,7 @@ class Goals extends React.Component {
             title: values.title,
             description: values.description,
             end_date: values.endDate,
-            id,
+            id: id.id,
           },
         ],
       })),
@@ -87,25 +90,35 @@ class Goals extends React.Component {
     });
   }
 
+  handleModal() {
+    this.setState(prevState => ({
+      ...prevState,
+      open: !prevState.open,
+    }));
+  }
+
   render() {
     return (
       <div>
         <h1>Goals</h1>
-        <GoalsList
-          error={this.state.error === '' ? '' : 'error'}
-          patientInfo={this.state.goals}
-          deleteFunction={this.deleteGoal}
-          editFunction={this.editGoal}
-          goals={this.state.goals}
-        />
+        {this.state.goals.map(info => (
+          <GoalCard
+            key={info.id}
+            info={info}
+            editFunction={this.editGoal}
+            deleteFunction={this.deleteGoal}
+          />
+        ))}
         <AddGoal
           addFunction={this.addGoal}
           error={this.state.error === '' ? '' : 'error'}
+          handleModal={this.handleModal}
+          open={this.state.open}
         />
+        <AddButton handleModal={this.handleModal} />
         {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
       </div>
     );
   }
 }
-
 export default withRouter(Goals);
