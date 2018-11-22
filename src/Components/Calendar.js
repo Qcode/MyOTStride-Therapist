@@ -31,7 +31,7 @@ class Calendar extends React.Component {
       <div>
         <DayPicker
           selectedDays={this.state.selectedDays}
-          onDayClick={this.props.edit?this.handleDayClick:null}
+          onDayClick={this.props.edit ? this.handleDayClick : null}
         />
       </div>
     );
