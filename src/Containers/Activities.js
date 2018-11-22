@@ -1,18 +1,20 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import ActivitiesList from '../Components/ActivitiesList';
+import ActivityCard from '../Components/ActivityCard';
 import Api from '../Api';
 import AddActivity from '../Components/AddActivity';
+import AddButton from '../Components/AddButton';
 
 class Activities extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { activities: [], error: null };
+    this.state = { activities: [], error: null, open: false };
     this.fetchActivities();
     this.addActivity = this.addActivity.bind(this);
     this.deleteActivity = this.deleteActivity.bind(this);
     this.editActivity = this.editActivity.bind(this);
+    this.handleModal = this.handleModal.bind(this);
   }
 
   fetchActivities() {
@@ -85,18 +87,30 @@ class Activities extends React.Component {
     });
   }
 
+  handleModal() {
+    this.setState(prevState => ({
+      ...prevState,
+      open: !prevState.open,
+    }));
+  }
+
   render() {
     return (
       <div>
         <h1>Activities</h1>
-        <ActivitiesList
-          activities={this.state.activities}
-          editFunction={this.editActivity}
-          error={this.state.error === null ? null : 'error'}
-          patientInfo={this.state.activities}
-          deleteFunction={this.deleteActivity}
+        {this.state.activities.map(info => (
+          <ActivityCard
+            editFunction={this.editActivity}
+            info={info}
+            deleteFunction={this.deleteActivity}
+          />
+        ))}
+        <AddActivity
+          addFunction={this.addActivity}
+          handleModal={this.handleModal}
+          open={this.state.open}
         />
-        <AddActivity addFunction={this.addActivity} />
+        <AddButton handleModal={this.handleModal} />
         {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
       </div>
     );

@@ -23,6 +23,8 @@ h2 {
   border-radius: 5px;
   padding: 20px;
   position: relative;
+  box-shadow: 10px 10px #4F4F4F;
+  text-align: center;
   box-shadow: 10px 10px #4f4f4f;
 }
 label {
