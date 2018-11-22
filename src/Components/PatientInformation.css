@@ -1,0 +1,19 @@
+.NavBar{
+  display: flex;
+  background-color: #e6e6e6;
+  position: fixed;
+  width: 100%;
+  top: 0%;
+  align-items: center;
+  justify-content: space-around;
+}
+.NavBar__Text{
+}
+.NavBar__Text:hover{
+  text-decoration-line: underline;
+  text-decoration-color: #ff8552;
+  cursor: pointer;
+}
+.NavBar__Logo{
+  height: 40px;
+}

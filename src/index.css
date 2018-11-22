@@ -28,4 +28,11 @@ h2 {
 label {
   display: block;
 }
+button{
+  font-size: 100%;
+  font-family: inherit;
+  border: 0;
+  padding: 0;
+  background-color: #e6e6e6;
+}
 @import url('https://fonts.googleapis.com/css?family=Roboto');

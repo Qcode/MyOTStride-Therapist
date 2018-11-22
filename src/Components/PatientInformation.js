@@ -1,30 +1,45 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import './PatientInformation.css';
+import Logo from '../Assets/People.png';
 
 function PatientInformation(props) {
   return (
-    <div>
-      <input
+    <div className="NavBar">
+      <img src={Logo} alt="Logo" className="NavBar__Logo" />
+      <button
         type="button"
-        value="View Activities"
+        href="#"
+        className="NavBar__Text"
         onClick={() => props.history.push('/patients/patientInfo/activities')}
-      />
-      <input
+      >
+        View Activities
+      </button>
+      <button
         type="button"
-        value="View Goals"
+        href="#"
+        className="NavBar__Text"
         onClick={() => props.history.push('/patients/patientInfo/goals')}
-      />
-      <input
+      >
+        View Goals
+      </button>
+      <button
         type="button"
-        value="View Feedback"
+        href="#"
+        className="NavBar__Text"
         onClick={() => props.history.push('/patients/patientInfo/feedback')}
-      />
-      <input
+      >
+        View Feedback
+      </button>
+      <button
         type="button"
-        value="View Strategies"
+        href="#"
+        className="NavBar__Text"
         onClick={() => props.history.push('/patients/patientInfo/strategies')}
-      />
+      >
+        View Strategies
+      </button>
     </div>
   );
 }
