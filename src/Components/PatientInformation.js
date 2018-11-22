@@ -1,12 +1,15 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 import './PatientInformation.css';
 
 function PatientInformation(props) {
   return (
     <div className="Container">
-      <button
+      <Button
+        color="primary"
+        variant="contained"
         type="button"
         onClick={() => {
           props.pickClient(props.patient.id);
@@ -14,8 +17,10 @@ function PatientInformation(props) {
         }}
       >
         View Activities
-      </button>
-      <button
+      </Button>
+      <Button
+        color="primary"
+        variant="contained"
         type="button"
         onClick={() => {
           props.pickClient(props.patient.id);
@@ -23,8 +28,10 @@ function PatientInformation(props) {
         }}
       >
         View Goals
-      </button>
-      <button
+      </Button>
+      <Button
+        color="primary"
+        variant="contained"
         type="button"
         onClick={() => {
           props.pickClient(props.patient.id);
@@ -32,8 +39,10 @@ function PatientInformation(props) {
         }}
       >
         View Feedback
-      </button>
-      <button
+      </Button>
+      <Button
+        color="primary"
+        variant="contained"
         type="button"
         onClick={() => {
           props.pickClient(props.patient.id);
@@ -41,7 +50,7 @@ function PatientInformation(props) {
         }}
       >
         View Strategies
-      </button>
+      </Button>
     </div>
   );
 }
