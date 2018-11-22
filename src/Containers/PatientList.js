@@ -7,6 +7,10 @@ import CurrentPatients from '../Components/CurrentPatients';
 import PendingPatients from '../Components/PendingPatients';
 
 class PatientList extends React.Component {
+  static pickClient(id) {
+    Api.setClientId(id);
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +21,6 @@ class PatientList extends React.Component {
     this.getCurrent();
     this.getPending();
     this.connectClient = this.connectClient.bind(this);
-    this.pickClient = this.pickClient.bind(this);
   }
 
   getCurrent() {
@@ -32,11 +35,6 @@ class PatientList extends React.Component {
         this.setState({ pendingList: jsonData });
       })
       .catch(err => this.setState({ error: err }));
-  }
-
-  pickClient(id) {
-    Api.setClientId(id);
-    this.props.history.push('/patients/patientInfo');
   }
 
   connectClient(email) {
@@ -67,7 +65,7 @@ class PatientList extends React.Component {
     return (
       <div>
         <CurrentPatients
-          pickClient={this.pickClient}
+          pickClient={PatientList.pickClient}
           patientList={this.state.currentList}
           error={this.state.error === null ? null : 'error'}
         />
