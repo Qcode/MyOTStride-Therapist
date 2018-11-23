@@ -57,13 +57,13 @@ class Feedback extends React.Component {
             <h1>Activity: {this.state.activityList[id].title}</h1>
             <div>
               {this.state.activityList[id].feedback.map((feedback, index) => (
-                <div>
+                <div className ="container">
                   <h2>Feedback {index}</h2>
                   <ul>
-                    <li>Satisfaction: {feedback.satisfaction}</li>
-                    <li>Performance: {feedback.performance}</li>
-                    <li>Confidence: {feedback.confidence}</li>
-                    <li>Response: {feedback.response}</li>
+                    <li><b>Satisfaction</b>: {feedback.satisfaction}</li>
+                    <li><b>Performance</b>: {feedback.performance}</li>
+                    <li><b>Confidence</b>: {feedback.confidence}</li>
+                    <li><b>Response</b>: {feedback.response}</li>
                   </ul>
                 </div>
               ))}
