@@ -6,6 +6,7 @@
   top: 0%;
   align-items: center;
   justify-content: space-around;
+  z-index: 2;
 }
 .NavBar__Text{
 }

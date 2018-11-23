@@ -40,6 +40,7 @@ class Calendar extends React.Component {
 Calendar.propTypes = {
   getCalendar: PropTypes.func.isRequired,
   dates: PropTypes.arrayOf(PropTypes.string),
+  edit: PropTypes.bool.isRequired,
 };
 Calendar.defaultProps = {
   dates: null,

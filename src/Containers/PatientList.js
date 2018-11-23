@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import Api from '../Api';
@@ -74,23 +73,10 @@ class PatientList extends React.Component {
           error={this.state.error === null ? null : 'error'}
           connectFunction={this.connectClient}
         />
-        <input
-          type="submit"
-          value="Logout"
-          onClick={() => {
-            this.props.history.push('/');
-            Api.setToken(null);
-          }}
-        />
         <p>{this.state.error === null ? null : 'error'}</p>
       </div>
     );
   }
 }
-
-PatientList.propTypes = {
-  history: PropTypes.shape({ push: PropTypes.func, goBack: PropTypes.func })
-    .isRequired,
-};
 
 export default withRouter(PatientList);
