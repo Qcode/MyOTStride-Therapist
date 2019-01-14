@@ -1,7 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+import Button from '@material-ui/core/Button';
 import Api from '../Api';
+import FeedbackGraph from '../Components/FeedbackGraph';
 
 class Feedback extends React.Component {
   constructor(props) {
@@ -9,8 +11,10 @@ class Feedback extends React.Component {
     this.state = {
       activityList: {},
       error: null,
+      open: false,
     };
     this.getFeedback();
+    this.handleModal = this.handleModal.bind(this);
   }
 
   getFeedback() {
@@ -49,6 +53,13 @@ class Feedback extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
+  handleModal() {
+    this.setState(prevState => ({
+      ...prevState,
+      open: !prevState.open,
+    }));
+  }
+
   render() {
     return (
       <div>
@@ -73,6 +84,20 @@ class Feedback extends React.Component {
                       <b>Response</b>: {feedback.response}
                     </li>
                   </ul>
+                  <FeedbackGraph
+                    handleModal={this.handleModal}
+                    open={this.state.open}
+                  />
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    type="button"
+                    onClick={() => {
+                      this.handleModal();
+                    }}
+                  >
+                    View Progress
+                  </Button>
                 </div>
               ))}
             </div>
