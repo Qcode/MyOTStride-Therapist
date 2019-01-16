@@ -35,17 +35,6 @@ function PatientInformation(props) {
         type="button"
         onClick={() => {
           props.pickClient(props.patient.id);
-          props.history.push('/patients/patientInfo/feedback');
-        }}
-      >
-        View Feedback
-      </Button>
-      <Button
-        color="primary"
-        variant="contained"
-        type="button"
-        onClick={() => {
-          props.pickClient(props.patient.id);
           props.history.push('/patients/patientInfo/strategies');
         }}
       >

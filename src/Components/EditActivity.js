@@ -61,7 +61,7 @@ class EditActivity extends React.Component {
           <Button
             color="primary"
             variant="contained"
-            onClick={() => this.props.changeDisplay()}
+            onClick={() => this.props.Editing()}
           >
             Cancel
           </Button>
@@ -80,7 +80,7 @@ EditActivity.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   setValues: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
-  changeDisplay: PropTypes.func.isRequired,
+  Editing: PropTypes.func.isRequired,
 };
 
 export default withFormik({
@@ -99,6 +99,6 @@ export default withFormik({
       )
       .finally(() => {
         formikBag.setSubmitting(false);
-        formikBag.props.changeDisplay();
+        formikBag.props.Editing();
       }),
 })(EditActivity);
