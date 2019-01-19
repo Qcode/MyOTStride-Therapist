@@ -29,6 +29,12 @@ h2 {
   margin-left: 20%;
   margin-right: 20%;
 }
+.text {
+  color:#00a388;
+  font-size:17px;
+  text-align: left;
+  margin-left:2%;
+}
 label {
   display: block;
 }

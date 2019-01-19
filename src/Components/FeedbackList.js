@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 
 import Api from '../Api';
+import Collapsible from './Collapsible';
 
 class FeedbackList extends React.Component {
   constructor(props) {
@@ -29,21 +30,20 @@ class FeedbackList extends React.Component {
         <div>
           {this.state.feedback.map(feedback => (
             <div>
-              <h3>from xx/xx/xxxx </h3>
-              <ul>
-                <li>
+              <Collapsible trigger = "xx/xx/xxxx" transitionTIme = {100}triggerStyle={{"color":'#00a388', "font-size":'25px'}} >
+                <p className="text">
                   <b>Satisfaction</b>: {feedback.satisfaction}
-                </li>
-                <li>
+                </p>
+                <p className="text">
                   <b>Performance</b>: {feedback.performance}
-                </li>
-                <li>
+                </p>
+                <p className="text">
                   <b>Confidence</b>: {feedback.confidence}
-                </li>
-                <li>
+                </p>
+                <p className="text">
                   <b>Response</b>: {feedback.response}
-                </li>
-              </ul>
+                </p>
+              </Collapsible>
             </div>
           ))}
         </div>

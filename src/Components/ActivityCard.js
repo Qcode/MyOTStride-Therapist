@@ -102,7 +102,7 @@ ActivityCard.propTypes = {
   info: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
-    dates: PropTypes.string,
+    dates: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   editFunction: PropTypes.func.isRequired,
   deleteFunction: PropTypes.func.isRequired,
