@@ -45,4 +45,10 @@ button{
   padding: 0;
   background-color: #e6e6e6;
 }
+.Collapsible {
+  background-color: #39393a;
+  border-radius: 5px;
+  margin: 2%;
+}
+
 @import url('https://fonts.googleapis.com/css?family=Roboto');

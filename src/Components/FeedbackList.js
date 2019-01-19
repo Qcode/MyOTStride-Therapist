@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
+import Collapsible from 'react-collapsible';
 
 import Api from '../Api';
-import Collapsible from './Collapsible';
 
 class FeedbackList extends React.Component {
   constructor(props) {
@@ -23,6 +23,25 @@ class FeedbackList extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
+  deleteFeedback(feedbackId) {
+    Api.request(
+      `/clients/:clientId/activities/${
+        this.props.info.id
+      }/feedback/${feedbackId}`,
+      {
+        method: 'DELETE',
+      },
+    )
+      .then(() => {
+        const feedback = this.state.feedback.filter(i => i.id !== feedbackId);
+        this.setState(prevState => ({
+          ...prevState,
+          feedback,
+        }));
+      })
+      .catch(err => this.setState({ error: err }));
+  }
+
   render() {
     return (
       <div>
@@ -30,7 +49,12 @@ class FeedbackList extends React.Component {
         <div>
           {this.state.feedback.map(feedback => (
             <div>
-              <Collapsible trigger = "xx/xx/xxxx" transitionTIme = {100}triggerStyle={{"color":'#00a388', "font-size":'25px'}} >
+              <Collapsible
+                trigger="xx/xx/xxxx"
+                transitionTIme={100}
+                triggerStyle={{ color: '#00a388', 'font-size': '25px' }}
+                className="Collapsible"
+              >
                 <p className="text">
                   <b>Satisfaction</b>: {feedback.satisfaction}
                 </p>
@@ -43,6 +67,13 @@ class FeedbackList extends React.Component {
                 <p className="text">
                   <b>Response</b>: {feedback.response}
                 </p>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={() => this.deleteFeedback(feedback.id)}
+                >
+                  DELETE
+                </Button>
               </Collapsible>
             </div>
           ))}
