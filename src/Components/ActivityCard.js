@@ -6,6 +6,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
 import EditActivity from './EditActivity';
 import Calendar from './Calendar';
+import FeedbackList from './FeedbackList';
+
 const styles = {
   edit: {
     position: 'absolute',
@@ -22,12 +24,21 @@ class ActivityCard extends React.Component {
     super(props);
     this.state = {
       editing: false,
+      viewFeedback: false,
     };
-    this.changeDisplay = this.changeDisplay.bind(this);
+    this.Editing = this.Editing.bind(this);
+    this.viewingFeedback = this.viewingFeedback.bind(this);
   }
 
-  changeDisplay() {
+  Editing() {
     this.setState({ editing: false });
+  }
+
+  viewingFeedback() {
+    this.setState(prevState => ({
+      ...prevState,
+      viewFeedback: !prevState.viewFeedback,
+    }));
   }
 
   render() {
@@ -35,9 +46,17 @@ class ActivityCard extends React.Component {
     if (this.state.editing) {
       display = (
         <EditActivity
-          changeDisplay={this.changeDisplay}
+          Editing={this.Editing}
           editFunction={this.props.editFunction}
           info={this.props.info}
+        />
+      );
+    }
+    if (this.state.viewFeedback) {
+      display = (
+        <FeedbackList
+          info={this.props.info}
+          viewingFeedback={this.viewingFeedback}
         />
       );
     } else {
@@ -64,8 +83,15 @@ class ActivityCard extends React.Component {
           <Calendar
             getCalendar={this.getCalendar}
             dates={this.props.info.dates}
-            edit = {false}
+            edit={false}
           />
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => this.viewingFeedback()}
+          >
+            View Feedback
+          </Button>
         </React.Fragment>
       );
     }
@@ -76,6 +102,7 @@ ActivityCard.propTypes = {
   info: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
+    dates: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   editFunction: PropTypes.func.isRequired,
   deleteFunction: PropTypes.func.isRequired,

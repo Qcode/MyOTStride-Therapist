@@ -5,7 +5,6 @@ import PatientList from './PatientList';
 import Activities from './Activities';
 import Goals from './Goals';
 import PatientInformation from '../Components/PatientInformation';
-import Feedback from './Feedback';
 import Strategies from './Strategies';
 import AuthenticatedRoute from './AuthenticatedRoute';
 import SignUp from './SignUp';
@@ -42,12 +41,6 @@ function App() {
           exact
           path="/patients/patientInfo/goals"
           component={AuthenticatedRoute(Goals)}
-        />
-
-        <Route
-          exact
-          path="/patients/patientInfo/feedback"
-          component={AuthenticatedRoute(Feedback)}
         />
 
         <Route

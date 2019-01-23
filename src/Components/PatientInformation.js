@@ -1,45 +1,45 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 import './PatientInformation.css';
-import Logo from '../Assets/People.png';
 
 function PatientInformation(props) {
   return (
-    <div className="NavBar">
-      <img src={Logo} alt="Logo" className="NavBar__Logo" />
-      <button
+    <div className="Container">
+      <Button
+        color="primary"
+        variant="contained"
         type="button"
-        href="#"
-        className="NavBar__Text"
-        onClick={() => props.history.push('/patients/patientInfo/activities')}
+        onClick={() => {
+          props.pickClient(props.patient.id);
+          props.history.push('/patients/patientInfo/activities');
+        }}
       >
         View Activities
-      </button>
-      <button
+      </Button>
+      <Button
+        color="primary"
+        variant="contained"
         type="button"
-        href="#"
-        className="NavBar__Text"
-        onClick={() => props.history.push('/patients/patientInfo/goals')}
+        onClick={() => {
+          props.pickClient(props.patient.id);
+          props.history.push('/patients/patientInfo/goals');
+        }}
       >
         View Goals
-      </button>
-      <button
+      </Button>
+      <Button
+        color="primary"
+        variant="contained"
         type="button"
-        href="#"
-        className="NavBar__Text"
-        onClick={() => props.history.push('/patients/patientInfo/feedback')}
-      >
-        View Feedback
-      </button>
-      <button
-        type="button"
-        href="#"
-        className="NavBar__Text"
-        onClick={() => props.history.push('/patients/patientInfo/strategies')}
+        onClick={() => {
+          props.pickClient(props.patient.id);
+          props.history.push('/patients/patientInfo/strategies');
+        }}
       >
         View Strategies
-      </button>
+      </Button>
     </div>
   );
 }
@@ -47,6 +47,15 @@ function PatientInformation(props) {
 PatientInformation.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func, goBack: PropTypes.func })
     .isRequired,
+  pickClient: PropTypes.func.isRequired,
+  patient: PropTypes.shape({
+    id: PropTypes.string,
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+  }),
+};
+PatientInformation.defaultProps = {
+  patient: null,
 };
 
 export default withRouter(PatientInformation);

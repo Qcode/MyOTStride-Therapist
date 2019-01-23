@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Logo from '../Assets/People.png';
 import './PatientInformation.css';
+import Api from '../Api';
 
 function TopNavBar(props) {
   return (
@@ -12,7 +13,10 @@ function TopNavBar(props) {
       <button
         type="button"
         className="NavBar__Text"
-        onClick={() => props.history.push('/')}
+        onClick={() => {
+          props.history.push('/');
+          Api.setToken(null);
+        }}
       >
         Logout
       </button>

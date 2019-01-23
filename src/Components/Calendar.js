@@ -31,7 +31,7 @@ class Calendar extends React.Component {
       <div>
         <DayPicker
           selectedDays={this.state.selectedDays}
-          onDayClick={this.props.edit?this.handleDayClick:null}
+          onDayClick={this.props.edit ? this.handleDayClick : null}
         />
       </div>
     );
@@ -40,6 +40,7 @@ class Calendar extends React.Component {
 Calendar.propTypes = {
   getCalendar: PropTypes.func.isRequired,
   dates: PropTypes.arrayOf(PropTypes.string),
+  edit: PropTypes.bool.isRequired,
 };
 Calendar.defaultProps = {
   dates: null,

@@ -70,7 +70,7 @@ class Goals extends React.Component {
       body: {
         title: values.title,
         description: values.description,
-        dates: [values.endDate, values.startDate],
+        end_date: values.endDate,
       },
     }).then(() => {
       const index = this.state.goals.findIndex(obj => obj.id === info.id);
@@ -80,7 +80,7 @@ class Goals extends React.Component {
           ...prevState.goals[index],
           title: values.title,
           description: values.description,
-          dates: values.endDate,
+          end_date: values.endDate,
         };
         return {
           ...prevState,

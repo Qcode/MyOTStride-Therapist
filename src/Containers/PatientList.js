@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import Api from '../Api';
@@ -7,6 +6,10 @@ import CurrentPatients from '../Components/CurrentPatients';
 import PendingPatients from '../Components/PendingPatients';
 
 class PatientList extends React.Component {
+  static pickClient(id) {
+    Api.setClientId(id);
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +20,6 @@ class PatientList extends React.Component {
     this.getCurrent();
     this.getPending();
     this.connectClient = this.connectClient.bind(this);
-    this.pickClient = this.pickClient.bind(this);
   }
 
   getCurrent() {
@@ -32,11 +34,6 @@ class PatientList extends React.Component {
         this.setState({ pendingList: jsonData });
       })
       .catch(err => this.setState({ error: err }));
-  }
-
-  pickClient(id) {
-    Api.setClientId(id);
-    this.props.history.push('/patients/patientInfo');
   }
 
   connectClient(email) {
@@ -67,7 +64,7 @@ class PatientList extends React.Component {
     return (
       <div>
         <CurrentPatients
-          pickClient={this.pickClient}
+          pickClient={PatientList.pickClient}
           patientList={this.state.currentList}
           error={this.state.error === null ? null : 'error'}
         />
@@ -76,23 +73,10 @@ class PatientList extends React.Component {
           error={this.state.error === null ? null : 'error'}
           connectFunction={this.connectClient}
         />
-        <input
-          type="submit"
-          value="Logout"
-          onClick={() => {
-            this.props.history.push('/');
-            Api.setToken(null);
-          }}
-        />
         <p>{this.state.error === null ? null : 'error'}</p>
       </div>
     );
   }
 }
-
-PatientList.propTypes = {
-  history: PropTypes.shape({ push: PropTypes.func, goBack: PropTypes.func })
-    .isRequired,
-};
 
 export default withRouter(PatientList);
