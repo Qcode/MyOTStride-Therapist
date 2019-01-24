@@ -6,6 +6,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
 import EditActivity from './EditActivity';
 import Calendar from './Calendar';
+import FeedbackList from './FeedbackList';
+import FeedbackGraph from './FeedbackGraph';
 
 const styles = {
   edit: {
@@ -23,12 +25,30 @@ class ActivityCard extends React.Component {
     super(props);
     this.state = {
       editing: false,
+      viewFeedback: false,
+      open: false,
     };
-    this.changeDisplay = this.changeDisplay.bind(this);
+    this.Editing = this.Editing.bind(this);
+    this.viewingFeedback = this.viewingFeedback.bind(this);
+    this.handleModal = this.handleModal.bind(this);
   }
 
-  changeDisplay() {
+  Editing() {
     this.setState({ editing: false });
+  }
+
+  viewingFeedback() {
+    this.setState(prevState => ({
+      ...prevState,
+      viewFeedback: !prevState.viewFeedback,
+    }));
+  }
+
+  handleModal() {
+    this.setState(prevState => ({
+      ...prevState,
+      open: !prevState.open,
+    }));
   }
 
   render() {
@@ -36,9 +56,17 @@ class ActivityCard extends React.Component {
     if (this.state.editing) {
       display = (
         <EditActivity
-          changeDisplay={this.changeDisplay}
+          Editing={this.Editing}
           editFunction={this.props.editFunction}
           info={this.props.info}
+        />
+      );
+    }
+    if (this.state.viewFeedback) {
+      display = (
+        <FeedbackList
+          info={this.props.info}
+          viewingFeedback={this.viewingFeedback}
         />
       );
     } else {
@@ -67,6 +95,27 @@ class ActivityCard extends React.Component {
             dates={this.props.info.dates}
             edit={false}
           />
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => this.viewingFeedback()}
+          >
+            View Feedback
+          </Button>
+          <FeedbackGraph
+            handleModal={this.handleModal}
+            open={this.state.open}
+          />
+          <Button
+            color="primary"
+            variant="contained"
+            type="button"
+            onClick={() => {
+              this.handleModal();
+            }}
+          >
+            View Progress
+          </Button>
         </React.Fragment>
       );
     }
@@ -77,7 +126,7 @@ ActivityCard.propTypes = {
   info: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
-    dates: PropTypes.string,
+    dates: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   editFunction: PropTypes.func.isRequired,
   deleteFunction: PropTypes.func.isRequired,

@@ -6080,6 +6080,10 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-collapsible@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/react-collapsible/-/react-collapsible-2.3.2.tgz#fb5593f6601c0a255319a8dedc678e56dd122411"
+
 react-day-picker@^7.2.3:
   version "7.2.3"
   resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-7.2.3.tgz#51722dc66ae3478af2dfdb754350db6a1c521332"
