@@ -1,26 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 
 function PendingPatients(props) {
   return (
     <div>
       <h1>Pending Patients</h1>
-      <ul>
-        {props.patientList.length !== 0
-          ? props.patientList.map(patient => (
-              <li key={patient.email}>
-                <input
-                  type="button"
-                  required
-                  value={`${patient.first_name} ${patient.last_name}`}
-                  onClick={() => {
-                    props.connectFunction(patient.email);
-                  }}
-                />
-              </li>
-            ))
-          : 'You have no pending patients'}
-      </ul>
+      {props.patientList.length !== 0
+        ? props.patientList.map(patient => (
+            <Button
+              key={patient.email}
+              color="primary"
+              variant="contained"
+              onClick={() => props.connectFunction(patient.email)}
+            >
+              {`${patient.first_name} ${patient.last_name}`}
+            </Button>
+          ))
+        : 'You have no pending patients'}
       {props.error}
     </div>
   );
