@@ -4,6 +4,24 @@ import { VictoryChart, VictoryLine } from 'victory';
 import PropTypes from 'prop-types';
 
 function FeedbackGraph(props) {
+  const satisfactionArray = [];
+  const confidenceArray = [];
+  const performanceArray = [];
+  let i;
+  for (i = 0; i < props.feedback.length; i += 1) {
+    satisfactionArray.push({
+      x: `jan${i.toString()}`,
+      y: props.feedback[i].satisfaction,
+    });
+    confidenceArray.push({
+      x: `jan${i.toString()}`,
+      y: props.feedback[i].confidence,
+    });
+    performanceArray.push({
+      x: `jan${i.toString()}`,
+      y: props.feedback[i].performance,
+    });
+  }
   return (
     <Modal open={props.open} onClose={props.handleModal}>
       <div className="container">
@@ -14,26 +32,21 @@ function FeedbackGraph(props) {
               data: { stroke: '#c43a31' },
               parent: { border: '1px solid #ccc' },
             }}
-            data={[
-              { x: 'jan 1', y: 2 },
-              { x: 'jan 2', y: 3 },
-              { x: 'jan 3', y: 5 },
-              { x: 'jan 4', y: 4 },
-              { x: 'jan 5', y: 7 },
-            ]}
+            data={satisfactionArray}
           />
           <VictoryLine
             style={{
               data: { stroke: '#ff8552' },
               parent: { border: '1px solid #ccc' },
             }}
-            data={[
-              { x: 'jan 1', y: 8 },
-              { x: 'jan 2', y: 4 },
-              { x: 'jan 3', y: 3 },
-              { x: 'jan 4', y: 4 },
-              { x: 'jan 5', y: 9 },
-            ]}
+            data={confidenceArray}
+          />
+          <VictoryLine
+            style={{
+              data: { stroke: '#ff8552' },
+              parent: { border: '1px solid #ccc' },
+            }}
+            data={performanceArray}
           />
         </VictoryChart>
       </div>
@@ -44,6 +57,15 @@ function FeedbackGraph(props) {
 FeedbackGraph.propTypes = {
   open: PropTypes.bool.isRequired,
   handleModal: PropTypes.func.isRequired,
+  feedback: PropTypes.shape({
+    satisfaction: PropTypes.string,
+    confidence: PropTypes.string,
+    performance: PropTypes.string,
+    length: PropTypes.number,
+  }),
+};
+FeedbackGraph.defaultProps = {
+  feedback: null,
 };
 
 export default FeedbackGraph;

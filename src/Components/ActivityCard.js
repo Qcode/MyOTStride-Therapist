@@ -7,7 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 import EditActivity from './EditActivity';
 import Calendar from './Calendar';
 import FeedbackList from './FeedbackList';
-import FeedbackGraph from './FeedbackGraph';
 
 const styles = {
   edit: {
@@ -26,11 +25,9 @@ class ActivityCard extends React.Component {
     this.state = {
       editing: false,
       viewFeedback: false,
-      open: false,
     };
     this.Editing = this.Editing.bind(this);
     this.viewingFeedback = this.viewingFeedback.bind(this);
-    this.handleModal = this.handleModal.bind(this);
   }
 
   Editing() {
@@ -41,13 +38,6 @@ class ActivityCard extends React.Component {
     this.setState(prevState => ({
       ...prevState,
       viewFeedback: !prevState.viewFeedback,
-    }));
-  }
-
-  handleModal() {
-    this.setState(prevState => ({
-      ...prevState,
-      open: !prevState.open,
     }));
   }
 
@@ -101,20 +91,6 @@ class ActivityCard extends React.Component {
             onClick={() => this.viewingFeedback()}
           >
             View Feedback
-          </Button>
-          <FeedbackGraph
-            handleModal={this.handleModal}
-            open={this.state.open}
-          />
-          <Button
-            color="primary"
-            variant="contained"
-            type="button"
-            onClick={() => {
-              this.handleModal();
-            }}
-          >
-            View Progress
           </Button>
         </React.Fragment>
       );
