@@ -4,15 +4,18 @@ import PropTypes from 'prop-types';
 import Collapsible from 'react-collapsible';
 
 import Api from '../Api';
+import FeedbackGraph from './FeedbackGraph';
 
 class FeedbackList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       feedback: [],
+      open: false,
       error: null,
     };
     this.getFeedback();
+    this.handleModal = this.handleModal.bind(this);
   }
 
   getFeedback() {
@@ -40,6 +43,13 @@ class FeedbackList extends React.Component {
         }));
       })
       .catch(err => this.setState({ error: err }));
+  }
+
+  handleModal() {
+    this.setState(prevState => ({
+      ...prevState,
+      open: !prevState.open,
+    }));
   }
 
   render() {
@@ -77,6 +87,21 @@ class FeedbackList extends React.Component {
               </Collapsible>
             </div>
           ))}
+          <FeedbackGraph
+            handleModal={this.handleModal}
+            open={this.state.open}
+            feedback={this.state.feedback}
+          />
+          <Button
+            color="primary"
+            variant="contained"
+            type="button"
+            onClick={() => {
+              this.handleModal();
+            }}
+          >
+            View Progress
+          </Button>
         </div>
         <Button
           color="primary"

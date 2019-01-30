@@ -9,7 +9,11 @@ import AddButton from '../Components/AddButton';
 class Activities extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { activities: [], error: null, open: false };
+    this.state = {
+      activities: [],
+      error: null,
+      open: false,
+    };
     this.fetchActivities();
     this.addActivity = this.addActivity.bind(this);
     this.deleteActivity = this.deleteActivity.bind(this);
