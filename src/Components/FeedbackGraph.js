@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '@material-ui/core/Modal';
-import { VictoryChart, VictoryLine } from 'victory';
+import { VictoryChart, VictoryLine, VictoryLegend } from 'victory';
 import PropTypes from 'prop-types';
 
 function FeedbackGraph(props) {
@@ -27,6 +27,23 @@ function FeedbackGraph(props) {
       <div className="container">
         <h2>Progress for Activity X</h2>
         <VictoryChart>
+          <VictoryLegend
+            x={320}
+            y={0}
+            title="Legend"
+            orientation="vertical"
+            gutter={20}
+            style={{
+              title: { fontSize: 12 },
+              labels: { fontSize: 10 },
+              border: { stroke: 'black' },
+            }}
+            data={[
+              { name: 'satisfaction', symbol: { fill: '#c43a31' } },
+              { name: 'confidence', symbol: { fill: '#ff8552' } },
+              { name: 'performance', symbol: { fill: 'black' } },
+            ]}
+          />
           <VictoryLine
             style={{
               data: { stroke: '#c43a31' },
@@ -43,7 +60,7 @@ function FeedbackGraph(props) {
           />
           <VictoryLine
             style={{
-              data: { stroke: '#ff8552' },
+              data: { stroke: 'black' },
               parent: { border: '1px solid #ccc' },
             }}
             data={performanceArray}
