@@ -50,6 +50,7 @@ function FeedbackGraph(props) {
               parent: { border: '1px solid #ccc' },
             }}
             data={satisfactionArray}
+            domain={{ y: [0, 10] }}
           />
           <VictoryLine
             style={{
@@ -57,6 +58,7 @@ function FeedbackGraph(props) {
               parent: { border: '1px solid #ccc' },
             }}
             data={confidenceArray}
+            domain={{ y: [0, 10] }}
           />
           <VictoryLine
             style={{
@@ -64,6 +66,7 @@ function FeedbackGraph(props) {
               parent: { border: '1px solid #ccc' },
             }}
             data={performanceArray}
+            domain={{ y: [0, 10] }}
           />
         </VictoryChart>
       </div>
