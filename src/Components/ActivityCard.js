@@ -31,7 +31,10 @@ class ActivityCard extends React.Component {
   }
 
   Editing() {
-    this.setState({ editing: false });
+    this.setState(prevState => ({
+      ...prevState,
+      editing: !prevState.editing,
+    }));
   }
 
   viewingFeedback() {
@@ -51,8 +54,7 @@ class ActivityCard extends React.Component {
           info={this.props.info}
         />
       );
-    }
-    if (this.state.viewFeedback) {
+    } else if (this.state.viewFeedback) {
       display = (
         <FeedbackList
           info={this.props.info}
@@ -72,7 +74,7 @@ class ActivityCard extends React.Component {
           <Button
             classes={{ root: this.props.classes.edit }}
             type="button"
-            onClick={() => this.setState({ editing: true })}
+            onClick={() => this.Editing()}
           >
             <EditIcon />
           </Button>

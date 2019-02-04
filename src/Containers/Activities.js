@@ -104,6 +104,7 @@ class Activities extends React.Component {
         <h1>Activities</h1>
         {this.state.activities.map(info => (
           <ActivityCard
+            key={info.id}
             editFunction={this.editActivity}
             info={info}
             deleteFunction={this.deleteActivity}
