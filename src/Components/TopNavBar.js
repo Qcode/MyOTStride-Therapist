@@ -1,14 +1,16 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Logo from '../Assets/People.png';
+import People from '../Assets/People.png';
 import './PatientInformation.css';
 import Api from '../Api';
 
 function TopNavBar(props) {
   return (
     <div className="NavBar">
-      <img src={Logo} alt="Logo" className="NavBar__Logo" />
+      <div className="NavBar__Logo-Background">
+        <img src={People} alt="Logo" className="NavBar__Logo" />
+      </div>
       <h2>MyOTStride</h2>
       <button
         type="button"

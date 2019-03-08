@@ -24,7 +24,24 @@ class PatientList extends React.Component {
 
   getCurrent() {
     Api.request('/therapists/:therapistId/clients')
-      .then(jsonData => this.setState({ currentList: jsonData }))
+      .then(jsonData => {
+        const patientList = jsonData.sort((a, b) => {
+          if (a.first_name.toLowerCase() < b.first_name.toLowerCase()) {
+            return -1;
+          }
+          if (a.first_name.toLowerCase() > b.first_name.toLowerCase()) {
+            return 1;
+          }
+          if (a.last_name.toLowerCase() < b.last_name.toLowerCase()) {
+            return -1;
+          }
+          if (a.last_name.toLowerCase() > b.last_name.toLowerCase()) {
+            return 1;
+          }
+          return 0;
+        });
+        this.setState({ currentList: patientList });
+      })
       .catch(err => this.setState({ error: err }));
   }
 
