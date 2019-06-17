@@ -26,7 +26,7 @@ class Api {
     localStorage.setItem('therapistId', newTherapistId);
   }
 
-  getApiUrl() {
+  static getApiUrl() {
     const urls = {
       development: 'http://localhost:3000/v1/',
       production: 'https://api.myotstride.com/v1/',
@@ -54,16 +54,18 @@ class Api {
     if (!finalOptions.headers['content-type']) {
       finalOptions.headers['content-type'] = 'application/json';
     }
-    return fetch(`${getApiUrl()}${finalEndpoint}`, finalOptions).then(data => {
-      if (!data.ok) {
-        throw new Error(data.status);
-      }
-      const contentType = data.headers.get('content-type');
-      if (contentType && contentType.includes('application/json')) {
-        return data.json();
-      }
-      return data.text();
-    });
+    return fetch(`${Api.getApiUrl()}${finalEndpoint}`, finalOptions).then(
+      data => {
+        if (!data.ok) {
+          throw new Error(data.status);
+        }
+        const contentType = data.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          return data.json();
+        }
+        return data.text();
+      },
+    );
   }
 }
 
