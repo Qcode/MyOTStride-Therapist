@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik, Form } from 'formik';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import Calendar from './Calendar';
 
 class EditActivity extends React.Component {
@@ -19,31 +21,50 @@ class EditActivity extends React.Component {
   render() {
     return (
       <div>
-        <h1>Edit Activity Here</h1>
+        <h2>Edit Activity Here</h2>
         <Form>
-          <label htmlFor={`edit-activity__title-${this.props.info.id}`}>
-            Title:
-            <Field
-              id={`edit-activity__title-${this.props.info.id}`}
-              name="title"
-              value={this.props.values.title}
-            />
-          </label>
-          <label htmlFor={`edit-activity__description-${this.props.info.id}`}>
-            description:
-            <Field
-              id={`edit-activity__description-${this.props.info.id}`}
-              name="description"
-              value={this.props.values.description}
-            />
-          </label>
+          <TextField
+            label="Title"
+            onChange={this.props.handleChange}
+            value={this.props.values.title}
+            variant="outlined"
+            margin="normal"
+            InputLabelProps={{ shrink: true }}
+            placeholder="Improved Title"
+            name="title"
+          />
+          <TextField
+            label="Description"
+            onChange={this.props.handleChange}
+            value={this.props.values.description}
+            variant="outlined"
+            margin="normal"
+            InputLabelProps={{ shrink: true }}
+            placeholder="Improved Description"
+            name="description"
+            multiline
+            rows="4"
+          />
           <Calendar
             getCalendar={this.getCalendar}
             dates={this.props.values.dates}
+            edit
           />
-          <button type="submit" disabled={this.props.isSubmitting}>
+          <Button
+            color="primary"
+            variant="contained"
+            type="submit"
+            disabled={this.props.isSubmitting}
+          >
             Submit
-          </button>
+          </Button>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => this.props.Editing()}
+          >
+            Cancel
+          </Button>
         </Form>
       </div>
     );
@@ -58,6 +79,8 @@ EditActivity.propTypes = {
   }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   setValues: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  Editing: PropTypes.func.isRequired,
 };
 
 export default withFormik({
@@ -74,5 +97,8 @@ export default withFormik({
           failedSubmit: 'Problem editing activity',
         }),
       )
-      .finally(() => formikBag.setSubmitting(false)),
+      .finally(() => {
+        formikBag.setSubmitting(false);
+        formikBag.props.Editing();
+      }),
 })(EditActivity);

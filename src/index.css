@@ -2,17 +2,53 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-image: radial-gradient(#00a388, #00806a);
+  height: 100vh;
 }
 h1 {
   font-size: 40px;
   text-align: center;
+  color: #e6e6e6;
+}
+h2 {
+  font-size: 25px;
+  text-align: left;
+  color: #5bc0eb;
 }
 .container {
-  border: 3px solid black;
-  border-radius: 2px;
-  margin: 3%;
+  background-color: #e6e6e6;
+  margin: auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  border-radius: 5px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 10px 10px #4F4F4F;
+  text-align: center;
+  box-shadow: 10px 10px #4f4f4f;
+  margin-left: 20%;
+  margin-right: 20%;
 }
-
+.text {
+  color:#00a388;
+  font-size:17px;
+  text-align: left;
+  margin-left:2%;
+}
 label {
   display: block;
 }
+button{
+  font-size: 100%;
+  font-family: inherit;
+  border: 0;
+  padding: 0;
+  background-color: #e6e6e6;
+}
+.Collapsible {
+  background-color: #39393a;
+  border-radius: 5px;
+  margin: 2%;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');

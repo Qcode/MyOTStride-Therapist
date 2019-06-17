@@ -1,6 +1,9 @@
 import React from 'react';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik, Form } from 'formik';
 import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
 import Calendar from './Calendar';
 
 class AddActivity extends React.Component {
@@ -18,34 +21,47 @@ class AddActivity extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <h2>Add Activities Here</h2>
-        <Form>
-          <label htmlFor="add-activity__title">
-            Title:
-            <Field
-              id="add-activity__title"
-              name="title"
+      <Modal open={this.props.open} onClose={this.props.handleModal}>
+        <div className="container">
+          <h2>Add Activities Here</h2>
+          <Form>
+            <TextField
+              label="Title"
+              onChange={this.props.handleChange}
               value={this.props.values.title}
+              variant="outlined"
+              margin="normal"
+              InputLabelProps={{ shrink: true }}
+              placeholder="New Title"
+              name="title"
             />
-          </label>
-          <label htmlFor="add-activity__description">
-            description:
-            <Field
-              id="add-activity__description"
-              name="description"
+            <TextField
+              label=""
+              onChange={this.props.handleChange}
               value={this.props.values.description}
+              variant="outlined"
+              margin="normal"
+              InputLabelProps={{ shrink: true }}
+              placeholder="New Description"
+              name="description"
+              multiline
+              rows="4"
             />
-          </label>
-          <Calendar getCalendar={this.getCalendar} />
-          <button type="submit" disabled={this.props.isSubmitting}>
-            Submit
-          </button>
-          {this.props.errors.failedSubmit && (
-            <p>{this.props.errors.failedSubmit}</p>
-          )}
-        </Form>
-      </div>
+            <Calendar getCalendar={this.getCalendar} edit />
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              disabled={this.props.isSubmitting}
+            >
+              Submit
+            </Button>
+            {this.props.errors.failedSubmit && (
+              <p>{this.props.errors.failedSubmit}</p>
+            )}
+          </Form>
+        </div>
+      </Modal>
     );
   }
 }
@@ -60,6 +76,9 @@ AddActivity.propTypes = {
   errors: PropTypes.shape({
     failedSubmit: PropTypes.string,
   }).isRequired,
+  handleModal: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
 };
 
 export default withFormik({
@@ -76,5 +95,8 @@ export default withFormik({
           failedSubmit: 'Problem submitting activity',
         }),
       )
-      .finally(() => formikBag.setSubmitting(false)),
+      .finally(() => {
+        formikBag.setSubmitting(false);
+        formikBag.props.handleModal();
+      }),
 })(AddActivity);

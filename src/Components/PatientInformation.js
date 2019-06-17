@@ -1,30 +1,45 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import './PatientInformation.css';
 
 function PatientInformation(props) {
   return (
-    <div>
-      <input
+    <div className="Container">
+      <Button
+        color="primary"
+        variant="contained"
         type="button"
-        value="View Activities"
-        onClick={() => props.history.push('/patients/patientInfo/activities')}
-      />
-      <input
+        onClick={() => {
+          props.pickClient(props.patient.id);
+          props.history.push('/patients/patientInfo/activities');
+        }}
+      >
+        View Activities
+      </Button>
+      <Button
+        color="primary"
+        variant="contained"
         type="button"
-        value="View Goals"
-        onClick={() => props.history.push('/patients/patientInfo/goals')}
-      />
-      <input
+        onClick={() => {
+          props.pickClient(props.patient.id);
+          props.history.push('/patients/patientInfo/goals');
+        }}
+      >
+        View Goals
+      </Button>
+      <Button
+        color="primary"
+        variant="contained"
         type="button"
-        value="View Feedback"
-        onClick={() => props.history.push('/patients/patientInfo/feedback')}
-      />
-      <input
-        type="button"
-        value="View Strategies"
-        onClick={() => props.history.push('/patients/patientInfo/strategies')}
-      />
+        onClick={() => {
+          props.pickClient(props.patient.id);
+          props.history.push('/patients/patientInfo/strategies');
+        }}
+      >
+        View Strategies
+      </Button>
     </div>
   );
 }
@@ -32,6 +47,15 @@ function PatientInformation(props) {
 PatientInformation.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func, goBack: PropTypes.func })
     .isRequired,
+  pickClient: PropTypes.func.isRequired,
+  patient: PropTypes.shape({
+    id: PropTypes.string,
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+  }),
+};
+PatientInformation.defaultProps = {
+  patient: null,
 };
 
 export default withRouter(PatientInformation);

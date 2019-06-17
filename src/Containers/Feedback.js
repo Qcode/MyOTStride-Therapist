@@ -1,7 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+import Button from '@material-ui/core/Button';
 import Api from '../Api';
+import FeedbackGraph from '../Components/FeedbackGraph';
 
 class Feedback extends React.Component {
   constructor(props) {
@@ -9,8 +11,10 @@ class Feedback extends React.Component {
     this.state = {
       activityList: {},
       error: null,
+      open: false,
     };
     this.getFeedback();
+    this.handleModal = this.handleModal.bind(this);
   }
 
   getFeedback() {
@@ -49,6 +53,13 @@ class Feedback extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
+  handleModal() {
+    this.setState(prevState => ({
+      ...prevState,
+      open: !prevState.open,
+    }));
+  }
+
   render() {
     return (
       <div>
@@ -57,14 +68,36 @@ class Feedback extends React.Component {
             <h1>Activity: {this.state.activityList[id].title}</h1>
             <div>
               {this.state.activityList[id].feedback.map((feedback, index) => (
-                <div>
+                <div className="container">
                   <h2>Feedback {index}</h2>
                   <ul>
-                    <li>Satisfaction: {feedback.satisfaction}</li>
-                    <li>Performance: {feedback.performance}</li>
-                    <li>Confidence: {feedback.confidence}</li>
-                    <li>Response: {feedback.response}</li>
+                    <li>
+                      <b>Satisfaction</b>: {feedback.satisfaction}
+                    </li>
+                    <li>
+                      <b>Performance</b>: {feedback.performance}
+                    </li>
+                    <li>
+                      <b>Confidence</b>: {feedback.confidence}
+                    </li>
+                    <li>
+                      <b>Response</b>: {feedback.response}
+                    </li>
                   </ul>
+                  <FeedbackGraph
+                    handleModal={this.handleModal}
+                    open={this.state.open}
+                  />
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    type="button"
+                    onClick={() => {
+                      this.handleModal();
+                    }}
+                  >
+                    View Progress
+                  </Button>
                 </div>
               ))}
             </div>
