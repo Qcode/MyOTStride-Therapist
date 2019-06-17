@@ -26,6 +26,14 @@ class Api {
     localStorage.setItem('therapistId', newTherapistId);
   }
 
+  getApiUrl() {
+    const urls = {
+      development: 'http://localhost:3000/v1/',
+      production: 'https://api.myotstride.com/v1/',
+    };
+    return urls[process.env.NODE_ENV];
+  }
+
   request(endPoint, options) {
     const finalEndpoint = endPoint
       .replace(':therapistId', this.therapistId)
@@ -46,10 +54,7 @@ class Api {
     if (!finalOptions.headers['content-type']) {
       finalOptions.headers['content-type'] = 'application/json';
     }
-    return fetch(
-      `http://localhost:3000/api/v1/${finalEndpoint}`,
-      finalOptions,
-    ).then(data => {
+    return fetch(`${getApiUrl()}${finalEndpoint}`, finalOptions).then(data => {
       if (!data.ok) {
         throw new Error(data.status);
       }
