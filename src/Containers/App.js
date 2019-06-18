@@ -9,6 +9,8 @@ import Strategies from './Strategies';
 import AuthenticatedRoute from './AuthenticatedRoute';
 import SignUp from './SignUp';
 import TopNavBar from '../Components/TopNavBar';
+import Privacy from '../Components/Privacy';
+import Contact from '../Components/Contact';
 
 function App() {
   return (
@@ -16,6 +18,9 @@ function App() {
       <TopNavBar />
       <div>
         <Route exact path="/" component={Login} />
+
+        <Route exact path="/privacy" component={Privacy} />
+        <Route exact path="/contact" component={Contact} />
 
         <Route
           exact
