@@ -3,27 +3,18 @@ import Modal from '@material-ui/core/Modal';
 import { VictoryChart, VictoryLine, VictoryLegend } from 'victory';
 import PropTypes from 'prop-types';
 
-function FeedbackGraph(props) {
-  const satisfactionArray = [];
-  const confidenceArray = [];
-  const performanceArray = [];
-  let i;
-  for (i = 0; i < props.feedback.length; i += 1) {
-    satisfactionArray.push({
-      x: `jan${i.toString()}`,
-      y: props.feedback[i].satisfaction,
-    });
-    confidenceArray.push({
-      x: `jan${i.toString()}`,
-      y: props.feedback[i].confidence,
-    });
-    performanceArray.push({
-      x: `jan${i.toString()}`,
-      y: props.feedback[i].performance,
-    });
+class FeedbackGraph extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      confidenceVisible:true,
+      satisfactionVisible:true,
+      performanceVisible:true,
+    }
   }
+  render(){
   return (
-    <Modal open={props.open} onClose={props.handleModal}>
+    <Modal open={this.props.open} onClose={this.props.handleModal}>
       <div className="container">
         <h2>Progress for Activity X</h2>
         <VictoryChart>
@@ -44,34 +35,38 @@ function FeedbackGraph(props) {
               { name: 'performance', symbol: { fill: 'black' } },
             ]}
           />
+          {this.state.satisfactionVisible?
           <VictoryLine
             style={{
               data: { stroke: '#c43a31' },
               parent: { border: '1px solid #ccc' },
             }}
-            data={satisfactionArray}
+            data={[1,1]}
             domain={{ y: [0, 10] }}
-          />
+          />:null}
+          {this.state.confidenceVisible?
           <VictoryLine
             style={{
               data: { stroke: '#ff8552' },
               parent: { border: '1px solid #ccc' },
             }}
-            data={confidenceArray}
+            data={[2,2]}
             domain={{ y: [0, 10] }}
-          />
+          />:null}
+          {this.state.performanceVisible?
           <VictoryLine
             style={{
               data: { stroke: 'black' },
               parent: { border: '1px solid #ccc' },
             }}
-            data={performanceArray}
+            data={[3,3]}
             domain={{ y: [0, 10] }}
-          />
+          />:null}
         </VictoryChart>
       </div>
     </Modal>
-  );
+  )
+  }
 }
 
 FeedbackGraph.propTypes = {
