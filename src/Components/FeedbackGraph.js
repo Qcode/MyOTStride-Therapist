@@ -1,71 +1,78 @@
 import React from 'react';
 import Modal from '@material-ui/core/Modal';
-import { VictoryChart, VictoryLine, VictoryLegend } from 'victory';
+import { VictoryChart, VictoryLine } from 'victory';
 import PropTypes from 'prop-types';
 
 class FeedbackGraph extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      confidenceVisible:true,
-      satisfactionVisible:true,
-      performanceVisible:true,
-    }
+      confidenceVisible: true,
+      satisfactionVisible: true,
+      performanceVisible: true,
+    };
+    this.hideLine = this.hideLine.bind(this);
   }
-  render(){
-  return (
-    <Modal open={this.props.open} onClose={this.props.handleModal}>
-      <div className="container">
-        <h2>Progress for Activity X</h2>
-        <VictoryChart>
-          <VictoryLegend
-            x={320}
-            y={0}
-            title="Legend"
-            orientation="vertical"
-            gutter={20}
-            style={{
-              title: { fontSize: 12 },
-              labels: { fontSize: 10 },
-              border: { stroke: 'black' },
-            }}
-            data={[
-              { name: 'satisfaction', symbol: { fill: '#c43a31' } },
-              { name: 'confidence', symbol: { fill: '#ff8552' } },
-              { name: 'performance', symbol: { fill: 'black' } },
-            ]}
-          />
-          {this.state.satisfactionVisible?
-          <VictoryLine
-            style={{
-              data: { stroke: '#c43a31' },
-              parent: { border: '1px solid #ccc' },
-            }}
-            data={[1,1]}
-            domain={{ y: [0, 10] }}
-          />:null}
-          {this.state.confidenceVisible?
-          <VictoryLine
-            style={{
-              data: { stroke: '#ff8552' },
-              parent: { border: '1px solid #ccc' },
-            }}
-            data={[2,2]}
-            domain={{ y: [0, 10] }}
-          />:null}
-          {this.state.performanceVisible?
-          <VictoryLine
-            style={{
-              data: { stroke: 'black' },
-              parent: { border: '1px solid #ccc' },
-            }}
-            data={[3,3]}
-            domain={{ y: [0, 10] }}
-          />:null}
-        </VictoryChart>
-      </div>
-    </Modal>
-  )
+
+  hideLine(rating) {
+    this.setState(prevState => ({
+      [`${rating}Visible`]: !prevState[`${rating}Visible`],
+    }));
+  }
+
+  render() {
+    return (
+      <Modal open={this.props.open} onClose={this.props.handleModal}>
+        <div className="container" style={{ flex: 1, flexDirection: 'row' }}>
+          <h2>Progress for Activity X</h2>
+          <VictoryChart>
+            {this.state.satisfactionVisible ? (
+              <VictoryLine
+                style={{
+                  data: { stroke: '#c43a31' },
+                  parent: { border: '1px solid #ccc' },
+                }}
+                data={[1, 1]}
+                eventKey="satisfaction"
+                domain={{ y: [0, 10] }}
+                name="satisfaction"
+              />
+            ) : null}
+            {this.state.confidenceVisible ? (
+              <VictoryLine
+                style={{
+                  data: { stroke: '#ff8552' },
+                  parent: { border: '1px solid #ccc' },
+                }}
+                data={[2, 2]}
+                eventKey="confidence"
+                domain={{ y: [0, 10] }}
+                name="confidence"
+              />
+            ) : null}
+            {this.state.performanceVisible ? (
+              <VictoryLine
+                style={{
+                  data: { stroke: 'black' },
+                  parent: { border: '1px solid #ccc' },
+                }}
+                data={[3, 3]}
+                eventKey="performance"
+                domain={{ y: [0, 10] }}
+                name="performance"
+              />
+            ) : null}
+          </VictoryChart>
+          <div>
+            <p onClick={() => this.hideLine('satisfaction')}>Satisfaction</p>
+            <p onClick={() => this.hideLine('performance')}>
+              Progress Towards Goal
+            </p>
+            <p onClick={() => this.hideLine('confidence')}>Confidence</p>
+          </div>
+        </div>
+      </Modal>
+    );
   }
 }
 

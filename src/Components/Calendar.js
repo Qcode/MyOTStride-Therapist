@@ -38,11 +38,12 @@ class Calendar extends React.Component {
   }
 }
 Calendar.propTypes = {
-  getCalendar: PropTypes.func.isRequired,
+  getCalendar: PropTypes.func,
   dates: PropTypes.arrayOf(PropTypes.string),
   edit: PropTypes.bool.isRequired,
 };
 Calendar.defaultProps = {
   dates: null,
+  getCalendar: null,
 };
 export default Calendar;
