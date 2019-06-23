@@ -1,9 +1,21 @@
 import React from 'react';
 import Modal from '@material-ui/core/Modal';
-import { VictoryChart, VictoryLine } from 'victory';
+import { VictoryChart, VictoryLine, VictoryAxis } from 'victory';
 import PropTypes from 'prop-types';
 
 class FeedbackGraph extends React.Component {
+  static sortFeedbackDates(Feedback, rating) {
+    const sortedFeedback = Feedback.sort(
+      (a, b) =>
+        new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+    );
+    const graphData = sortedFeedback.map(feedback => ({
+      x: new Date(feedback.created_at).toDateString(),
+      y: feedback[rating],
+    }));
+    return graphData;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +44,10 @@ class FeedbackGraph extends React.Component {
                   data: { stroke: '#c43a31' },
                   parent: { border: '1px solid #ccc' },
                 }}
-                data={[1, 1]}
+                data={FeedbackGraph.sortFeedbackDates(
+                  this.props.feedback,
+                  'satisfaction',
+                )}
                 eventKey="satisfaction"
                 domain={{ y: [0, 10] }}
                 name="satisfaction"
@@ -44,7 +59,10 @@ class FeedbackGraph extends React.Component {
                   data: { stroke: '#ff8552' },
                   parent: { border: '1px solid #ccc' },
                 }}
-                data={[2, 2]}
+                data={FeedbackGraph.sortFeedbackDates(
+                  this.props.feedback,
+                  'confidence',
+                )}
                 eventKey="confidence"
                 domain={{ y: [0, 10] }}
                 name="confidence"
@@ -56,12 +74,17 @@ class FeedbackGraph extends React.Component {
                   data: { stroke: 'black' },
                   parent: { border: '1px solid #ccc' },
                 }}
-                data={[3, 3]}
+                data={FeedbackGraph.sortFeedbackDates(
+                  this.props.feedback,
+                  'performance',
+                )}
                 eventKey="performance"
                 domain={{ y: [0, 10] }}
                 name="performance"
               />
             ) : null}
+            <VictoryAxis label="Date" />
+            <VictoryAxis dependentAxis label="Rating" />
           </VictoryChart>
           <div>
             <p onClick={() => this.hideLine('satisfaction')}>Satisfaction</p>
