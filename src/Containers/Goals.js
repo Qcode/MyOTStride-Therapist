@@ -25,7 +25,7 @@ class Goals extends React.Component {
   fetchGoals() {
     Api.request('clients/:clientId/goals/all')
       .then(jsonData => this.setState({ goals: jsonData }))
-      .catch(() => this.setState({ error: 'Failed to fetch goals' }));
+      .catch((err) => this.setState({ error: err }));
   }
 
   addGoal(values) {
