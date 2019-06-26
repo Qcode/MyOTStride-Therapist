@@ -1,0 +1,22 @@
+.legend{
+  border: thin;
+  border-style: solid;
+  border-color:#39393a;
+  flex-direction: row;
+  display: flex;
+}
+.text-satisfaction{
+  color:#c43a31;
+  font-size: 12px;
+  margin: auto;
+}
+.text-confidence{
+  color:#ff8552;
+  font-size: 12px;
+  margin: auto;
+}
+.text-performance{
+  color:black;
+  font-size: 12px;
+  margin: auto;
+}

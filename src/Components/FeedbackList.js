@@ -91,6 +91,7 @@ class FeedbackList extends React.Component {
             handleModal={this.handleModal}
             open={this.state.open}
             feedback={this.state.feedback}
+            title={this.props.info.title}
           />
           <Button
             color="primary"
