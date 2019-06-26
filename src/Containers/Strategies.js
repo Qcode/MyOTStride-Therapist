@@ -111,7 +111,7 @@ class Strategies extends React.Component {
             />
           ))
         )}
-        {this.state.error ===null?null:<ErrorCard error ={this.state.error}/>}
+        <ErrorCard error={this.state.error} />
         <AddButton handleModal={this.handleModal} />
         <AddStrategy
           addFunction={this.addStrategies}

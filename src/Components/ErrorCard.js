@@ -4,8 +4,12 @@ import GetErrorText from '../utils/GetErrorText';
 
 function ErrorCard(props) {
   return (
-    <div className="container">
-      <p>{GetErrorText(props.error)}</p>
+    <div>
+      {props.error !== null ? (
+        <div className="container">
+          <p>{GetErrorText(props.error)}</p>
+        </div>
+      ) : null}
     </div>
   );
 }

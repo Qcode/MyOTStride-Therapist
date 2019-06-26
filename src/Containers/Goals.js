@@ -25,7 +25,7 @@ class Goals extends React.Component {
   fetchGoals() {
     Api.request('clients/:clientId/goals/all')
       .then(jsonData => this.setState({ goals: jsonData }))
-      .catch((err) => this.setState({ error: err }));
+      .catch(err => this.setState({ error: err }));
   }
 
   addGoal(values) {
@@ -123,9 +123,7 @@ class Goals extends React.Component {
           open={this.state.open}
         />
         <AddButton handleModal={this.handleModal} />
-        {this.state.error !== null ? (
-          <ErrorCard error={this.state.error} />
-        ) : null}
+        <ErrorCard error={this.state.error} />
       </div>
     );
   }
