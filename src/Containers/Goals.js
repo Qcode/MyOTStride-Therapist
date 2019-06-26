@@ -4,6 +4,8 @@ import Api from '../Api';
 import AddGoal from '../Components/AddGoal';
 import GoalCard from '../Components/GoalCard';
 import AddButton from '../Components/AddButton';
+import NoContentCard from '../Components/NoContentCard';
+import ErrorCard from '../Components/ErrorCard';
 
 class Goals extends React.Component {
   constructor(props) {
@@ -101,14 +103,19 @@ class Goals extends React.Component {
     return (
       <div>
         <h1>Goals</h1>
-        {this.state.goals.map(info => (
-          <GoalCard
-            key={info.id}
-            info={info}
-            editFunction={this.editGoal}
-            deleteFunction={this.deleteGoal}
-          />
-        ))}
+        {(this.state.goals.length === 0 && this.state.error === null) ||
+        (this.state.goals === undefined && this.state.error === null) ? (
+          <NoContentCard type="goals" />
+        ) : (
+          this.state.goals.map(info => (
+            <GoalCard
+              key={info.id}
+              info={info}
+              editFunction={this.editGoal}
+              deleteFunction={this.deleteGoal}
+            />
+          ))
+        )}
         <AddGoal
           addFunction={this.addGoal}
           error={this.state.error === '' ? '' : 'error'}
@@ -116,7 +123,9 @@ class Goals extends React.Component {
           open={this.state.open}
         />
         <AddButton handleModal={this.handleModal} />
-        {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
+        {this.state.error !== null ? (
+          <ErrorCard error={this.state.error} />
+        ) : null}
       </div>
     );
   }

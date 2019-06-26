@@ -55,9 +55,7 @@ class GoalCard extends React.Component {
           >
             <EditIcon />
           </Button>
-          <h2>Title:</h2>
-          <p>{this.props.info.title}</p>
-          <h2>Description:</h2>
+          <h2>{this.props.info.title}:</h2>
           <p>{this.props.info.description}</p>
           <h2>End Date:</h2>
           <p>{this.props.info.end_date.slice(0, 10)}</p>
