@@ -147,7 +147,7 @@ export default withRouter(
         .then(() => {
           formikBag.props.history.push('/');
         })
-        .catch((err) => {
+        .catch(err => {
           failSubmit(GetErrorText(err));
         });
     },

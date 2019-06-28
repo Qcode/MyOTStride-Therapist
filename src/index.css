@@ -16,6 +16,9 @@ h2 {
   color: #5bc0eb;
 }
 .container {
+  display: flex;
+}
+.container_card {
   background-color: #e6e6e6;
   margin: auto;
   margin-top: 5%;

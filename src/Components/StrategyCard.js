@@ -62,7 +62,7 @@ class StrategyCard extends React.Component {
         </React.Fragment>
       );
     }
-    return <div className="container">{display}</div>;
+    return <div className="container_card">{display}</div>;
   }
 }
 StrategyCard.propTypes = {

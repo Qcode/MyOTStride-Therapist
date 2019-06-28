@@ -98,7 +98,7 @@ export default withRouter(
           Api.validateKey();
           formikBag.props.history.push('/patients');
         })
-        .catch((err) => {
+        .catch(err => {
           formikBag.setSubmitting(false);
           formikBag.setErrors({ failedSubmit: GetErrorText(err) });
         }),

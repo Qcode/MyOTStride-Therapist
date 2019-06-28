@@ -5,8 +5,8 @@ import EditIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
 import EditActivity from './EditActivity';
-import Calendar from './Calendar';
 import FeedbackList from './FeedbackList';
+import ActivityCardItems from './ActivityCardItems';
 
 const styles = {
   edit: {
@@ -64,36 +64,16 @@ class ActivityCard extends React.Component {
     } else {
       display = (
         <React.Fragment>
-          <Button
-            onClick={() => this.props.deleteFunction(this.props.info)}
-            type="button"
-            classes={{ root: this.props.classes.delete }}
-          >
-            <DeleteIcon />
-          </Button>
-          <Button
-            classes={{ root: this.props.classes.edit }}
-            type="button"
-            onClick={() => this.Editing()}
-          >
-            <EditIcon />
-          </Button>
-          <h2>Title:</h2>
-          <p>{this.props.info.title}</p>
-          <h2>Description:</h2>
-          <p>{this.props.info.description}</p>
-          <Calendar
+          <ActivityCardItems
+            title={this.props.info.title}
+            description={this.props.info.description}
             getCalendar={this.getCalendar}
             dates={this.props.info.dates}
-            edit={false}
+            Editing={this.Editing}
+            deleteFunction={this.props.deleteFunction}
+            info={this.props.info}
+            viewingFeedback={this.viewingFeedback}
           />
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={() => this.viewingFeedback()}
-          >
-            View Feedback
-          </Button>
         </React.Fragment>
       );
     }
