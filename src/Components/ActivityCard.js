@@ -77,7 +77,7 @@ class ActivityCard extends React.Component {
         </React.Fragment>
       );
     }
-    return <div className="container">{display}</div>;
+    return <div className="container_card">{display}</div>;
   }
 }
 ActivityCard.propTypes = {
