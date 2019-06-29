@@ -5,6 +5,8 @@ import Api from '../Api';
 import AddStrategy from '../Components/AddStrategy';
 import StrategyCard from '../Components/StrategyCard';
 import AddButton from '../Components/AddButton';
+import NoContentCard from '../Components/NoContentCard';
+import ErrorCard from '../Components/ErrorCard';
 
 class Strategies extends React.Component {
   constructor(props) {
@@ -96,15 +98,20 @@ class Strategies extends React.Component {
     return (
       <div>
         <h1>Strategies</h1>
-        {this.state.strategies.map(info => (
-          <StrategyCard
-            info={info}
-            deleteFunction={this.deleteStrategies}
-            editFunction={this.editStrategies}
-            key={info.id}
-          />
-        ))}
-        {this.state.error && <p>Error fetching strategies.</p>}
+        {(this.state.strategies.length === 0 && this.state.error === null) ||
+        (this.state.strategies === undefined && this.state.error === null) ? (
+          <NoContentCard type="strategies" />
+        ) : (
+          this.state.strategies.map(info => (
+            <StrategyCard
+              info={info}
+              deleteFunction={this.deleteStrategies}
+              editFunction={this.editStrategies}
+              key={info.id}
+            />
+          ))
+        )}
+        <ErrorCard error={this.state.error} />
         <AddButton handleModal={this.handleModal} />
         <AddStrategy
           addFunction={this.addStrategies}

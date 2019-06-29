@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Api from '../Api';
 import CurrentPatients from '../Components/CurrentPatients';
 import PendingPatients from '../Components/PendingPatients';
+import ErrorCard from '../Components/ErrorCard';
 
 class PatientList extends React.Component {
   static pickClient(id) {
@@ -83,14 +84,12 @@ class PatientList extends React.Component {
         <CurrentPatients
           pickClient={PatientList.pickClient}
           patientList={this.state.currentList}
-          error={this.state.error === null ? null : 'error'}
         />
+        <ErrorCard error={this.state.error} />
         <PendingPatients
           patientList={this.state.pendingList}
-          error={this.state.error === null ? null : 'error'}
           connectFunction={this.connectClient}
         />
-        <p>{this.state.error === null ? null : 'error'}</p>
       </div>
     );
   }

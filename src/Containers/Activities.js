@@ -5,6 +5,8 @@ import ActivityCard from '../Components/ActivityCard';
 import Api from '../Api';
 import AddActivity from '../Components/AddActivity';
 import AddButton from '../Components/AddButton';
+import ErrorCard from '../Components/ErrorCard';
+import NoContentCard from '../Components/NoContentCard';
 
 class Activities extends React.Component {
   constructor(props) {
@@ -102,21 +104,26 @@ class Activities extends React.Component {
     return (
       <div>
         <h1>Activities</h1>
-        {this.state.activities.map(info => (
-          <ActivityCard
-            key={info.id}
-            editFunction={this.editActivity}
-            info={info}
-            deleteFunction={this.deleteActivity}
-          />
-        ))}
+        {(this.state.activities.length === 0 && this.state.error === null) ||
+        (this.state.activities === undefined && this.state.error === null) ? (
+          <NoContentCard type="activities" />
+        ) : (
+          this.state.activities.map(info => (
+            <ActivityCard
+              key={info.id}
+              editFunction={this.editActivity}
+              info={info}
+              deleteFunction={this.deleteActivity}
+            />
+          ))
+        )}
         <AddActivity
           addFunction={this.addActivity}
           handleModal={this.handleModal}
           open={this.state.open}
         />
         <AddButton handleModal={this.handleModal} />
-        {this.state.error !== null ? <p>Error Fetching Activities</p> : null}
+        <ErrorCard error={this.state.error} />
       </div>
     );
   }

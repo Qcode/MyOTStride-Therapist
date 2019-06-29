@@ -23,14 +23,12 @@ function PendingPatients(props) {
           ) : (
             <p className="text__noPatients">You have no pending patients</p>
           )}
-          {props.error}
         </div>
       </div>
     </div>
   );
 }
 PendingPatients.propTypes = {
-  error: PropTypes.string,
   patientList: PropTypes.arrayOf(
     PropTypes.shape({
       email: PropTypes.string,
@@ -40,7 +38,6 @@ PendingPatients.propTypes = {
   ),
 };
 PendingPatients.defaultProps = {
-  error: null,
   patientList: null,
 };
 

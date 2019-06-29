@@ -57,7 +57,7 @@ class StrategyCard extends React.Component {
           >
             <EditIcon />
           </Button>
-          <h2>Stategy:</h2>
+          <h2>Strategy:</h2>
           <p>{this.props.info.strategy}</p>
         </React.Fragment>
       );
