@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import GetErrorText from '../utils/GetErrorText';
+import GetErrorCodeText from '../utils/GetErrorCodeText';
 import Api from '../Api';
 import './SignUp.css';
 
@@ -148,7 +148,7 @@ export default withRouter(
           formikBag.props.history.push('/');
         })
         .catch(err => {
-          failSubmit(GetErrorText(err));
+          failSubmit(GetErrorCodeText(err));
         });
     },
   })(SignUp),

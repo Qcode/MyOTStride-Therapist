@@ -28,11 +28,7 @@ function AddButton(props) {
 
 AddButton.propTypes = {
   classes: PropTypes.shape({
-    add: PropTypes.shape({
-      position: PropTypes.string,
-      right: PropTypes.string,
-      bottom: PropTypes.string,
-    }),
+    add: PropTypes.string,
   }).isRequired,
   handleModal: PropTypes.func.isRequired,
 };

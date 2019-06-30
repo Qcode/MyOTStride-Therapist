@@ -74,14 +74,8 @@ GoalCard.propTypes = {
   editFunction: PropTypes.func.isRequired,
   deleteFunction: PropTypes.func.isRequired,
   classes: PropTypes.shape({
-    delete: PropTypes.shape({
-      position: PropTypes.string,
-      right: PropTypes.string,
-    }),
-    edit: PropTypes.shape({
-      position: PropTypes.string,
-      right: PropTypes.string,
-    }),
+    delete: PropTypes.string,
+    edit: PropTypes.string,
   }).isRequired,
 };
 

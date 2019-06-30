@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GetErrorText from '../utils/GetErrorText';
+import GetErrorCodeText from '../utils/GetErrorCodeText';
 
 function ErrorCard(props) {
   return (
     <div>
       {props.error !== null ? (
         <div className="container">
-          <p>{GetErrorText(props.error)}</p>
+          <p>{GetErrorCodeText(props.error)}</p>
         </div>
       ) : null}
     </div>
@@ -15,7 +15,10 @@ function ErrorCard(props) {
 }
 
 ErrorCard.propTypes = {
-  error: PropTypes.string.isRequired,
+  error: PropTypes.string,
+};
+ErrorCard.defaultProps = {
+  error: null,
 };
 
 export default ErrorCard;

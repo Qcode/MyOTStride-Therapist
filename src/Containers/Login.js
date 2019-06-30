@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Api from '../Api';
-import GetErrorText from '../utils/GetErrorText';
+import GetErrorCodeText from '../utils/GetErrorCodeText';
 import './Login.css';
 
 function Login(props) {
@@ -100,7 +100,7 @@ export default withRouter(
         })
         .catch(err => {
           formikBag.setSubmitting(false);
-          formikBag.setErrors({ failedSubmit: GetErrorText(err) });
+          formikBag.setErrors({ failedSubmit: GetErrorCodeText(err) });
         }),
   })(Login),
 );

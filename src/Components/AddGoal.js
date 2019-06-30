@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Modal from '@material-ui/core/Modal';
+import GetErrorCodeText from '../utils/GetErrorCodeText';
 import GetErrorText from '../utils/GetErrorText';
 
 function AddGoal(props) {
@@ -91,7 +92,7 @@ export default withFormik({
         .addFunction(values)
         .catch(err =>
           formikBag.setErrors({
-            failedSubmit: GetErrorText(err),
+            failedSubmit: GetErrorCodeText(err),
           }),
         )
         .finally(() => {
@@ -100,7 +101,7 @@ export default withFormik({
         });
     } else {
       formikBag.setErrors({
-        failedSubmit: 'Please make sure all the fields are filled out.',
+        failedSubmit: GetErrorText('unfilledFields'),
       });
       formikBag.setSubmitting(false);
     }
