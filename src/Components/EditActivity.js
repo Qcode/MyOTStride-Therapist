@@ -4,6 +4,8 @@ import { withFormik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Calendar from './Calendar';
+import GetErrorText from '../utils/GetErrorText';
+import GetErrorCodeText from '../utils/GetErrorCodeText';
 
 class EditActivity extends React.Component {
   constructor(props) {
@@ -65,6 +67,9 @@ class EditActivity extends React.Component {
           >
             Cancel
           </Button>
+          {this.props.errors.failedSubmit && (
+            <p>{this.props.errors.failedSubmit}</p>
+          )}
         </Form>
       </div>
     );
@@ -81,6 +86,13 @@ EditActivity.propTypes = {
   setValues: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   Editing: PropTypes.func.isRequired,
+  errors: PropTypes.shape({
+    failedSubmit: PropTypes.string,
+  }),
+};
+
+EditActivity.defaultProps = {
+  errors: null,
 };
 
 export default withFormik({
@@ -89,16 +101,31 @@ export default withFormik({
     description: props.info.description,
     dates: props.info.dates,
   }),
-  handleSubmit: (values, formikBag) =>
-    formikBag.props
-      .editFunction(formikBag.props.info, values)
-      .catch(() =>
-        formikBag.setErrors({
-          failedSubmit: 'Problem editing activity',
-        }),
-      )
-      .finally(() => {
-        formikBag.setSubmitting(false);
-        formikBag.props.Editing();
-      }),
+  handleSubmit: (values, formikBag) => {
+    if (
+      values.title !== '' &&
+      values.title !== null &&
+      values.description !== '' &&
+      values.description !== null &&
+      values.dates !== '' &&
+      values.dates !== null
+    ) {
+      formikBag.props
+        .editFunction(formikBag.props.info, values)
+        .catch(err =>
+          formikBag.setErrors({
+            failedSubmit: GetErrorCodeText(err),
+          }),
+        )
+        .finally(() => {
+          formikBag.setSubmitting(false);
+          formikBag.props.Editing();
+        });
+    } else {
+      formikBag.setErrors({
+        failedSubmit: GetErrorText('unfilledFields'),
+      });
+      formikBag.setSubmitting(false);
+    }
+  },
 })(EditActivity);
