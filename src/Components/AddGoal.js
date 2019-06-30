@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Modal from '@material-ui/core/Modal';
+import GetErrorText from '../utils/GetErrorText';
 
 function AddGoal(props) {
   return (
@@ -77,16 +78,31 @@ export default withFormik({
     description: '',
     endDate: '',
   }),
-  handleSubmit: (values, formikBag) =>
-    formikBag.props
-      .addFunction(values)
-      .catch(() =>
-        formikBag.setErrors({
-          failedSubmit: 'Problem adding goal',
-        }),
-      )
-      .finally(() => {
-        formikBag.setSubmitting(false);
-        formikBag.props.handleModal();
-      }),
+  handleSubmit: (values, formikBag) => {
+    if (
+      values.title !== '' &&
+      values.title !== null &&
+      values.description !== '' &&
+      values.description !== null &&
+      values.endDate !== '' &&
+      values.endDate !== null
+    ) {
+      formikBag.props
+        .addFunction(values)
+        .catch(err =>
+          formikBag.setErrors({
+            failedSubmit: GetErrorText(err),
+          }),
+        )
+        .finally(() => {
+          formikBag.setSubmitting(false);
+          formikBag.props.handleModal();
+        });
+    } else {
+      formikBag.setErrors({
+        failedSubmit: 'Please make sure all the fields are filled out.',
+      });
+      formikBag.setSubmitting(false);
+    }
+  },
 })(AddGoal);
