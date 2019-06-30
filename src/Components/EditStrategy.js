@@ -3,6 +3,8 @@ import { withFormik, Form } from 'formik';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import GetErrorText from '../utils/GetErrorText';
+import GetErrorCodeText from '../utils/GetErrorCodeText';
 
 function EditStrategy(props) {
   return (
@@ -58,16 +60,24 @@ export default withFormik({
   mapPropsToValues: props => ({
     strategy: props.info.strategy,
   }),
-  handleSubmit: (values, formikBag) =>
-    formikBag.props
-      .editFunction(formikBag.props.info, values)
-      .catch(() =>
-        formikBag.setErrors({
-          failedSubmit: 'Problem submitting activity',
-        }),
-      )
-      .finally(() => {
-        formikBag.setSubmitting(false);
-        formikBag.props.changeDisplay();
-      }),
+  handleSubmit: (values, formikBag) => {
+    if (values.strategy !== '' && values.strategy !== null) {
+      formikBag.props
+        .editFunction(formikBag.props.info, values)
+        .catch(err =>
+          formikBag.setErrors({
+            failedSubmit: GetErrorCodeText(err),
+          }),
+        )
+        .finally(() => {
+          formikBag.setSubmitting(false);
+          formikBag.props.changeDisplay();
+        });
+    } else {
+      formikBag.setErrors({
+        failedSubmit: GetErrorText('unfilledFields'),
+      });
+      formikBag.setSubmitting(false);
+    }
+  },
 })(EditStrategy);
