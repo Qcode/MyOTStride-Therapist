@@ -60,7 +60,7 @@ class FeedbackList extends React.Component {
           {this.state.feedback.map(feedback => (
             <div key={feedback.id}>
               <Collapsible
-                trigger="xx/xx/xxxx"
+                trigger={feedback.created_at.slice(0,10)}
                 transitionTIme={100}
                 triggerStyle={{ color: '#00a388', fontSize: '25px' }}
                 className="Collapsible"
