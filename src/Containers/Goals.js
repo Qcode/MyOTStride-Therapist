@@ -107,14 +107,16 @@ class Goals extends React.Component {
         (this.state.goals === undefined && this.state.error === null) ? (
           <NoContentCard type="goals" />
         ) : (
-          this.state.goals.map(info => (
-            <GoalCard
-              key={info.id}
-              info={info}
-              editFunction={this.editGoal}
-              deleteFunction={this.deleteGoal}
-            />
-          ))
+          <div className="container_card_layout">
+            {this.state.goals.map(info => (
+              <GoalCard
+                key={info.id}
+                info={info}
+                editFunction={this.editGoal}
+                deleteFunction={this.deleteGoal}
+              />
+            ))}
+          </div>
         )}
         <AddGoal
           addFunction={this.addGoal}

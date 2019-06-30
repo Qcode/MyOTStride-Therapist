@@ -16,9 +16,6 @@ h2 {
   color: #5bc0eb;
 }
 .container {
-  display: flex;
-}
-.container_card {
   background-color: #e6e6e6;
   margin: auto;
   margin-top: 5%;
@@ -28,6 +25,22 @@ h2 {
   position: relative;
   box-shadow: 10px 10px #4f4f4f;
   width: 60%;
+}
+
+.container_card_layout{
+  display: flex;
+  flex-wrap: wrap;
+}
+.container_card {
+  background-color: #e6e6e6;
+  margin: auto;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  border-radius: 5px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 10px 10px #4f4f4f;
+  width: 25%;
 }
 .text {
   color: #00a388;
