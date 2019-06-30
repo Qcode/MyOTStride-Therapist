@@ -34,6 +34,7 @@ function EditGoal(props) {
           label="End Date"
           onChange={props.handleChange}
           value={props.values.endDate}
+          defaultValue={props.values.endDate}
           variant="outlined"
           margin="normal"
           InputLabelProps={{ shrink: true }}
@@ -80,7 +81,7 @@ export default withFormik({
   mapPropsToValues: props => ({
     title: props.info.title,
     description: props.info.description,
-    endDate: props.info.endDate,
+    endDate: props.info.end_date.slice(0,10),
   }),
   handleSubmit: (values, formikBag) =>
     formikBag.props
