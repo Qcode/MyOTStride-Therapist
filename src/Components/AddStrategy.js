@@ -60,6 +60,7 @@ export default withFormik({
     if (values.strategy !== '' && values.strategy !== null) {
       formikBag.props
         .addFunction(values)
+        .then(()=> formikBag.props.handleModal())
         .catch(err =>
           formikBag.setErrors({
             failedSubmit: GetErrorCodeText(err),
@@ -67,7 +68,6 @@ export default withFormik({
         )
         .finally(() => {
           formikBag.setSubmitting(false);
-          formikBag.props.handleModal();
         });
     } else {
       formikBag.setErrors({
