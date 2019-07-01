@@ -102,14 +102,16 @@ class Strategies extends React.Component {
         (this.state.strategies === undefined && this.state.error === null) ? (
           <NoContentCard type="strategies" />
         ) : (
-          this.state.strategies.map(info => (
-            <StrategyCard
-              info={info}
-              deleteFunction={this.deleteStrategies}
-              editFunction={this.editStrategies}
-              key={info.id}
-            />
-          ))
+          <div className="container_card_layout">
+            {this.state.strategies.map(info => (
+              <StrategyCard
+                info={info}
+                deleteFunction={this.deleteStrategies}
+                editFunction={this.editStrategies}
+                key={info.id}
+              />
+            ))}
+          </div>
         )}
         <ErrorCard error={this.state.error} />
         <AddButton handleModal={this.handleModal} />

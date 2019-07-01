@@ -62,7 +62,7 @@ class GoalCard extends React.Component {
         </React.Fragment>
       );
     }
-    return <div className="container">{display}</div>;
+    return <div className="container_card">{display}</div>;
   }
 }
 GoalCard.propTypes = {
@@ -74,14 +74,8 @@ GoalCard.propTypes = {
   editFunction: PropTypes.func.isRequired,
   deleteFunction: PropTypes.func.isRequired,
   classes: PropTypes.shape({
-    delete: PropTypes.shape({
-      position: PropTypes.string,
-      right: PropTypes.string,
-    }),
-    edit: PropTypes.shape({
-      position: PropTypes.string,
-      right: PropTypes.string,
-    }),
+    delete: PropTypes.string,
+    edit: PropTypes.string,
   }).isRequired,
 };
 

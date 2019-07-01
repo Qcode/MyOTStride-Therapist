@@ -1,0 +1,12 @@
+.container_ActivityCardItems{
+  display: flex;
+}
+.div_Calendar{
+  flex-grow: 1;
+}
+.div_Text{
+  flex-grow: 2;
+}
+.div_TitleText{
+  display: inline-flex;
+}

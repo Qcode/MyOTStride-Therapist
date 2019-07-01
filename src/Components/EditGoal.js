@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { withFormik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import GetErrorText from '../utils/GetErrorText';
+import GetErrorCodeText from '../utils/GetErrorCodeText';
 
 function EditGoal(props) {
   return (
@@ -56,7 +58,7 @@ function EditGoal(props) {
           Cancel
         </Button>
       </Form>
-      <p>{props.error === null ? null : 'error'}</p>
+      {props.errors.failedSubmit && <p>{props.errors.failedSubmit}</p>}
     </div>
   );
 }
@@ -68,30 +70,47 @@ EditGoal.propTypes = {
     endDate: PropTypes.string,
     id: PropTypes.string,
   }).isRequired,
-  error: PropTypes.string,
+  errors: PropTypes.shape({
+    failedSubmit: PropTypes.string,
+  }),
   isSubmitting: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
   changeDisplay: PropTypes.func.isRequired,
 };
 EditGoal.defaultProps = {
-  error: null,
+  errors: null,
 };
 export default withFormik({
   mapPropsToValues: props => ({
     title: props.info.title,
     description: props.info.description,
-    endDate: props.info.endDate,
+    endDate: props.info.end_date.slice(0, 10),
   }),
-  handleSubmit: (values, formikBag) =>
-    formikBag.props
-      .editFunction(formikBag.props.info, values)
-      .catch(() =>
-        formikBag.setErrors({
-          failedSubmit: 'Problem submitting goal',
-        }),
-      )
-      .finally(() => {
-        formikBag.setSubmitting(false);
-        formikBag.props.changeDisplay();
-      }),
+  handleSubmit: (values, formikBag) => {
+    if (
+      values.title !== '' &&
+      values.title !== null &&
+      values.description !== '' &&
+      values.description !== null &&
+      values.endDate !== '' &&
+      values.endDate !== null
+    ) {
+      formikBag.props
+        .editFunction(formikBag.props.info, values)
+        .then(() => formikBag.props.changeDisplay())
+        .catch(err =>
+          formikBag.setErrors({
+            failedSubmit: GetErrorCodeText(err),
+          }),
+        )
+        .finally(() => {
+          formikBag.setSubmitting(false);
+        });
+    } else {
+      formikBag.setErrors({
+        failedSubmit: GetErrorText('unfilledFields'),
+      });
+      formikBag.setSubmitting(false);
+    }
+  },
 })(EditGoal);
