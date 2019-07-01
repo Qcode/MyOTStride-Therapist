@@ -1,22 +1,24 @@
 .legend{
-  border: thin;
-  border-style: solid;
-  border-color:#39393a;
-  flex-direction: row;
   display: flex;
+  width: 100%;
 }
 .text-satisfaction{
   color:#c43a31;
-  font-size: 12px;
+  font-size: 15px;
   margin: auto;
 }
 .text-confidence{
   color:#ff8552;
-  font-size: 12px;
+  font-size: 15px;
   margin: auto;
 }
 .text-performance{
+  color:purple;
+  font-size: 15px;
+  margin: auto;
+}
+.text-legendTitle{
   color:black;
-  font-size: 12px;
+  font-size: 15px;
   margin: auto;
 }

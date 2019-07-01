@@ -2,20 +2,18 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import Collapsible from 'react-collapsible';
+import { withRouter } from 'react-router-dom';
 
 import Api from '../Api';
-import FeedbackGraph from './FeedbackGraph';
 
 class FeedbackList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       feedback: [],
-      open: false,
       error: null,
     };
     this.getFeedback();
-    this.handleModal = this.handleModal.bind(this);
   }
 
   getFeedback() {
@@ -45,13 +43,6 @@ class FeedbackList extends React.Component {
       .catch(err => this.setState({ error: err }));
   }
 
-  handleModal() {
-    this.setState(prevState => ({
-      ...prevState,
-      open: !prevState.open,
-    }));
-  }
-
   render() {
     return (
       <div>
@@ -60,7 +51,7 @@ class FeedbackList extends React.Component {
           {this.state.feedback.map(feedback => (
             <div key={feedback.id}>
               <Collapsible
-                trigger={feedback.created_at.slice(0,10)}
+                trigger={feedback.created_at.slice(0, 10)}
                 transitionTIme={100}
                 triggerStyle={{ color: '#00a388', fontSize: '25px' }}
                 className="Collapsible"
@@ -87,18 +78,15 @@ class FeedbackList extends React.Component {
               </Collapsible>
             </div>
           ))}
-          <FeedbackGraph
-            handleModal={this.handleModal}
-            open={this.state.open}
-            feedback={this.state.feedback}
-            title={this.props.info.title}
-          />
           <Button
             color="primary"
             variant="contained"
             type="button"
             onClick={() => {
-              this.handleModal();
+              this.props.history.push(
+                '/patients/patientInfo/activities/feedbackGraph',
+                { feedback: this.state.feedback, title: this.props.info.title },
+              );
             }}
           >
             View Progress
@@ -125,6 +113,8 @@ FeedbackList.propTypes = {
     id: PropTypes.string,
   }).isRequired,
   viewingFeedback: PropTypes.func.isRequired,
+  history: PropTypes.shape({ push: PropTypes.func, goBack: PropTypes.func })
+    .isRequired,
 };
 
-export default FeedbackList;
+export default withRouter(FeedbackList);

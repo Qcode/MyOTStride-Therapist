@@ -5,6 +5,7 @@ import './Legend.css';
 function Legend(props) {
   return (
     <div className="legend">
+      <h5 className="text-legendTitle">LEGEND</h5>
       <h6
         onClick={() => props.hideLine('satisfaction')}
         className="text-satisfaction"

@@ -17,9 +17,11 @@ h2 {
 }
 h6:hover {
   color:#00a388;
+  cursor: pointer;
 }
 h6:active{
   color: #5bc0eb;
+  cursor: pointer;
 }
 .container {
   background-color: #e6e6e6;

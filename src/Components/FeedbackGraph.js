@@ -1,11 +1,11 @@
 import React from 'react';
-import Modal from '@material-ui/core/Modal';
 import {
   VictoryChart,
   VictoryLine,
   VictoryAxis,
   VictoryScatter,
-  VictoryLabel,
+  VictoryTooltip,
+  VictoryZoomContainer,
 } from 'victory';
 import PropTypes from 'prop-types';
 import Legend from './Legend';
@@ -17,10 +17,12 @@ class FeedbackGraph extends React.Component {
         new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
     );
     const graphData = sortedFeedback.map(feedback => ({
-      x: new Date(feedback.created_at).toLocaleString('en-CA', {
-        timeZone: 'GMT',
-      }),
+      x: new Date(feedback.created_at),
       y: feedback[rating],
+      label: new Date(feedback.created_at)
+        .toLocaleString()
+        .slice(0, 10)
+        .replace(',', ''),
     }));
     return graphData;
   }
@@ -43,149 +45,123 @@ class FeedbackGraph extends React.Component {
 
   render() {
     return (
-      <Modal open={this.props.open} onClose={this.props.handleModal}>
-        <div className="container">
-          {this.props.feedback.length === 0 || this.props.feedback === [] ? (
-            <p>The client has not submitted any feedback.</p>
-          ) : (
-            <React.Fragment>
-              <h2>Progress for {this.props.title}</h2>
-              <VictoryChart>
-                {this.state.satisfactionVisible ? (
-                  <VictoryChart>
-                    <VictoryLine
-                      style={{
-                        data: { stroke: '#c43a31' },
-                        parent: { border: '1px solid #ccc' },
-                      }}
-                      data={FeedbackGraph.sortFeedbackDates(
-                        this.props.feedback,
-                        'satisfaction',
-                      )}
-                      domain={{ y: [0, 10] }}
-                    />
-                    <VictoryScatter
-                      style={{ data: { fill: '#c43a31' } }}
-                      size={3}
-                      data={FeedbackGraph.sortFeedbackDates(
-                        this.props.feedback,
-                        'satisfaction',
-                      )}
-                      domain={{ y: [0, 10] }}
-                    />
-                    <VictoryAxis
-                      tickLabelComponent={
-                        <VictoryLabel
-                          textAnchor="start"
-                          style={{ fontSize: 10 }}
-                          angle={69}
-                        />
-                      }
-                    />
-                  </VictoryChart>
-                ) : null}
-                {this.state.confidenceVisible ? (
-                  <VictoryChart>
-                    <VictoryLine
-                      style={{
-                        data: { stroke: '#ff8552' },
-                        parent: { border: '1px solid #ccc' },
-                      }}
-                      data={FeedbackGraph.sortFeedbackDates(
-                        this.props.feedback,
-                        'confidence',
-                      )}
-                      domain={{ y: [0, 10] }}
-                    />
-                    <VictoryScatter
-                      style={{ data: { fill: '#ff8552' } }}
-                      size={3}
-                      data={FeedbackGraph.sortFeedbackDates(
-                        this.props.feedback,
-                        'confidence',
-                      )}
-                      domain={{ y: [0, 10] }}
-                    />
-                    <VictoryAxis
-                      tickLabelComponent={
-                        <VictoryLabel
-                          textAnchor="start"
-                          style={{ fontSize: 10 }}
-                          angle={69}
-                        />
-                      }
-                    />
-                  </VictoryChart>
-                ) : null}
-                {this.state.performanceVisible ? (
-                  <VictoryChart>
-                    <VictoryLine
-                      style={{
-                        data: { stroke: 'black' },
-                        parent: { border: '1px solid #ccc' },
-                      }}
-                      data={FeedbackGraph.sortFeedbackDates(
-                        this.props.feedback,
-                        'performance',
-                      )}
-                      domain={{ y: [0, 10] }}
-                    />
-                    <VictoryScatter
-                      style={{ data: { fill: 'black' } }}
-                      size={3}
-                      data={FeedbackGraph.sortFeedbackDates(
-                        this.props.feedback,
-                        'performance',
-                      )}
-                      domain={{ y: [0, 10] }}
-                    />
-                    <VictoryAxis
-                      tickLabelComponent={
-                        <VictoryLabel
-                          textAnchor="start"
-                          style={{ fontSize: 10 }}
-                          angle={69}
-                        />
-                      }
-                    />
-                  </VictoryChart>
-                ) : null}
-                <VictoryAxis
-                  label="Date"
-                  tickLabelComponent={
-                    <VictoryLabel
-                      textAnchor="start"
-                      style={{ fontSize: 10 }}
-                      angle={69}
-                    />
-                  }
-                />
-                <VictoryAxis dependentAxis label="Rating" />
-              </VictoryChart>
-              <Legend hideLine={this.hideLine} />
-            </React.Fragment>
-          )}
-        </div>
-      </Modal>
+      <div className="container" style={{ width: '80%' }}>
+        {this.props.location.state.feedback.length === 0 ||
+        this.props.location.state.feedback === [] ? (
+          <p>The client has not submitted any feedback.</p>
+        ) : (
+          <React.Fragment>
+            <h2>Progress for {this.props.location.state.title}</h2>
+            <Legend hideLine={this.hideLine} />
+            <VictoryChart
+              scale={{ x: 'time' }}
+              containerComponent={<VictoryZoomContainer zoomDimension="x" />}
+            >
+              {this.state.satisfactionVisible ? (
+                <VictoryChart>
+                  <VictoryLine
+                    style={{
+                      data: { stroke: '#c43a31' },
+                      parent: { border: '1px solid #ccc' },
+                    }}
+                    data={FeedbackGraph.sortFeedbackDates(
+                      this.props.location.state.feedback,
+                      'satisfaction',
+                    )}
+                    domain={{ y: [0, 10] }}
+                    labelComponent={<VictoryTooltip />}
+                  />
+                  <VictoryScatter
+                    style={{ data: { fill: '#c43a31' } }}
+                    size={3}
+                    data={FeedbackGraph.sortFeedbackDates(
+                      this.props.location.state.feedback,
+                      'satisfaction',
+                    )}
+                    domain={{ y: [0, 10] }}
+                    labelComponent={<VictoryTooltip />}
+                  />
+                </VictoryChart>
+              ) : null}
+              {this.state.confidenceVisible ? (
+                <VictoryChart>
+                  <VictoryLine
+                    style={{
+                      data: { stroke: '#ff8552' },
+                      parent: { border: '1px solid #ccc' },
+                    }}
+                    data={FeedbackGraph.sortFeedbackDates(
+                      this.props.location.state.feedback,
+                      'confidence',
+                    )}
+                    domain={{ y: [0, 10] }}
+                    labelComponent={<VictoryTooltip />}
+                  />
+                  <VictoryScatter
+                    style={{ data: { fill: '#ff8552' } }}
+                    size={3}
+                    data={FeedbackGraph.sortFeedbackDates(
+                      this.props.location.state.feedback,
+                      'confidence',
+                    )}
+                    domain={{ y: [0, 10] }}
+                    labelComponent={<VictoryTooltip />}
+                  />
+                </VictoryChart>
+              ) : null}
+              {this.state.performanceVisible ? (
+                <VictoryChart>
+                  <VictoryLine
+                    style={{
+                      data: { stroke: 'purple' },
+                      parent: { border: '1px solid #ccc' },
+                    }}
+                    data={FeedbackGraph.sortFeedbackDates(
+                      this.props.location.state.feedback,
+                      'performance',
+                    )}
+                    domain={{ y: [0, 10] }}
+                    labelComponent={<VictoryTooltip />}
+                  />
+                  <VictoryScatter
+                    style={{ data: { fill: 'purple' } }}
+                    size={3}
+                    data={FeedbackGraph.sortFeedbackDates(
+                      this.props.location.state.feedback,
+                      'performance',
+                    )}
+                    domain={{ y: [0, 10] }}
+                    labelComponent={<VictoryTooltip />}
+                  />
+                </VictoryChart>
+              ) : null}
+              <VictoryAxis label="Date/Time" />
+              <VictoryAxis dependentAxis label="Rating" />
+            </VictoryChart>
+          </React.Fragment>
+        )}
+      </div>
     );
   }
 }
 
-
 FeedbackGraph.propTypes = {
-  open: PropTypes.bool.isRequired,
-  handleModal: PropTypes.func.isRequired,
-  feedback: PropTypes.shape({
-    satisfaction: PropTypes.string,
-    confidence: PropTypes.string,
-    performance: PropTypes.string,
-    length: PropTypes.number,
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      feedback: PropTypes.arrayOf(
+        PropTypes.shape({
+          confidence: PropTypes.string,
+          performance: PropTypes.string,
+          satisfaction: PropTypes.string,
+          dates: PropTypes.arrayOf(PropTypes.string),
+        }),
+      ),
+      title: PropTypes.string,
+    }),
   }),
-  title: PropTypes.string,
 };
 FeedbackGraph.defaultProps = {
-  feedback: null,
-  title: null,
+  location: null,
 };
 
 export default FeedbackGraph;
