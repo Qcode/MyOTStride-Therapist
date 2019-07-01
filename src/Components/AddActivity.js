@@ -100,7 +100,7 @@ export default withFormik({
     ) {
       formikBag.props
         .addFunction(values)
-        .then(()=> formikBag.props.handleModal())
+        .then(() => formikBag.props.handleModal())
         .catch(err =>
           formikBag.setErrors({
             failedSubmit: GetErrorCodeText(err),

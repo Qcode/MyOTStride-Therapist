@@ -4,8 +4,7 @@ import { withFormik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Calendar from './Calendar';
-import GetErrorText from '../utils/GetErrorText';
-import GetErrorCodeText from '../utils/GetErrorCodeText';
+import CheckUnfilledFields from '../utils/CheckUnfilledFields';
 
 class EditActivity extends React.Component {
   constructor(props) {
@@ -102,30 +101,13 @@ export default withFormik({
     dates: props.info.dates,
   }),
   handleSubmit: (values, formikBag) => {
-    if (
-      values.title !== '' &&
-      values.title !== null &&
-      values.description !== '' &&
-      values.description !== null &&
-      values.dates !== '' &&
-      values.dates !== null
-    ) {
-      formikBag.props
-        .editFunction(formikBag.props.info, values)
-        .then(()=>formikBag.props.Editing())
-        .catch(err =>
-          formikBag.setErrors({
-            failedSubmit: GetErrorCodeText(err),
-          }),
-        )
-        .finally(() => {
-          formikBag.setSubmitting(false);
-        });
-    } else {
-      formikBag.setErrors({
-        failedSubmit: GetErrorText('unfilledFields'),
-      });
-      formikBag.setSubmitting(false);
-    }
+    const fields = ['title', 'description', 'dates'];
+    CheckUnfilledFields(
+      fields,
+      formikBag.props.Editing,
+      formikBag.props.editFunction,
+      formikBag,
+      values,
+    );
   },
 })(EditActivity);

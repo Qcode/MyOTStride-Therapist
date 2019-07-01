@@ -97,7 +97,7 @@ export default withFormik({
     ) {
       formikBag.props
         .editFunction(formikBag.props.info, values)
-        .then(()=> formikBag.props.changeDisplay())
+        .then(() => formikBag.props.changeDisplay())
         .catch(err =>
           formikBag.setErrors({
             failedSubmit: GetErrorCodeText(err),
