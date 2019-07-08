@@ -8,22 +8,26 @@ function CurrentPatients(props) {
     <div>
       <h1>Current Patients</h1>
       <div className="container__patientCards">
-        {props.patientList.map(patient => (
-          <div className="container_patientCard" key={patient.id}>
-            <h2>{`${patient.first_name} ${patient.last_name}`}</h2>
-            <PatientInformation
-              pickClient={props.pickClient}
-              patient={patient}
-            />
+        {props.patientList.length === 0 || props.patientList === null ? (
+          <div className="container">
+            <p>You have not connected with any Clients yet.</p>
           </div>
-        ))}
-        {props.error}
+        ) : (
+          props.patientList.map(patient => (
+            <div className="container_patientCard" key={patient.id}>
+              <h2>{`${patient.first_name} ${patient.last_name}`}</h2>
+              <PatientInformation
+                pickClient={props.pickClient}
+                patient={patient}
+              />
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
 }
 CurrentPatients.propTypes = {
-  error: PropTypes.string,
   pickClient: PropTypes.func.isRequired,
   patientList: PropTypes.arrayOf(
     PropTypes.shape({
@@ -34,7 +38,6 @@ CurrentPatients.propTypes = {
   ),
 };
 CurrentPatients.defaultProps = {
-  error: null,
   patientList: null,
 };
 

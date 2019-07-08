@@ -6,7 +6,7 @@ import './PatientInformation.css';
 
 function PatientInformation(props) {
   return (
-    <div className="Container">
+    <div>
       <Button
         color="primary"
         variant="contained"

@@ -5,6 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import Calendar from './Calendar';
+import GetErrorCodeText from '../utils/GetErrorCodeText';
+import GetErrorText from '../utils/GetErrorText';
 
 class AddActivity extends React.Component {
   constructor(props) {
@@ -87,16 +89,31 @@ export default withFormik({
     title: '',
     dates: '',
   }),
-  handleSubmit: (values, formikBag) =>
-    formikBag.props
-      .addFunction(values)
-      .catch(() =>
-        formikBag.setErrors({
-          failedSubmit: 'Problem submitting activity',
-        }),
-      )
-      .finally(() => {
-        formikBag.setSubmitting(false);
-        formikBag.props.handleModal();
-      }),
+  handleSubmit: (values, formikBag) => {
+    if (
+      values.title !== '' &&
+      values.title !== null &&
+      values.description !== '' &&
+      values.description !== null &&
+      values.dates !== '' &&
+      values.dates !== null
+    ) {
+      formikBag.props
+        .addFunction(values)
+        .then(() => formikBag.props.handleModal())
+        .catch(err =>
+          formikBag.setErrors({
+            failedSubmit: GetErrorCodeText(err),
+          }),
+        )
+        .finally(() => {
+          formikBag.setSubmitting(false);
+        });
+    } else {
+      formikBag.setErrors({
+        failedSubmit: GetErrorText('unfilledFields'),
+      });
+      formikBag.setSubmitting(false);
+    }
+  },
 })(AddActivity);

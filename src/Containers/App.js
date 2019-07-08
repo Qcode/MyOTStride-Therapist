@@ -11,6 +11,7 @@ import SignUp from './SignUp';
 import TopNavBar from '../Components/TopNavBar';
 import Privacy from '../Components/Privacy';
 import Contact from '../Components/Contact';
+import FeedbackGraph from '../Components/FeedbackGraph';
 
 function App() {
   return (
@@ -52,6 +53,12 @@ function App() {
           exact
           path="/patients/patientInfo/strategies"
           component={AuthenticatedRoute(Strategies)}
+        />
+
+        <Route
+          exact
+          path="/patients/patientInfo/activities/feedbackGraph"
+          component={AuthenticatedRoute(FeedbackGraph)}
         />
       </div>
     </div>

@@ -1,0 +1,24 @@
+.legend{
+  display: flex;
+  width: 100%;
+}
+.text-satisfaction{
+  color:#c43a31;
+  font-size: 15px;
+  margin: auto;
+}
+.text-confidence{
+  color:#ff8552;
+  font-size: 15px;
+  margin: auto;
+}
+.text-performance{
+  color:purple;
+  font-size: 15px;
+  margin: auto;
+}
+.text-legendTitle{
+  color:black;
+  font-size: 15px;
+  margin: auto;
+}

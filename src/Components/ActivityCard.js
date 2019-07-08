@@ -1,23 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import EditIcon from '@material-ui/icons/Create';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { withStyles } from '@material-ui/core/styles';
 import EditActivity from './EditActivity';
-import Calendar from './Calendar';
 import FeedbackList from './FeedbackList';
-
-const styles = {
-  edit: {
-    position: 'absolute',
-    right: '0px',
-  },
-  delete: {
-    position: 'absolute',
-    right: '60px',
-  },
-};
+import ActivityCardItems from './ActivityCardItems';
 
 class ActivityCard extends React.Component {
   constructor(props) {
@@ -64,36 +49,16 @@ class ActivityCard extends React.Component {
     } else {
       display = (
         <React.Fragment>
-          <Button
-            onClick={() => this.props.deleteFunction(this.props.info)}
-            type="button"
-            classes={{ root: this.props.classes.delete }}
-          >
-            <DeleteIcon />
-          </Button>
-          <Button
-            classes={{ root: this.props.classes.edit }}
-            type="button"
-            onClick={() => this.Editing()}
-          >
-            <EditIcon />
-          </Button>
-          <h2>Title:</h2>
-          <p>{this.props.info.title}</p>
-          <h2>Description:</h2>
-          <p>{this.props.info.description}</p>
-          <Calendar
+          <ActivityCardItems
+            title={this.props.info.title}
+            description={this.props.info.description}
             getCalendar={this.getCalendar}
             dates={this.props.info.dates}
-            edit={false}
+            Editing={this.Editing}
+            deleteFunction={this.props.deleteFunction}
+            info={this.props.info}
+            viewingFeedback={this.viewingFeedback}
           />
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={() => this.viewingFeedback()}
-          >
-            View Feedback
-          </Button>
         </React.Fragment>
       );
     }
@@ -105,19 +70,12 @@ ActivityCard.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     dates: PropTypes.arrayOf(PropTypes.string),
-  }).isRequired,
+  }),
   editFunction: PropTypes.func.isRequired,
   deleteFunction: PropTypes.func.isRequired,
-  classes: PropTypes.shape({
-    delete: PropTypes.shape({
-      position: PropTypes.string,
-      right: PropTypes.string,
-    }),
-    edit: PropTypes.shape({
-      position: PropTypes.string,
-      right: PropTypes.string,
-    }),
-  }).isRequired,
+};
+ActivityCard.defaultProps = {
+  info: null,
 };
 
-export default withStyles(styles)(ActivityCard);
+export default ActivityCard;

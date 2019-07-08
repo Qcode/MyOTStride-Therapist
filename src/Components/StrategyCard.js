@@ -57,12 +57,12 @@ class StrategyCard extends React.Component {
           >
             <EditIcon />
           </Button>
-          <h2>Stategy:</h2>
+          <h2>Strategy:</h2>
           <p>{this.props.info.strategy}</p>
         </React.Fragment>
       );
     }
-    return <div className="container">{display}</div>;
+    return <div className="container_card">{display}</div>;
   }
 }
 StrategyCard.propTypes = {
@@ -72,14 +72,8 @@ StrategyCard.propTypes = {
   editFunction: PropTypes.func.isRequired,
   deleteFunction: PropTypes.func.isRequired,
   classes: PropTypes.shape({
-    delete: PropTypes.shape({
-      position: PropTypes.string,
-      right: PropTypes.string,
-    }),
-    edit: PropTypes.shape({
-      position: PropTypes.string,
-      right: PropTypes.string,
-    }),
+    delete: PropTypes.string,
+    edit: PropTypes.string,
   }).isRequired,
 };
 

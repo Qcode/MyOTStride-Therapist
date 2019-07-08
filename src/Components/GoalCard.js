@@ -55,16 +55,14 @@ class GoalCard extends React.Component {
           >
             <EditIcon />
           </Button>
-          <h2>Title:</h2>
-          <p>{this.props.info.title}</p>
-          <h2>Description:</h2>
+          <h2>{this.props.info.title}:</h2>
           <p>{this.props.info.description}</p>
           <h2>End Date:</h2>
           <p>{this.props.info.end_date.slice(0, 10)}</p>
         </React.Fragment>
       );
     }
-    return <div className="container">{display}</div>;
+    return <div className="container_card">{display}</div>;
   }
 }
 GoalCard.propTypes = {
@@ -76,14 +74,8 @@ GoalCard.propTypes = {
   editFunction: PropTypes.func.isRequired,
   deleteFunction: PropTypes.func.isRequired,
   classes: PropTypes.shape({
-    delete: PropTypes.shape({
-      position: PropTypes.string,
-      right: PropTypes.string,
-    }),
-    edit: PropTypes.shape({
-      position: PropTypes.string,
-      right: PropTypes.string,
-    }),
+    delete: PropTypes.string,
+    edit: PropTypes.string,
   }).isRequired,
 };
 
