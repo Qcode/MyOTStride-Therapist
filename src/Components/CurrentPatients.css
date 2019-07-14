@@ -1,13 +1,14 @@
 .container__patientCards {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   flex: 1;
 }
 .container_patientCard {
-  background-color: #e6e6e6;
+  background-color: #fdfdff;
   margin: auto;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: 10px;
+  margin-bottom: 30px;
   border-radius: 5px;
   padding: 20px;
   position: relative;

@@ -7,14 +7,14 @@ function AuthenticatedRoute(WrappedComponent) {
     constructor(props) {
       super(props);
       this.state = {
-        validatedKey: Api.validatedKey,
+        validatedKey: Api.isLoggedIn(),
         failedToValidate: false,
       };
       this.authenticate();
     }
 
     authenticate() {
-      if (!Api.validatedKey) {
+      if (!Api.isLoggedIn()) {
         Api.request('therapists/:therapistId')
           .then(() => {
             Api.validateKey();

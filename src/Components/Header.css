@@ -1,0 +1,47 @@
+header {
+  display: flex;
+  background-color: #fdfdff;
+  width: 100%;
+  z-index: 2;
+}
+
+.header__item {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header:first-child {
+  margin-right: auto;
+}
+
+.header:last-child {
+  margin-left: auto;
+}
+
+.NavBar__Logo {
+  height: 40px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px 0;
+  vertical-align: center;
+}
+
+.NavBar__Logo-Background {
+  background-color: #4c9843;
+  border-radius: 50%;
+  z-index: 1;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+}
+
+.NavBar__Title {
+  color: #4c9843;
+}
+
+.NavBar__Title:hover {
+  text-decoration: none;
+}

@@ -6,13 +6,12 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import GetErrorCodeText from '../utils/GetErrorCodeText';
 import Api from '../Api';
-import './SignUp.css';
 
 function SignUp(props) {
   return (
     <div>
-      <h1>Therapist SignUp</h1>
-      <Form className="SignUp__Form">
+      <h1>Sign Up as a Therapist</h1>
+      <Form className="container">
         <TextField
           className="SignUp__Input"
           label="First Name"
@@ -83,15 +82,6 @@ function SignUp(props) {
           className="SignUp__Button"
         >
           SignUp
-        </Button>
-        <Button
-          variant="contained"
-          type="button"
-          onClick={() => props.history.push('/')}
-          color="primary"
-          className="SignUp__Button"
-        >
-          Return Home
         </Button>
         {props.errors.failedSubmit && <p>{props.errors.failedSubmit}</p>}
       </Form>

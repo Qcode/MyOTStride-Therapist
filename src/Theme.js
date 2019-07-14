@@ -3,10 +3,10 @@ import { createMuiTheme } from '@material-ui/core/styles';
 export default createMuiTheme({
   palette: {
     primary: {
-      main: '#00a388',
+      main: '#2A83BF',
     },
     secondary: {
-      main: '#ff8552',
+      main: '#d19000',
     },
   },
   overrides: {
@@ -33,6 +33,11 @@ export default createMuiTheme({
     MuiFormControl: {
       root: {
         display: 'flex',
+      },
+    },
+    MuiSvgIcon: {
+      root: {
+        'vertical-align': 'middle',
       },
     },
   },

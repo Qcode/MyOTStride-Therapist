@@ -17,7 +17,7 @@ function AddButton(props) {
   return (
     <Button
       variant="fab"
-      color="secondary"
+      color="primary"
       classes={{ root: props.classes.add }}
       onClick={props.handleModal}
     >

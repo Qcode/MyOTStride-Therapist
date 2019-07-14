@@ -1,80 +1,106 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-  background-image: radial-gradient(#00a388, #00806a);
-  height: 100vh;
+  padding-bottom: 20px;
+  font-family: Roboto;
+  background-color: #4c9843;
 }
+
 h1 {
   font-size: 40px;
   text-align: center;
-  color: #e6e6e6;
+  color: #fdfdff;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
+
 h2 {
   font-size: 25px;
   text-align: left;
-  color: #5bc0eb;
-}
-h6:hover {
-  color:#00a388;
-  cursor: pointer;
-}
-h6:active{
-  color: #5bc0eb;
-  cursor: pointer;
-}
-.container {
-  background-color: #e6e6e6;
-  margin: auto;
-  margin-top: 5%;
-  margin-bottom: 5%;
-  border-radius: 5px;
-  padding: 20px;
-  position: relative;
-  box-shadow: 10px 10px #4f4f4f;
-  width: 60%;
+  color: #4c9843;
 }
 
-.container_card_layout{
+p {
+  line-height: 18px;
+  margin-bottom: 8px;
+}
+
+a {
+  text-decoration: none;
+  color: #2a83bf;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h6:hover {
+  color: #00a388;
+  cursor: pointer;
+}
+h6:active {
+  color: #5bc0eb;
+  cursor: pointer;
+}
+
+a:visited {
+  color: #3b5dc7;
+}
+
+.container {
+  background-color: #fdfdff;
+  margin: auto;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  padding: 20px 20px 10px 20px;
+  position: relative;
+  box-shadow: 10px 10px #4f4f4f;
+  width: 500px;
+}
+
+.container_card_layout {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
+
 .container_card {
   background-color: #e6e6e6;
-  margin: auto;
-  margin-top: 2%;
-  margin-bottom: 2%;
+  margin: 20px;
   border-radius: 5px;
   padding: 20px;
   position: relative;
   box-shadow: 10px 10px #4f4f4f;
   width: 25%;
 }
+
 .text {
   color: #00a388;
   font-size: 17px;
   text-align: left;
   margin-left: 2%;
 }
+
 label {
   display: block;
 }
+
 button {
   font-size: 100%;
   font-family: inherit;
   border: 0;
   padding: 0;
-  background-color: #e6e6e6;
+  background-color: #fdfdff;
 }
+
 .Collapsible {
   background-color: #39393a;
   border-radius: 5px;
   margin: 2%;
 }
-
-p {
-  line-height: 18px;
-  font-family: Roboto;
-}
-
-@import url('https://fonts.googleapis.com/css?family=Roboto');
