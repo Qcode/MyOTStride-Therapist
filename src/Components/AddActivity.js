@@ -87,7 +87,7 @@ export default withFormik({
   mapPropsToValues: () => ({
     description: '',
     title: '',
-    dates: '',
+    selectedDays: '',
   }),
   handleSubmit: (values, formikBag) => {
     if (
@@ -95,8 +95,8 @@ export default withFormik({
       values.title !== null &&
       values.description !== '' &&
       values.description !== null &&
-      values.dates !== '' &&
-      values.dates !== null
+      values.selectedDays !== '' &&
+      values.selectedDays !== null
     ) {
       formikBag.props
         .addFunction(values)
