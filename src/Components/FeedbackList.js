@@ -60,7 +60,7 @@ class FeedbackList extends React.Component {
                   <b>Satisfaction</b>: {feedback.satisfaction}
                 </p>
                 <p className="text">
-                  <b>Performance</b>: {feedback.performance}
+                  <b>Progress Towards Goal</b>: {feedback.performance}
                 </p>
                 <p className="text">
                   <b>Confidence</b>: {feedback.confidence}
