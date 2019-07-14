@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import Api from '../Api';
 import Login from './Login';
 import PatientList from './PatientList';
 import Activities from './Activities';
@@ -8,7 +9,7 @@ import PatientInformation from '../Components/PatientInformation';
 import Strategies from './Strategies';
 import AuthenticatedRoute from './AuthenticatedRoute';
 import SignUp from './SignUp';
-import TopNavBar from '../Components/TopNavBar';
+import Header from '../Components/Header';
 import Privacy from '../Components/Privacy';
 import Contact from '../Components/Contact';
 import FeedbackGraph from '../Components/FeedbackGraph';
@@ -16,9 +17,13 @@ import FeedbackGraph from '../Components/FeedbackGraph';
 function App() {
   return (
     <div>
-      <TopNavBar />
+      <Header />
       <div>
-        <Route exact path="/" component={Login} />
+        <Route
+          exact
+          path="/"
+          component={Api.isLoggedIn() ? AuthenticatedRoute(PatientList) : Login}
+        />
 
         <Route exact path="/privacy" component={Privacy} />
         <Route exact path="/contact" component={Contact} />

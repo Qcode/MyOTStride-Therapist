@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import EditActivity from './EditActivity';
 import FeedbackList from './FeedbackList';
 import ActivityCardItems from './ActivityCardItems';
+import './ActivityCard.css';
 
 class ActivityCard extends React.Component {
   constructor(props) {
@@ -62,7 +63,7 @@ class ActivityCard extends React.Component {
         </React.Fragment>
       );
     }
-    return <div className="container">{display}</div>;
+    return <div className="container container_activity-card">{display}</div>;
   }
 }
 ActivityCard.propTypes = {

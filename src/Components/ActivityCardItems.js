@@ -1,16 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './ActivityCardItems.css';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { withStyles } from '@material-ui/core/styles';
 import Calendar from './Calendar';
+import './ActivityCardItems.css';
+
+const styles = {
+  root: {
+    position: 'absolute',
+    bottom: '10px',
+    'margin-left': 'auto',
+    'margin-right': 'auto',
+    transform: 'translateX(-50%)',
+    left: '50%',
+  },
+};
 
 function ActivityCardItems(props) {
   return (
     <div className="container_ActivityCardItems">
-      <div className="div_Text">
-        <div className="div_TitleText">
+      <div className="activity-card__text-section">
+        <div className="activity-card__title">
           <Button
             onClick={() => props.deleteFunction(props.info)}
             type="button"
@@ -24,6 +36,7 @@ function ActivityCardItems(props) {
         </div>
         <p>{props.description}</p>
         <Button
+          className={props.classes.root}
           color="primary"
           variant="contained"
           onClick={() => props.viewingFeedback()}
@@ -63,4 +76,4 @@ ActivityCardItems.defaultProps = {
   info: null,
 };
 
-export default ActivityCardItems;
+export default withStyles(styles)(ActivityCardItems);

@@ -11,6 +11,13 @@ class Api {
     this.validatedKey = true;
   }
 
+  logout() {
+    this.setToken(null);
+    this.setClientId(null);
+    this.setTherapistId(null);
+    this.validatedKey = false;
+  }
+
   setToken(newToken) {
     this.token = newToken;
     localStorage.setItem('token', newToken);
@@ -32,6 +39,10 @@ class Api {
       production: 'https://api.myotstride.com/v1/',
     };
     return urls[process.env.NODE_ENV];
+  }
+
+  isLoggedIn() {
+    return this.validatedKey;
   }
 
   request(endPoint, options) {

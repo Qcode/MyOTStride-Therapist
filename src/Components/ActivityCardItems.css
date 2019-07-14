@@ -1,12 +1,16 @@
-.container_ActivityCardItems{
+.container_ActivityCardItems {
   display: flex;
 }
-.div_Calendar{
-  flex-grow: 1;
-}
-.div_Text{
+
+.activity-card__text-section {
   flex-grow: 2;
+  position: relative;
 }
-.div_TitleText{
-  display: inline-flex;
+
+.activity-card__title button {
+  float: right;
+  min-height: 0;
+  min-width: 40px;
+  margin: 0;
+  padding: 0;
 }
