@@ -24,9 +24,21 @@ function Header(props) {
         <span>
           <React.Fragment>
             <NavLink to="/">Home</NavLink> |{' '}
+            {props.location.pathname.includes('/patients/patientInfo') ? (
+              <React.Fragment>
+                <NavLink to="/patients/patientInfo/activities">
+                  Activities
+                </NavLink>{' '}
+                | <NavLink to="/patients/patientInfo/goals">Goals</NavLink> |{' '}
+                <NavLink to="/patients/patientInfo/strategies">
+                  Strategies
+                </NavLink>{' '}
+                |{' '}
+              </React.Fragment>
+            ) : null}
             <NavLink to="/" onClick={() => Api.logout()}>
               Logout
-            </NavLink>
+            </NavLink>{' '}
           </React.Fragment>
         </span>
       </div>

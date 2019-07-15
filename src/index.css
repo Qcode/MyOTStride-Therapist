@@ -26,6 +26,12 @@ h2 {
   color: #4c9843;
 }
 
+h3 {
+  font-size: 20px;
+  text-align: left;
+  color: #4c9843;
+}
+
 p {
   line-height: 18px;
   margin-bottom: 8px;
@@ -97,10 +103,4 @@ button {
   border: 0;
   padding: 0;
   background-color: #fdfdff;
-}
-
-.Collapsible {
-  background-color: #39393a;
-  border-radius: 5px;
-  margin: 2%;
 }

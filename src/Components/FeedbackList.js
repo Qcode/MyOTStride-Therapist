@@ -2,9 +2,11 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import Collapsible from 'react-collapsible';
+import DropDownIcon from '@material-ui/icons/ArrowDropDown';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { withRouter } from 'react-router-dom';
-
 import Api from '../Api';
+import './FeedbackList.css';
 
 class FeedbackList extends React.Component {
   constructor(props) {
@@ -14,14 +16,36 @@ class FeedbackList extends React.Component {
       error: null,
     };
     this.getFeedback();
+    this.seeFeedback = this.seeFeedback.bind(this);
   }
 
   getFeedback() {
     Api.request(`/clients/:clientId/activities/${this.props.info.id}/feedback`)
       .then(feedback => {
-        this.setState({ feedback });
+        this.setState({
+          feedback: feedback.sort((a, b) => {
+            const aDate = new Date(a.created_at);
+            const bDate = new Date(b.created_at);
+            return aDate.getTime() < bDate.getTime() ? 1 : -1;
+          }),
+        });
       })
       .catch(err => this.setState({ error: err }));
+  }
+
+  seeFeedback(feedbackId) {
+    this.setState(prevState => {
+      const newFeedback = prevState.feedback.map(feedback =>
+        feedback.id === feedbackId ? { ...feedback, seen: true } : feedback,
+      );
+      return { ...prevState, feedback: newFeedback };
+    });
+    Api.request(
+      `/clients/:clientId/activities/${
+        this.props.info.id
+      }/feedback/${feedbackId}`,
+      { method: 'PATCH', body: { seen: true } },
+    );
   }
 
   deleteFeedback(feedbackId) {
@@ -46,35 +70,47 @@ class FeedbackList extends React.Component {
   render() {
     return (
       <div>
-        <h2>Activity: {this.props.info.title}</h2>
+        <h2>{this.props.info.title}</h2>
         <div>
           {this.state.feedback.map(feedback => (
-            <div key={feedback.id}>
+            <div key={feedback.id} className="feedback__container">
               <Collapsible
-                trigger={feedback.created_at.slice(0, 10)}
-                transitionTIme={100}
-                triggerStyle={{ color: '#00a388', fontSize: '25px' }}
-                className="Collapsible"
+                trigger={
+                  <div className="feedback__collapsible-container">
+                    <h3 className="feedback__collapsible-title">
+                      {feedback.created_at.slice(0, 10)}
+                    </h3>
+                    <DropDownIcon
+                      className="feedback__collapsible-icon"
+                      fontSize="large"
+                    />
+                    {!feedback.seen ? (
+                      <div className="feedback__collapsible-unseen">!</div>
+                    ) : null}
+                  </div>
+                }
+                onOpen={() => this.seeFeedback(feedback.id)}
+                transitionTime={250}
+                easing="ease"
               >
-                <p className="text">
+                <Button
+                  onClick={() => this.deleteFeedback(feedback.id)}
+                  type="button"
+                >
+                  <DeleteIcon />
+                </Button>
+                <p>
                   <b>Satisfaction</b>: {feedback.satisfaction}
                 </p>
-                <p className="text">
+                <p>
                   <b>Progress Towards Goal</b>: {feedback.performance}
                 </p>
-                <p className="text">
+                <p>
                   <b>Confidence</b>: {feedback.confidence}
                 </p>
-                <p className="text">
+                <p>
                   <b>Response</b>: {feedback.response}
                 </p>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  onClick={() => this.deleteFeedback(feedback.id)}
-                >
-                  DELETE
-                </Button>
               </Collapsible>
             </div>
           ))}
@@ -89,7 +125,7 @@ class FeedbackList extends React.Component {
               );
             }}
           >
-            View Progress
+            View Graph
           </Button>
         </div>
         <Button
