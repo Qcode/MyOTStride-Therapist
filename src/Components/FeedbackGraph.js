@@ -45,7 +45,7 @@ class FeedbackGraph extends React.Component {
 
   render() {
     return (
-      <div className="container" style={{ width: '80%' }}>
+      <div className="container" style={{ width: '80%', 'margin-top': '20px' }}>
         {this.props.location.state.feedback.length === 0 ||
         this.props.location.state.feedback === [] ? (
           <p>The client has not submitted any feedback.</p>

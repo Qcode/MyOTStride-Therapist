@@ -1,0 +1,40 @@
+.feedback__container {
+  margin: 20px;
+  border-bottom: 2px solid grey;
+}
+
+.feedback__collapsible-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.feedback__collapsible-title {
+  margin: 0;
+}
+
+.Collapsible__contentInner button {
+  float: right;
+  min-height: 0;
+  min-width: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.feedback__collapsible-container:hover {
+  cursor: pointer;
+}
+
+.feedback__collapsible-unseen {
+  border-radius: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: -20px;
+  top: -2px;
+}
