@@ -35,8 +35,9 @@ class FeedbackList extends React.Component {
 
   seeFeedback(feedbackId) {
     this.setState(prevState => {
-      const newFeedback = prevState.feedback.map(feedback =>
-        feedback.id === feedbackId ? { ...feedback, seen: true } : feedback,
+      const newFeedback = prevState.feedback.map(
+        feedback =>
+          feedback.id === feedbackId ? { ...feedback, seen: true } : feedback,
       );
       return { ...prevState, feedback: newFeedback };
     });

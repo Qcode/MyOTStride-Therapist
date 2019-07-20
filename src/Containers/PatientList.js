@@ -21,6 +21,7 @@ class PatientList extends React.Component {
     this.getCurrent();
     this.getPending();
     this.connectClient = this.connectClient.bind(this);
+    this.downloadFile = this.downloadFile.bind(this);
   }
 
   getCurrent() {
@@ -78,12 +79,29 @@ class PatientList extends React.Component {
     });
   }
 
+  downloadFile(patient) {
+    Api.requestNonJson(`/clients/${patient.id}/export`)
+      .then(data => data.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        // the filename you want
+        a.download = `${patient.first_name}_${patient.last_name}_data.xlsx`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+  }
+
   render() {
     return (
       <div>
         <CurrentPatients
           pickClient={PatientList.pickClient}
           patientList={this.state.currentList}
+          downloadFile={this.downloadFile}
         />
         <ErrorCard error={this.state.error} />
         <PendingPatients

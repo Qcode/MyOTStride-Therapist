@@ -2,10 +2,20 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+import DownloadIcon from '@material-ui/icons/CloudDownload';
+import './PatientInformation.css';
 
 function PatientInformation(props) {
   return (
-    <div>
+    <div className="container patient-information__container">
+      <Button
+        onClick={props.downloadFile}
+        className="patient-information__download"
+      >
+        <DownloadIcon />
+      </Button>
+      <h2>{`${props.patient.first_name} ${props.patient.last_name}`}</h2>
+
       <Button
         color="primary"
         variant="contained"

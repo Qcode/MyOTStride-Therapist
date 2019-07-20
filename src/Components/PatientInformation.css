@@ -1,0 +1,22 @@
+.patient-information__container {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  padding: 20px;
+  position: relative;
+  text-align: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 300px;
+}
+
+.patient-information__container h2 {
+  margin-top: 0px;
+}
+
+.patient-information__container .patient-information__download {
+  float: right;
+  min-height: 0;
+  min-width: 40px;
+  margin: 0;
+  padding: 0;
+}
