@@ -14,13 +14,12 @@ function CurrentPatients(props) {
           </div>
         ) : (
           props.patientList.map(patient => (
-            <div className="container_patientCard" key={patient.id}>
-              <h2>{`${patient.first_name} ${patient.last_name}`}</h2>
-              <PatientInformation
-                pickClient={props.pickClient}
-                patient={patient}
-              />
-            </div>
+            <PatientInformation
+              pickClient={props.pickClient}
+              patient={patient}
+              key={patient.id}
+              downloadFile={() => props.downloadFile(patient)}
+            />
           ))
         )}
       </div>

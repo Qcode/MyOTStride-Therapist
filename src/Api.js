@@ -46,6 +46,16 @@ class Api {
   }
 
   request(endPoint, options) {
+    return this.requestNonJson(endPoint, options).then(data => {
+      const contentType = data.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        return data.json();
+      }
+      return data.text();
+    });
+  }
+
+  requestNonJson(endPoint, options) {
     const finalEndpoint = endPoint
       .replace(':therapistId', this.therapistId)
       .replace(':clientId', this.clientId);
@@ -70,11 +80,7 @@ class Api {
         if (!data.ok) {
           throw new Error(data.status);
         }
-        const contentType = data.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-          return data.json();
-        }
-        return data.text();
+        return data;
       },
     );
   }
