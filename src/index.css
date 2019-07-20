@@ -77,13 +77,16 @@ a:visited {
 }
 
 .container_card {
-  background-color: #e6e6e6;
   margin: 20px;
-  border-radius: 5px;
-  padding: 20px;
-  position: relative;
-  box-shadow: 10px 10px #4f4f4f;
-  width: 25%;
+  padding: 0px 20px 20px 20px;
+  width: 300px;
+}
+
+.modal_container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .text {

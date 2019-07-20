@@ -6,11 +6,21 @@ import Button from '@material-ui/core/Button';
 import GetErrorText from '../utils/GetErrorText';
 import GetErrorCodeText from '../utils/GetErrorCodeText';
 
-function EditStrategy(props) {
+function StrategyForm(props) {
   return (
     <div>
-      <h2>Edit Strategy Here</h2>
+      <h2>{props.formTitle}</h2>
       <Form>
+        <TextField
+          label="Title"
+          onChange={props.handleChange}
+          value={props.values.title}
+          variant="outlined"
+          margin="normal"
+          InputLabelProps={{ shrink: true }}
+          placeholder="Strategy Title"
+          name="title"
+        />
         <TextField
           label="Strategy"
           onChange={props.handleChange}
@@ -35,7 +45,7 @@ function EditStrategy(props) {
           type="button"
           color="primary"
           variant="contained"
-          onClick={() => props.changeDisplay()}
+          onClick={() => props.close()}
         >
           Cancel
         </Button>
@@ -44,27 +54,31 @@ function EditStrategy(props) {
     </div>
   );
 }
-EditStrategy.propTypes = {
+
+StrategyForm.propTypes = {
   values: PropTypes.shape({
+    title: PropTypes.string,
     strategy: PropTypes.string,
-  }).isRequired,
+  }),
   isSubmitting: PropTypes.bool.isRequired,
   errors: PropTypes.shape({
     failedSubmit: PropTypes.string,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
-  changeDisplay: PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired,
+  save: PropTypes.func.isRequired,
 };
 
 export default withFormik({
   mapPropsToValues: props => ({
-    strategy: props.info.strategy,
+    title: props.strategy.title,
+    strategy: props.strategy.strategy,
   }),
   handleSubmit: (values, formikBag) => {
-    if (values.strategy !== '' && values.strategy !== null) {
+    if (values.strategy && values.title) {
       formikBag.props
-        .editFunction(formikBag.props.info, values)
-        .then(() => formikBag.props.changeDisplay())
+        .save(values, formikBag.props.strategy)
+        .then(() => formikBag.props.close())
         .catch(err =>
           formikBag.setErrors({
             failedSubmit: GetErrorCodeText(err),
@@ -80,4 +94,4 @@ export default withFormik({
       formikBag.setSubmitting(false);
     }
   },
-})(EditStrategy);
+})(StrategyForm);
