@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import EditIcon from '@material-ui/icons/Create';
-import DeleteIcon from '@material-ui/icons/Delete';
+import CardTitle from './CardTitle';
 import { withStyles } from '@material-ui/core/styles';
-import EditStrategy from './EditStrategy';
+import StrategyForm from './StrategyForm';
 
 const styles = {
   edit: {
@@ -31,43 +29,34 @@ class StrategyCard extends React.Component {
   }
 
   render() {
-    let display;
-    if (this.state.editing) {
-      display = (
-        <EditStrategy
-          changeDisplay={this.changeDisplay}
-          editFunction={this.props.editFunction}
-          info={this.props.info}
-        />
-      );
-    } else {
-      display = (
-        <React.Fragment>
-          <Button
-            onClick={() => this.props.deleteFunction(this.props.info)}
-            type="button"
-            classes={{ root: this.props.classes.delete }}
-          >
-            <DeleteIcon />
-          </Button>
-          <Button
-            classes={{ root: this.props.classes.edit }}
-            type="button"
-            onClick={() => this.setState({ editing: true })}
-          >
-            <EditIcon />
-          </Button>
-          <h2>Strategy:</h2>
-          <p>{this.props.info.strategy}</p>
-        </React.Fragment>
-      );
-    }
-    return <div className="container_card">{display}</div>;
+    return (
+      <div className="container container_card">
+        {this.state.editing ? (
+          <StrategyForm
+            close={this.changeDisplay}
+            save={this.props.editFunction}
+            strategy={this.props.strategy}
+            formTitle="Edit Strategy:"
+          />
+        ) : (
+          <React.Fragment>
+            <CardTitle
+              delete={() => this.props.deleteFunction(this.props.strategy)}
+              edit={() => this.setState({ editing: true })}
+              title={this.props.strategy.title}
+            />
+            <p>{this.props.strategy.strategy}</p>
+          </React.Fragment>
+        )}
+      </div>
+    );
   }
 }
 StrategyCard.propTypes = {
   info: PropTypes.shape({
     strategy: PropTypes.string,
+    id: PropTypes.string,
+    title: PropTypes.string,
   }).isRequired,
   editFunction: PropTypes.func.isRequired,
   deleteFunction: PropTypes.func.isRequired,

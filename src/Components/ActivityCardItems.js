@@ -5,6 +5,7 @@ import EditIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
 import Calendar from './Calendar';
+import CardTitle from './CardTitle';
 import './ActivityCardItems.css';
 
 const styles = {
@@ -22,18 +23,11 @@ function ActivityCardItems(props) {
   return (
     <div className="container_ActivityCardItems">
       <div className="activity-card__text-section">
-        <div className="activity-card__title">
-          <Button
-            onClick={() => props.deleteFunction(props.info)}
-            type="button"
-          >
-            <DeleteIcon />
-          </Button>
-          <Button type="button" onClick={() => props.Editing()}>
-            <EditIcon />
-          </Button>
-          <h2>{props.title}</h2>
-        </div>
+        <CardTitle
+          delete={() => props.deleteFunction(props.info)}
+          edit={() => props.Editing()}
+          title={props.title}
+        />
         <p>{props.description}</p>
         <Button
           className={props.classes.root}

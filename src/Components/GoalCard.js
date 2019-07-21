@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
+import CardTitle from './CardTitle';
 import EditGoal from './EditGoal';
 
 const styles = {
@@ -43,26 +44,18 @@ class GoalCard extends React.Component {
     } else {
       display = (
         <React.Fragment>
-          <Button
-            onClick={() => this.props.deleteFunction(this.props.info)}
-            classes={{ root: this.props.classes.delete }}
-          >
-            <DeleteIcon />
-          </Button>
-          <Button
-            classes={{ root: this.props.classes.edit }}
-            onClick={() => this.setState({ editing: true })}
-          >
-            <EditIcon />
-          </Button>
-          <h2>{this.props.info.title}:</h2>
+          <CardTitle
+            edit={() => this.setState({ editing: true })}
+            delete={() => this.props.deleteFunction(this.props.info)}
+            title={this.props.info.title}
+          />
           <p>{this.props.info.description}</p>
           <h2>End Date:</h2>
           <p>{this.props.info.end_date.slice(0, 10)}</p>
         </React.Fragment>
       );
     }
-    return <div className="container_card">{display}</div>;
+    return <div className="container container_card">{display}</div>;
   }
 }
 GoalCard.propTypes = {

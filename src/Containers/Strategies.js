@@ -1,12 +1,13 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import Modal from '@material-ui/core/Modal';
 
 import Api from '../Api';
-import AddStrategy from '../Components/AddStrategy';
 import StrategyCard from '../Components/StrategyCard';
 import AddButton from '../Components/AddButton';
 import NoContentCard from '../Components/NoContentCard';
 import ErrorCard from '../Components/ErrorCard';
+import StrategyForm from '../Components/StrategyForm';
 
 class Strategies extends React.Component {
   constructor(props) {
@@ -32,16 +33,14 @@ class Strategies extends React.Component {
   addStrategies(values) {
     return Api.request('clients/:clientId/strategies', {
       method: 'POST',
-      body: {
-        strategy: values.strategy,
-      },
+      body: values,
     }).then(id =>
       this.setState(prevState => ({
         ...prevState,
         strategies: [
           ...prevState.strategies,
           {
-            strategy: values.strategy,
+            ...values,
             id: id.id,
           },
         ],
@@ -63,12 +62,10 @@ class Strategies extends React.Component {
     });
   }
 
-  editStrategies(strategy, values) {
+  editStrategies(values, strategy) {
     return Api.request(`clients/:clientId/strategies/${strategy.id}`, {
       method: 'PATCH',
-      body: {
-        strategy: values.strategy,
-      },
+      body: values,
     }).then(() => {
       const index = this.state.strategies.findIndex(
         obj => obj.id === strategy.id,
@@ -77,7 +74,7 @@ class Strategies extends React.Component {
         const newStrategies = [...prevState.strategies];
         newStrategies[index] = {
           ...prevState.strategies[index],
-          strategy: values.strategy,
+          ...values,
         };
         return {
           ...prevState,
@@ -103,23 +100,28 @@ class Strategies extends React.Component {
           <NoContentCard type="strategies" />
         ) : (
           <div className="container_card_layout">
-            {this.state.strategies.map(info => (
+            {this.state.strategies.map(strategy => (
               <StrategyCard
-                info={info}
+                strategy={strategy}
                 deleteFunction={this.deleteStrategies}
                 editFunction={this.editStrategies}
-                key={info.id}
+                key={strategy.id}
               />
             ))}
           </div>
         )}
         <ErrorCard error={this.state.error} />
         <AddButton handleModal={this.handleModal} />
-        <AddStrategy
-          addFunction={this.addStrategies}
-          handleModal={this.handleModal}
-          open={this.state.open}
-        />
+        <Modal open={this.state.open} onClose={this.handleModal}>
+          <div className="container modal_container">
+            <StrategyForm
+              save={this.addStrategies}
+              close={this.handleModal}
+              formTitle="Create Strategy:"
+              strategy={{ strategy: '', title: '' }}
+            />
+          </div>
+        </Modal>
       </div>
     );
   }

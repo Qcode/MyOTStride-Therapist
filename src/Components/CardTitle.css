@@ -1,0 +1,7 @@
+.card-title button {
+  float: right;
+  min-height: 0;
+  min-width: 40px;
+  margin: 0;
+  padding: 0;
+}
