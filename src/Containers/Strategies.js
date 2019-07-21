@@ -49,17 +49,24 @@ class Strategies extends React.Component {
   }
 
   deleteStrategies(strategy) {
-    return Api.request(`clients/:clientId/strategies/${strategy.id}`, {
-      method: 'DELETE',
-    }).then(() => {
-      const strategies = this.state.strategies.filter(
-        obj => obj.id !== strategy.id,
-      );
-      this.setState(prevState => ({
-        ...prevState,
-        strategies,
-      }));
-    });
+    if (
+      window.confirm(
+        `Are you sure you want to delete the strategy "${strategy.title}"?`,
+      )
+    ) {
+      return Api.request(`clients/:clientId/strategies/${strategy.id}`, {
+        method: 'DELETE',
+      }).then(() => {
+        const strategies = this.state.strategies.filter(
+          obj => obj.id !== strategy.id,
+        );
+        this.setState(prevState => ({
+          ...prevState,
+          strategies,
+        }));
+      });
+    }
+    return Promise.resolve();
   }
 
   editStrategies(values, strategy) {

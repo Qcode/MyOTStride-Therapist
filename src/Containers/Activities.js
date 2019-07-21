@@ -54,17 +54,26 @@ class Activities extends React.Component {
   }
 
   deleteActivity(info) {
-    return Api.request(`clients/:clientId/activities/${info.id}`, {
-      method: 'DELETE',
-    })
-      .then(() => {
-        const activities = this.state.activities.filter(i => i.id !== info.id);
-        this.setState(prevState => ({
-          ...prevState,
-          activities,
-        }));
+    if (
+      window.confirm(
+        `Are you sure you want to delete the activity "${info.title}"?`,
+      )
+    ) {
+      return Api.request(`clients/:clientId/activities/${info.id}`, {
+        method: 'DELETE',
       })
-      .catch(err => this.setState({ error: err }));
+        .then(() => {
+          const activities = this.state.activities.filter(
+            i => i.id !== info.id,
+          );
+          this.setState(prevState => ({
+            ...prevState,
+            activities,
+          }));
+        })
+        .catch(err => this.setState({ error: err }));
+    }
+    return Promise.resolve();
   }
 
   editActivity(info, values) {

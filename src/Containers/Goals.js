@@ -53,17 +53,23 @@ class Goals extends React.Component {
   }
 
   deleteGoal(info) {
-    Api.request(`clients/:clientId/goals/${info.id}`, {
-      method: 'DELETE',
-    })
-      .then(() => {
-        const goals = this.state.goals.filter(i => i.id !== info.id);
-        this.setState(prevState => ({
-          ...prevState,
-          goals,
-        }));
+    if (
+      window.confirm(
+        `Are you sure you want to delete the goal "${info.title}"?`,
+      )
+    ) {
+      Api.request(`clients/:clientId/goals/${info.id}`, {
+        method: 'DELETE',
       })
-      .catch(err => this.setState({ error: err }));
+        .then(() => {
+          const goals = this.state.goals.filter(i => i.id !== info.id);
+          this.setState(prevState => ({
+            ...prevState,
+            goals,
+          }));
+        })
+        .catch(err => this.setState({ error: err }));
+    }
   }
 
   editGoal(info, values) {
