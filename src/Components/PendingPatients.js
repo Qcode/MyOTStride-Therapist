@@ -7,7 +7,7 @@ function PendingPatients(props) {
   return (
     <div>
       <div className="container">
-        <h2>Pending Patients</h2>
+        <h2>Pending Clients</h2>
         <div className="container__pendingPatients">
           {props.patientList.length !== 0 ? (
             props.patientList.map(patient => (
@@ -21,7 +21,7 @@ function PendingPatients(props) {
               </Button>
             ))
           ) : (
-            <p className="text__noPatients">You have no pending patients</p>
+            <p className="text__noPatients">You have no pending clients</p>
           )}
         </div>
       </div>

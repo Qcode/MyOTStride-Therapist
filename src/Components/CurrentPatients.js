@@ -6,11 +6,11 @@ import './CurrentPatients.css';
 function CurrentPatients(props) {
   return (
     <div>
-      <h1>Current Patients</h1>
+      <h1>Current Clients</h1>
       <div className="container__patientCards">
         {props.patientList.length === 0 || props.patientList === null ? (
           <div className="container">
-            <p>You have not connected with any Clients yet.</p>
+            <p>You have not connected with any clients yet.</p>
           </div>
         ) : (
           props.patientList.map(patient => (
